@@ -1175,11 +1175,11 @@ dirnames=['bbMETbackground_']
 for dirname in dirnames:
     makeLinearplots=True;
     if makeLinearplots :
-        makeplot([dirname+"Zmass1mumu",'h_Zmass1mumu_','m_{Z} [GeV]','70','110','1','0'])
-        makeplot([dirname+"Zmass1ee",'h_Zmass1ee_','m_{Z} [GeV]','70','110','1','0'])
+        makeplot([dirname+"Zmass1mumu",'h_Zmass1mumu_','m_{Z} [GeV]','70.','110.','1','0'])
+        makeplot([dirname+"Zmass1ee",'h_Zmass1ee_','m_{Z} [GeV]','70.','110.','1','0'])
         
-        makeplot([dirname+"Zmass2mumu",'h_Zmass2mumu_','m_{Z} [GeV]','70','110','1','0'])
-        makeplot([dirname+"Zmass2ee",'h_Zmass2ee_','m_{Z} [GeV]','70','110','1','0'])
+        makeplot([dirname+"Zmass2mumu",'h_Zmass2mumu_','m_{Z} [GeV]','70.','110.','1','0'])
+        makeplot([dirname+"Zmass2ee",'h_Zmass2ee_','m_{Z} [GeV]','70.','110.','1','0'])
         
         
         makeplot([dirname+"jet1_eta_Zmumucr1",'h_jet1_eta_Zmumucr1_','jet 1 \eta','-3','3','20','0'])
