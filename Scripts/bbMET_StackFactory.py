@@ -96,7 +96,7 @@ TH1F*  DYJets;
 TH1F*  ZJets;
 TH1F*  STop;
 //TH1F*  data_obs;
-TString filenamepath("/afs/cern.ch/work/p/ptiwari/bb+DM_analysis/DMAnaRun2/CMSSW_8_0_26_patch1/src/plotting_code/bbMETplot/Scripts/test/'''+inputdirname+'''/"); 
+TString filenamepath("/afs/cern.ch/work/p/ptiwari/bb+DM_analysis/DMAnaRun2/CMSSW_8_0_26_patch1/src/plotting_code/bbMETplot/Scripts/test/"); 
 
 // Diboson WW WZ ZZ 0 1 2
 filenameString.push_back(filenamepath + "Output_WW_TuneCUETP8M1_13TeV-pythia8_MC25ns_LegacyMC_20170328.root");
