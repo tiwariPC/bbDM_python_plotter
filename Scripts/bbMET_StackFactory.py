@@ -24,13 +24,16 @@ datestr = datetime.date.today().strftime("%d%m%Y")
 macro='''{
 #include <ctime>
 #include <stdlib.h>
-#include "TStyle.h" 
+#include "TStyle.h"
+
+int main(){
 time_t now = time(0);
 tm *ltm = localtime(&now);
 TString dirpathname;
 
  TString DirPreName = "'''+inputdirname+'''";
  dirpathname = "'''+datestr+'''"; //.Form("%d%1.2d%d",ltm->tm_mday,1 + ltm->tm_mon,1900 + ltm->tm_year);
+ 
  system("mkdir -p  " + DirPreName+dirpathname +"/bbMETROOT");
  system("mkdir -p  " + DirPreName+dirpathname +"/bbMETPdf");
  system("mkdir -p  " + DirPreName+dirpathname +"/bbMETPng");
@@ -1096,6 +1099,8 @@ system("cp "+outputshapefilename+" "+DirPreName+"METBIN_3");
 }
 
 }
+return 0;
+}
 '''
 ## template macro ends here
 
@@ -1274,32 +1279,4 @@ for dirname in dirnames:
         
         makeplot([dirname+"ZhadronRecoilmumu2",'h_ZhadronRecoilmumu2_','hadronic recoil','0','800','2','1'])
         makeplot([dirname+"ZhadronRecoilee2",'h_ZhadronRecoilee2_','hadronic recoil','0','800','2','1'])
-        
 
-
-dirpathname = datetime.date.today().strftime("%d%m%Y")
-DirPreName = inputdirname
-plotpath = DirPreName+dirpathname+'/bbMETPng/'
-remotedir = '/afs/hep.wisc.edu/home/khurana/public_html/Analysis/MonoHbb/'+dirpathname
-
-zheavy = remotedir + '/ZHeavy/'
-signal = remotedir + '/Signal/'
-wheavy = remotedir + '/WHF/'
-
-os.system('mkdir -p '+zheavy)
-os.system('mkdir -p '+wheavy)
-os.system('mkdir -p '+signal)
-
-os.system('cp '+plotpath+'histfacFatJet_WHeavy_* ' + wheavy)
-os.system('cp '+plotpath+'histfacFatJet_ZLight* ' + zheavy)
-os.system('cp '+plotpath+'MonoHFatJetSelection_JetAndLeptonVeto_* ' + signal)
-
-
-os.system('cp img.php '+zheavy)
-os.system('cp index.php '+zheavy)
-
-os.system('cp img.php '+signal)
-os.system('cp index.php '+signal)
-
-os.system('cp img.php '+wheavy)
-os.system('cp index.php '+wheavy)
