@@ -26,7 +26,7 @@ macro='''
 #include <stdlib.h>
 #include "TStyle.h"
 
-int main(){
+void Plot(){
 time_t now = time(0);
 tm *ltm = localtime(&now);
 TString dirpathname;
@@ -1100,7 +1100,6 @@ system("cp "+outputshapefilename+" "+DirPreName+"METBIN_1");
 system("cp "+outputshapefilename+" "+DirPreName+"METBIN_2");
 system("cp "+outputshapefilename+" "+DirPreName+"METBIN_3");
 }
-return 0;
 }
 
 '''
