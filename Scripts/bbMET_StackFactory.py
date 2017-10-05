@@ -23,7 +23,7 @@ datestr = datetime.date.today().strftime("%d%m%Y")
 
 macro='''{
 #include <ctime>
-#include <cstdlib>
+#include <stdlib.h>
 #include "TStyle.h" 
 time_t now = time(0);
 tm *ltm = localtime(&now);
