@@ -1097,9 +1097,8 @@ system("cp "+outputshapefilename+" "+DirPreName+"METBIN_1");
 system("cp "+outputshapefilename+" "+DirPreName+"METBIN_2");
 system("cp "+outputshapefilename+" "+DirPreName+"METBIN_3");
 }
-
-}
 return 0;
+}
 }
 '''
 ## template macro ends here
