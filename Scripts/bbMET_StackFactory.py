@@ -227,16 +227,16 @@ TH1F *h_total;
 
 for(int i =0; i<(int)filenameString.size()-1; i++){
 fIn = new TFile(filenameString[i],"READ");
-if(VARIABLEBINS){
-h_temp = (TH1F*) fIn->Get(histnameString);
-h_temp->Sumw2();
-h_temp->Rebin(3,"hnew",metbins);
-h_mc[i]= (TH1F*)hnew->Clone();
-}else{
+//if(VARIABLEBINS){
+//h_temp = (TH1F*) fIn->Get(histnameString);
+//h_temp->Sumw2();
+//h_temp->Rebin(3,"hnew",metbins);
+//h_mc[i]= (TH1F*)hnew->Clone();
+//}else{
 h_mc[i] = (TH1F*) fIn->Get(histnameString);
 h_mc[i]->Rebin(REBIN); 
 h_mc[i]->Sumw2();
-}
+//}
 //h_total      = (TH1F*) fIn->Get("nEvents_weight");
  h_total      = (TH1F*) fIn->Get("h_total");
  
@@ -254,7 +254,7 @@ if(h_total->Integral()>0) normalization[i]     = (lumi* Xsec[i])/(h_total->Integ
  h_mc[i]->Scale(normalization[i]);
 
  }
-
+/*
 fIn = new TFile(filenameString[nfiles-1],"READ");
 if(VARIABLEBINS){
 h_temp =(TH1F*) fIn->Get(histnameString);
@@ -265,7 +265,7 @@ h_data = (TH1F*) fIn->Get(histnameString);
 h_data->Rebin(REBIN);
 h_data->Sumw2();
 }
-
+*/
 //data_obs = (TH1F*) fIn->Get(histnameString);
 
 DIBOSON   = (TH1F*)h_mc[0]->Clone();
@@ -702,7 +702,6 @@ t2a->Draw("same");
   t2c->Draw("same");
   t2d->Draw("same");
   
-  #if(nminus ==1){tt->Draw("same");}
   
 
 // Commenting out the signal for control region
@@ -949,7 +948,7 @@ float zjets_error = TMath::Sqrt(pow(Integral_Error[3],2) + pow(Integral_Error[4]
 //  mout << "Total Bkg " <<diboson_+st_+wjets+zjets+dyjets <<" "<< diboson_error+st_error+wjets_error+zjets_error+dyjets_error <<std::endl;
   mout << "========= ======================== =====================" <<std::endl;
 //=========================================================================
-
+/*
 if(VARIABLEBINS){
 //  metbinsout_2.precision(3);
 //metbinsout_2 << " DATA "        << h_data->GetBinContent(2)   <<" 0"<< std::endl; 
@@ -958,7 +957,7 @@ if(VARIABLEBINS){
   metbinsout_2 << " WJETS "       << WJets->GetBinContent(2)    <<" "<<WJets->GetBinError(2)  <<std::endl;
   metbinsout_2 << " ZJETS "       << ZJets->GetBinContent(2)       <<" "<<ZJets->GetBinError(2)     << std::endl;
   metbinsout_2 << " DYJETS "      <<DYJets->GetBinContent(2)    <<" "<<DYJets->GetBinError(2) <<std::endl;  
-/*  metbinsout_2 << " M600 "    << h_mc[7]->GetBinContent(2)  <<" "<<h_mc[7]->GetBinError(2)<< std::endl;
+  metbinsout_2 << " M600 "    << h_mc[7]->GetBinContent(2)  <<" "<<h_mc[7]->GetBinError(2)<< std::endl;
   metbinsout_2 << " M800 "    << h_mc[8]->GetBinContent(2)  <<" "<<h_mc[8]->GetBinError(2)<< std::endl;
   metbinsout_2 << " M1000 "   << h_mc[9]->GetBinContent(2)  <<" "<<h_mc[9]->GetBinError(2)<< std::endl;
   metbinsout_2 << " M1200 "   << h_mc[10]->GetBinContent(2) <<" "<<h_mc[10]->GetBinError(2)<< std::endl;
@@ -966,7 +965,7 @@ if(VARIABLEBINS){
   metbinsout_2 << " M1700 "   << h_mc[12]->GetBinContent(2) <<" "<<h_mc[12]->GetBinError(2)<< std::endl;
   metbinsout_2 << " M2000 "   << h_mc[13]->GetBinContent(2) <<" "<<h_mc[13]->GetBinError(2)<< std::endl;
   metbinsout_2 << " M2500 "   << h_mc[14]->GetBinContent(2) <<" "<<h_mc[14]->GetBinError(2)<< std::endl;
-*/
+
   mout << "========= ======================== =====================" <<std::endl;
 }
 
@@ -978,7 +977,7 @@ if(VARIABLEBINS){
   metbinsout_3 << " WJETS "   << WJets->GetBinContent(3)    <<" "<<WJets->GetBinError(3)  <<std::endl;
   metbinsout_3 << " ZJETS "      << ZJets->GetBinContent(3)       <<" "<<ZJets->GetBinError(3)     << std::endl;
   metbinsout_3 << " DYJETS "  <<DYJets->GetBinContent(3)    <<" "<<DYJets->GetBinError(3) <<std::endl;  
-/*  metbinsout_3 << " M600 "    << h_mc[7]->GetBinContent(3)  <<" "<<h_mc[7]->GetBinError(3)<< std::endl;
+  metbinsout_3 << " M600 "    << h_mc[7]->GetBinContent(3)  <<" "<<h_mc[7]->GetBinError(3)<< std::endl;
   metbinsout_3 << " M800 "    << h_mc[8]->GetBinContent(3)  <<" "<<h_mc[8]->GetBinError(3)<< std::endl;
   metbinsout_3 << " M1000 "   << h_mc[9]->GetBinContent(3)  <<" "<<h_mc[9]->GetBinError(3)<< std::endl;
   metbinsout_3 << " M1200 "   << h_mc[10]->GetBinContent(3) <<" "<<h_mc[10]->GetBinError(3)<< std::endl;
@@ -986,7 +985,7 @@ if(VARIABLEBINS){
   metbinsout_3 << " M1700 "   << h_mc[12]->GetBinContent(3) <<" "<<h_mc[12]->GetBinError(3)<< std::endl;
   metbinsout_3 << " M2000 "   << h_mc[13]->GetBinContent(3) <<" "<<h_mc[13]->GetBinError(3)<< std::endl;
   metbinsout_3 << " M2500 "   << h_mc[14]->GetBinContent(3) <<" "<<h_mc[14]->GetBinError(3)<< std::endl;
-  */
+
   mout << "========= ======================== =====================" <<std::endl;
 }
 
@@ -998,7 +997,7 @@ if(VARIABLEBINS){
   metbinsout_1 << " WJETS "   << WJets->GetBinContent(1)    <<" "<<WJets->GetBinError(1)  <<std::endl;
   metbinsout_1 << " ZJETS "      << ZJets->GetBinContent(1)       <<" "<<ZJets->GetBinError(1)     << std::endl;
   metbinsout_1 << " DYJETS "  <<DYJets->GetBinContent(1)    <<" "<<DYJets->GetBinError(1) <<std::endl;  
-/*  metbinsout_1 << " M600 "    << h_mc[7]->GetBinContent(1)  <<" "<<h_mc[7]->GetBinError(1)<< std::endl;
+  metbinsout_1 << " M600 "    << h_mc[7]->GetBinContent(1)  <<" "<<h_mc[7]->GetBinError(1)<< std::endl;
   metbinsout_1 << " M800 "    << h_mc[8]->GetBinContent(1)  <<" "<<h_mc[8]->GetBinError(1)<< std::endl;
   metbinsout_1 << " M1000 "   << h_mc[9]->GetBinContent(1)  <<" "<<h_mc[9]->GetBinError(1)<< std::endl;
   metbinsout_1 << " M1200 "   << h_mc[10]->GetBinContent(1) <<" "<<h_mc[10]->GetBinError(1)<< std::endl;
@@ -1006,10 +1005,10 @@ if(VARIABLEBINS){
   metbinsout_1 << " M1700 "   << h_mc[12]->GetBinContent(1) <<" "<<h_mc[12]->GetBinError(1)<< std::endl;
   metbinsout_1 << " M2000 "   << h_mc[13]->GetBinContent(1) <<" "<<h_mc[13]->GetBinError(1)<< std::endl;
   metbinsout_1 << " M2500 "   << h_mc[14]->GetBinContent(1) <<" "<<h_mc[14]->GetBinError(1)<< std::endl;
- */
+ 
  mout << "========= ======================== =====================" <<std::endl;
 }
-
+*/
 
 
 
