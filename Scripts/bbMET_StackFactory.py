@@ -60,8 +60,7 @@ ofstream metbinsout_3;
  metbinsout_3.open(DirPreName+"METBIN_3/HISTPATH"+dirpathname +"Integral.txt",std::ios::app);
 }
 
-gROOT->ProcessLine(".L tdrstyle.C");
-setTDRStyle();
+gROOT->ProcessLine(".L tdrstyle.C");setTDRStyle();
 gStyle->SetOptStat(0);
 gStyle->SetOptTitle(0);
 gStyle->SetFrameLineWidth(3);
