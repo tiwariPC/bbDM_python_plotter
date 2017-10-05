@@ -334,7 +334,7 @@ TString histolabel;
 
 histolabel = "bbMET";
 
-TLatex *t2b;
+TLatex *t2a;
 TLatex *t2c;
 TLatex *t2d;
 
@@ -541,12 +541,12 @@ c12->SetLogy(0);
  
   if(NORATIOPLOT){
   TPad *c1_2 = new TPad("c1_2","newpad",0,0.05,1,0.993);
-  }else{
+  }
+  else{
   TPad *c1_2 = new TPad("c1_2","newpad",0,0.3,1,1.0);
   c1_2->SetBottomMargin(0.03);
   c1_2->SetTopMargin(0.06);
   }
-
   c1_2->SetLogy(ISLOG);
   if(VARIABLEBINS){ c1_2->SetLogx(0);}
   c1_2->Draw();
@@ -592,14 +592,14 @@ h_prefit->SetFillColor(0);
   if(!NORATIOPLOT){
   if(ISLOG)    hs->SetMinimum(1.0);
   if(!ISLOG)   hs->SetMinimum(1);
-  if(!ISLOG)   hs->SetMaximum(maxi *1.8);
-  if(ISLOG)    hs->SetMaximum(maxi *10);
+  //if(!ISLOG)   hs->SetMaximum(maxi *1.8);
+  //if(ISLOG)    hs->SetMaximum(maxi *10);
   //if(!ISLOG) hs->SetMaximum(0.4);
   }else{
   if(ISLOG)    hs->SetMinimum(1.0);
   if(!ISLOG)   hs->SetMinimum(1);
-  if(!ISLOG)   hs->SetMaximum(maxi *1.70);
-  if(ISLOG)    hs->SetMaximum(maxi *100);
+  //if(!ISLOG)   hs->SetMaximum(maxi *1.70);
+  //if(ISLOG)    hs->SetMaximum(maxi *100);
 } 
 
 
