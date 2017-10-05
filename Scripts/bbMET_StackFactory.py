@@ -21,7 +21,7 @@ if len(sys.argv) ==2 :
 
 datestr = datetime.date.today().strftime("%d%m%Y")
 
-macro='''{
+macro='''
 #include <ctime>
 #include <stdlib.h>
 #include "TStyle.h"
@@ -63,7 +63,7 @@ ofstream metbinsout_3;
  metbinsout_3.open(DirPreName+"METBIN_3/HISTPATH"+dirpathname +"Integral.txt",std::ios::app);
 }
 
-gROOT->ProcessLine(".L tdrstyle.C");setTDRStyle();
+gROOT->ProcessLine(".L tdrstyle.C+");setTDRStyle();
 gStyle->SetOptStat(0);
 gStyle->SetOptTitle(0);
 gStyle->SetFrameLineWidth(3);
@@ -121,8 +121,7 @@ filenameString.push_back(filenamepath + "Output_DYJetsToLL_M-50_HT-400to600_Tune
 filenameString.push_back(filenamepath + "Output_DYJetsToLL_M-50_HT-600to800_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_LegacyMC_20170328.root");
 filenameString.push_back(filenamepath + "Output_DYJetsToLL_M-50_HT-800to1200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_LegacyMC_20170328.root");
 filenameString.push_back(filenamepath + "Output_DYJetsToLL_M-50_HT-1200to2500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_LegacyMC_20170328.root");
-filenameString.push_back(filenamepath + "Output_DYJetsToLL_M-50_HT-2500toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_LegacyMC_20170328.root
-");
+filenameString.push_back(filenamepath + "Output_DYJetsToLL_M-50_HT-2500toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_LegacyMC_20170328.root");
 
 // WJets in Bins  17,18,19,20,21,22,23
 filenameString.push_back(filenamepath + "Output_WJetsToLNu_HT-70To100_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_LegacyMC_20170328.root");
@@ -1099,7 +1098,7 @@ system("cp "+outputshapefilename+" "+DirPreName+"METBIN_3");
 }
 return 0;
 }
-}
+
 '''
 ## template macro ends here
 
