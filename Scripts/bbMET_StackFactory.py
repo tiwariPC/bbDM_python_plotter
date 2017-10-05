@@ -63,7 +63,8 @@ ofstream metbinsout_3;
  metbinsout_3.open(DirPreName+"METBIN_3/HISTPATH"+dirpathname +"Integral.txt",std::ios::app);
 }
 
-gROOT->ProcessLine(".L tdrstyle.C+");setTDRStyle();
+gROOT->ProcessLine(".L tdrstyle.C+");
+setTDRStyle();
 gStyle->SetOptStat(0);
 gStyle->SetOptTitle(0);
 gStyle->SetFrameLineWidth(3);
@@ -539,7 +540,7 @@ c12->SetLogy(0);
   
   
   // Upper canvas declaration
- 
+ /*
   if(NORATIOPLOT){
   TPad *c1_2 = new TPad("c1_2","newpad",0,0.05,1,0.993);
   }
@@ -552,7 +553,7 @@ c12->SetLogy(0);
   if(VARIABLEBINS){ c1_2->SetLogx(0);}
   c1_2->Draw();
   c1_2->cd();
-
+*/
 
 hs->Draw();
 
@@ -1034,7 +1035,7 @@ float a = wjets;
 float b = st_;
 //float c = h_data->Integral() - (diboson_ + zh + dyjets);
 
-tableout << "a "<<a<<" "<<" b "<<b<<" "<<" c "<<c<<std::endl;
+tableout << "a "<<a<<" "<<" b "<<b<<" "<<" c "<<"c"<<std::endl;
 tableout << a <<"  "<< b <<"  " << diboson_ <<"  " << zjets <<"  "<< dyjets<<std::endl;
 tableout<<" total_bkg "<<a + b + diboson_ + zjets + dyjets<<std::endl;
 tableout<< " "<<std::endl;
@@ -1082,9 +1083,9 @@ monoHbbM2500->Write();
 DIBOSON->SetNameTitle("DIBOSON","DIBOSON");
 DIBOSON->Write();
 ZJets->SetNameTitle("ZJets","ZJets");
-ZH->Write();
+ZJets->Write();
 STop->SetNameTitle("STop","STop");
-TT->Write();
+STop->Write();
 WJets->SetNameTitle("WJets","WJets");
 WJets->Write();
 DYJets->SetNameTitle("DYJets","DYJets");
