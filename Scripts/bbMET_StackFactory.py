@@ -223,7 +223,7 @@ float normalization[nfiles];
 TH1F *h_data;
 TH1F *h_temp;
 TH1F *hnew;
-TH1F *h_total
+TH1F *h_total;
 
 for(int i =0; i<(int)filenameString.size()-1; i++){
 fIn = new TFile(filenameString[i],"READ");
@@ -335,6 +335,7 @@ TString histolabel;
 histolabel = "bbMET";
 
 TLatex *t2a;
+TLatex *t2b;
 TLatex *t2c;
 TLatex *t2d;
 
@@ -701,7 +702,7 @@ t2a->Draw("same");
   t2c->Draw("same");
   t2d->Draw("same");
   
-  if(nminus = =1){tt->Draw("same");}
+  #if(nminus ==1){tt->Draw("same");}
   
 
 // Commenting out the signal for control region
