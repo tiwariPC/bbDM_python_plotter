@@ -64,7 +64,7 @@ ofstream metbinsout_3;
 }
 
 gROOT->ProcessLine(".L tdrstyle.C");
-setTDRStyle();
+//setTDRStyle();
 gStyle->SetOptStat(0);
 gStyle->SetOptTitle(0);
 gStyle->SetFrameLineWidth(3);
