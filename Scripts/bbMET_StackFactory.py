@@ -429,8 +429,8 @@ DIBOSON->SetFillColor(kGray+2);
 DIBOSON->SetLineColor(1);
 
 //TT->SetFillColor(596);
-TT->SetFillColor(kCyan+2);
-TT->SetLineColor(1);
+//TT->SetFillColor(kCyan+2);
+//TT->SetLineColor(1);
 
 //WJets->SetFillColor(820);                                                                                                            
 WJets->SetFillColor(kGreen+3);                                                                                                            
@@ -451,40 +451,40 @@ float tt_i = TT->Integral();
 float st_i = STop->Integral();
 
 int order_ = 0;
-if ( zj_i > tt_i && zj_i > st_i && zj_i > wj_i && zj_i > dyj_i ) order_ = 0;
-if ( dyj_i > tt_i && dyj_i > wj_i && dyj_i > zj_i && dyj_i > st_i ) order_ = 1;
-if ( wj_i > tt_i && wj_i > zj_i && wj_i > dyj_i && wj_i > st_i ) order_ = 2;
-if ( tt_i > wj_i && tt_i > zj_i && tt_i > dyj_i && tt_i > st_i ) order_ = 3;
-if ( st_i > wj_i && st_i > zj_i && st_i > tt_i && st_i > dyj_i ) order_ = 4;
+if ( /*zj_i > tt_i &&*/ zj_i > st_i && zj_i > wj_i && zj_i > dyj_i ) order_ = 0;
+if ( /*dyj_i > tt_i &&*/ dyj_i > wj_i && dyj_i > zj_i && dyj_i > st_i ) order_ = 1;
+if ( /*wj_i > tt_i &&*/ wj_i > zj_i && wj_i > dyj_i && wj_i > st_i ) order_ = 2;
+//if ( tt_i > wj_i && tt_i > zj_i && tt_i > dyj_i && tt_i > st_i ) order_ = 3;
+if ( st_i > wj_i && st_i > zj_i && /*st_i > tt_i &&*/ st_i > dyj_i ) order_ = 4;
 
 hs->Add(DIBOSON,"hist");
 hs->Add(ZJets,"hist"); 
 
 if (order_==1) {
 hs->Add(WJets,"hist");
-hs->Add(TT,"hist");
+//hs->Add(TT,"hist");
 hs->Add(STop,"hist");
 hs->Add(DYJets,"hist");
 }
 
 if (order_==2) {
 hs->Add(DYJets,"hist");
-hs->Add(TT,"hist");
+//hs->Add(TT,"hist");
 hs->Add(STop,"hist");
 hs->Add(WJets,"hist");
 }
-
+/*
 if (order_==3) {
 hs->Add(WJets,"hist");
 hs->Add(DYJets,"hist");
 hs->Add(STop,"hist");
 hs->Add(TT,"hist");
 }
-
+*/
 if (order_==4) {
 hs->Add(WJets,"hist");
 hs->Add(DYJets,"hist");
-hs->Add(TT,"hist");
+//hs->Add(TT,"hist");
 hs->Add(STop,"hist");
 }
 
@@ -496,10 +496,11 @@ hs->Add(STop,"hist");
 
  TH1F *Stackhist = (TH1F*)hs->GetStack()->Last(); 
  TH1F* h_err;
- h_err = (TH1F*) h_data->Clone("h_err");
+ //h_err = (TH1F*) h_data->Clone("h_err");
+ h_err = (TH1F*) h_mc[0]->Clone("h_err");
  h_err->Sumw2();
  h_err->Reset();
- h_err->Add(h_mc[0]);
+ //h_err->Add(h_mc[0]);
  h_err->Add(h_mc[1]);
  h_err->Add(h_mc[2]);
  h_err->Add(h_mc[3]);
@@ -523,11 +524,7 @@ hs->Add(STop,"hist");
  h_err->Add(h_mc[21]);
  h_err->Add(h_mc[22]);
  h_err->Add(h_mc[23]);
- h_err->Add(h_mc[24]);
- h_err->Add(h_mc[25]);
- h_err->Add(h_mc[26]);
- h_err->Add(h_mc[27]);
- h_err->Add(h_mc[28]);
+
 Stackhist->SetLineWidth(2);                                                                                                                                                        
 
 // for (int ibin=0; ibin<h_err->GetNbinsX();ibin++){
