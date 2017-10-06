@@ -523,7 +523,6 @@ hs->Add(STop,"hist");
  h_err->Add(h_mc[20]);
  h_err->Add(h_mc[21]);
  h_err->Add(h_mc[22]);
- h_err->Add(h_mc[23]);
 
 Stackhist->SetLineWidth(2);
 
