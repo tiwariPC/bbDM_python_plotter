@@ -447,7 +447,7 @@ STop->SetLineColor(1);
 float zj_i = ZJets->Integral();
 float dyj_i = DYJets->Integral();
 float wj_i = WJets->Integral();
-float tt_i = TT->Integral();
+//float tt_i = TT->Integral();
 float st_i = STop->Integral();
 
 int order_ = 0;
@@ -525,7 +525,8 @@ hs->Add(STop,"hist");
  h_err->Add(h_mc[22]);
  h_err->Add(h_mc[23]);
 
-Stackhist->SetLineWidth(2);                                                                                                                                                        
+Stackhist->SetLineWidth(2);
+
 
 // for (int ibin=0; ibin<h_err->GetNbinsX();ibin++){
   // std::cout<<" stack err = "<<h_err->GetBinError(ibin)<<std::endl;
