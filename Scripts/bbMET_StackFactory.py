@@ -749,7 +749,7 @@ for(Int_t i = 0; i < h_err->GetNbinsX()+2; i++) {
    pow(0.20 * WJets->GetBinContent(i), 2) +
    pow(0.30 * ZJets->GetBinContent(i), 2) +
    pow(0.30 * DYJets->GetBinContent(i), 2) +
-   pow(0.20 * TT->GetBinContent(i), 2) +
+   /*pow(0.20 * TT->GetBinContent(i), 2) +*/
    pow(0.30 * STop->GetBinContent(i), 2) +
    pow(0.30 * DIBOSON->GetBinContent(i), 2));
    double binerror = sqrt(binerror2);
