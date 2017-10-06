@@ -227,7 +227,6 @@ TH1F *h_data;
 TH1F *h_temp;
 TH1F *hnew;
 TH1F *h_total;
-Int_t filesize = filenameString.size()
 for(int i =0; i<(int)filenameString.size()-1; i++){
 fIn = new TFile(filenameString[i],"READ");
 //if(VARIABLEBINS){
