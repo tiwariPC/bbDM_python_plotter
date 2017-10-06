@@ -78,7 +78,7 @@ float lumi = 2263.5; // It will print on your plots too
 //float lumi = 3200.; // It will print on your plots too
 float luminosity = 2.3;
 
-std::vector<TString> filenameString;
+std::vector<TString> filenameString(;
 //Change here Directories of the file
 
 
@@ -166,7 +166,7 @@ filenameString.push_back(filenamepath + "Merged_ZprimeToA0hToA0chichihbb_2HDM_MZ
 
 //const int n_integral = (int)filenameString.size();
 
-TString histnameString("HISTPATH/HISTNAME");
+TString histnameString("HISTNAME");
 
 TFile *fIn;
 const int nfiles = (int) filenameString.size();
@@ -227,7 +227,7 @@ TH1F *h_data;
 TH1F *h_temp;
 TH1F *hnew;
 TH1F *h_total;
-
+Int_t filesize = filenameString.size()
 for(int i =0; i<(int)filenameString.size()-1; i++){
 fIn = new TFile(filenameString[i],"READ");
 //if(VARIABLEBINS){
@@ -278,19 +278,19 @@ DIBOSON->Add(h_mc[2]);
 //TTJets        = (TH1F*)h_mc[5]->Clone();
 
 ZJets     = (TH1F*)h_mc[3]->Clone();
-for(int zjets1 = 4; zjets1 < 10; zjets1++){
+for(int zjets1 = 4; zjets1 < 11; zjets1++){
 ZJets->Add(h_mc[zjets1]);}
 
-WJets     = (TH1F*)h_mc[17]->Clone();
-for(int wjets1 = 18; wjets1 < 24; wjets1++){
+WJets     = (TH1F*)h_mc[11]->Clone();
+for(int wjets1 = 12; wjets1 < 19; wjets1++){
 WJets->Add(h_mc[wjets1]);}
 
-DYJets    = (TH1F*)h_mc[10]->Clone();
-for(int DYjets = 11; DYjets < 17; DYjets++){
+DYJets    = (TH1F*)h_mc[3]->Clone();
+for(int DYjets = 4; DYjets < 11; DYjets++){
 DYJets->Add(h_mc[DYjets]);}
 
-STop=(TH1F*)h_mc[24]->Clone();
-for(int ttjets = 25; ttjets < 29; ttjets++){
+STop   = (TH1F*)h_mc[19]->Clone();
+for(int ttjets = 20; ttjets < 23; ttjets++){
 STop->Add(h_mc[ttjets]);}
 
  //Legend
