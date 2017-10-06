@@ -1185,19 +1185,19 @@ for dirname in dirnames:
         
         
         makeplot([dirname+"jet1_eta_Zmumucr1",'h_jet1_eta_Zmumucr1_','jet 1 \eta','-3.','3.','20','0'])
-        makeplot([dirname+"jet2_eta_Zmumucr1",'h_jet1_eta_Zmumucr1_','jet 1 \eta','-3.','3.','20','0'])
+        makeplot([dirname+"jet2_eta_Zmumucr1",'h_jet2_eta_Zmumucr1_','jet 1 \eta','-3.','3.','20','0'])
         
         makeplot([dirname+"jet1_eta_Zmumucr2",'h_jet1_eta_Zmumucr2_','jet 1 \eta','-3.','3.','20','0'])
-        makeplot([dirname+"jet2_eta_Zmumucr2",'h_jet1_eta_Zmumucr2_','jet 1 \eta','-3.','3.','20','0'])
-        makeplot([dirname+"jet3_eta_Zmumucr2",'h_jet1_eta_Zmumucr3_','jet 1 \eta','-3.','3.','20','0'])
+        makeplot([dirname+"jet2_eta_Zmumucr2",'h_jet2_eta_Zmumucr2_','jet 1 \eta','-3.','3.','20','0'])
+        makeplot([dirname+"jet3_eta_Zmumucr2",'h_jet3_eta_Zmumucr2_','jet 1 \eta','-3.','3.','20','0'])
         
         
         makeplot([dirname+"jet1_csv_Zmumucr1",'h_jet1_eta_Zmumucr1_','jet 1 \eta','-3.','3.','20','0'])
-        makeplot([dirname+"jet2_csv_Zmumucr1",'h_jet1_eta_Zmumucr1_','jet 1 \eta','-3.','3.','20','0'])
+        makeplot([dirname+"jet2_csv_Zmumucr1",'h_jet2_eta_Zmumucr1_','jet 1 \eta','-3.','3.','20','0'])
         
         makeplot([dirname+"jet1_csv_Zmumucr2",'h_jet1_csv_Zmumucr2_','jet 1 \eta','-3.','3.','20','0'])
-        makeplot([dirname+"jet2_csv_Zmumucr2",'h_jet1_csv_Zmumucr2_','jet 1 \eta','-3.','3.','20','0'])
-        makeplot([dirname+"jet3_csv_Zmumucr2",'h_jet1_csv_Zmumucr3_','jet 1 \eta','-3.','3.','20','0'])
+        makeplot([dirname+"jet2_csv_Zmumucr2",'h_jet2_csv_Zmumucr2_','jet 1 \eta','-3.','3.','20','0'])
+        makeplot([dirname+"jet3_csv_Zmumucr2",'h_jet3_csv_Zmumucr2_','jet 1 \eta','-3.','3.','20','0'])
         
 #makeplot([dirname,'h_Mjj_Rebin0','m_{AK8}[GeV]','30','250','1','0','1','','0','1','PrefitMass']) 
         #makeplot([dirname,'h_MET0','E_{T}^{miss}[GeV]','200','1000','1','0','1','','0','1','PrefitMET']) ## last bin is for variable met bins  ## second last is for data option
@@ -1281,5 +1281,6 @@ for dirname in dirnames:
         makeplot([dirname+"ZhadronRecoilee1",'h_ZhadronRecoilee1_','hadronic recoil','0.','400.','1','1'])
         
         makeplot([dirname+"ZhadronRecoilmumu2",'h_ZhadronRecoilmumu2_','hadronic recoil','0.','800.','2','1'])
-        makeplot([dirname+"ZhadronRecoilee2",'h_ZhadronRecoilee2_','hadronic recoil','0','800.','2','1'])
+        makeplot([dirname+"ZhadronRecoilee2",'h_ZhadronRecoilee2_','hadronic recoil','0.','800.','2','1'])
+        
 
