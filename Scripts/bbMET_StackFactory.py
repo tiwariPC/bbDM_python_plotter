@@ -32,7 +32,7 @@ tm *ltm = localtime(&now);
 TString dirpathname;
 
  TString DirPreName = "/afs/cern.ch/work/p/ptiwari/bb+DM_analysis/DMAnaRun2/CMSSW_8_0_26_patch1/src/plotting_code/bbMETplot/Scripts/test";
- dirpathname = ""; //"'''+datestr+'''"; //.Form("%d%1.2d%d",ltm->tm_mday,1 + ltm->tm_mon,1900 + ltm->tm_year);
+ dirpathname = "'''+datestr+'''"; //.Form("%d%1.2d%d",ltm->tm_mday,1 + ltm->tm_mon,1900 + ltm->tm_year);
  
  system("mkdir -p  " + DirPreName+dirpathname +"/bbMETROOT");
  system("mkdir -p  " + DirPreName+dirpathname +"/bbMETPdf");
