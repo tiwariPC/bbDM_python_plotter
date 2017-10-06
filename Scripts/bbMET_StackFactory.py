@@ -78,7 +78,7 @@ float lumi = 2263.5; // It will print on your plots too
 //float lumi = 3200.; // It will print on your plots too
 float luminosity = 2.3;
 
-std::vector<TString> filenameString(;
+std::vector<TString> filenameString;
 //Change here Directories of the file
 
 
