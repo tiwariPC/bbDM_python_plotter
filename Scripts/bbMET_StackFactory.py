@@ -916,12 +916,12 @@ float dyjets_error = TMath::Sqrt(pow(Integral_Error[10],2) + pow(Integral_Error[
 float diboson_ = h_mc[0]->Integral() + h_mc[1]->Integral() + h_mc[2]->Integral();
 float diboson_error = TMath::Sqrt(pow(Integral_Error[0],2) + pow(Integral_Error[1],2) + pow(Integral_Error[2],2));
 
-float st_ = h_mc[24]->Integral() + h_mc[25]->Integral()+h_mc[26]->Integral()+h_mc[27]->Integral()+h_mc[28]->Integral() ;
-float st_error = TMath::Sqrt(pow(Integral_Error[24],2) + pow(Integral_Error[25],2) + pow(Integral_Error[26],2) +pow(Integral_Error[27],2) +pow(Integral_Error[28],2) ) ;
+float st_ = h_mc[19]->Integral() + h_mc[20]->Integral()+h_mc[21]->Integral()+h_mc[22]->Integral()+h_mc[22]->Integral() ;
+float st_error = TMath::Sqrt(pow(Integral_Error[20],2) + pow(Integral_Error[21],2) + pow(Integral_Error[22],2) +pow(Integral_Error[22],2) +pow(Integral_Error[19],2) ) ;
 
-float wjets = h_mc[17]->Integral() +h_mc[18]->Integral()+h_mc[19]->Integral()+h_mc[20]->Integral()+h_mc[21]->Integral()+h_mc[22]->Integral()+h_mc[23]->Integral() ;
-float wjets_error = TMath::Sqrt(pow(Integral_Error[17],2) + pow(Integral_Error[18],2) +pow(Integral_Error[19],2) +pow(Integral_Error[20],2) +pow(Integral_Error[21],2) +pow(Integral_Error[22],2) +pow(Integral_Error[23],2)) ;
-
+float wjets = h_mc[17]->Integral() +h_mc[18]->Integral()+h_mc[19]->Integral()+h_mc[20]->Integral()+h_mc[21]->Integral()+h_mc[22]->Integral()+h_mc[22]->Integral() ;
+float wjets_error = TMath::Sqrt(pow(Integral_Error[17],2) + pow(Integral_Error[18],2) +pow(Integral_Error[19],2) +pow(Integral_Error[20],2) +pow(Integral_Error[21],2) +pow(Integral_Error[22],2) +pow(Integral_Error[22],2)) ;
+//update
 std::cout<<" wjets_error = "<<wjets_error<<std::endl;
 float zjets = h_mc[3]->Integral() +h_mc[4]->Integral()+h_mc[5]->Integral()+h_mc[6]->Integral()+h_mc[7]->Integral()+h_mc[8]->Integral()+h_mc[9]->Integral() ;
 float zjets_error = TMath::Sqrt(pow(Integral_Error[3],2) + pow(Integral_Error[4],2) +pow(Integral_Error[5],2) +pow(Integral_Error[6],2) +pow(Integral_Error[7],2) +pow(Integral_Error[8],2) +pow(Integral_Error[9],2)) ;
