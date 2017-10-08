@@ -317,7 +317,7 @@ legend = new TLegend(0.57, 0.7, 0.94,0.90,NULL,"brNDC");
  legend->AddEntry(DYJets,"DYj","f");
  legend->AddEntry(ZJets,"Zj","f");
  legend->AddEntry(WJets,"Wj","f");
- legend->AddEntry(TT,"top","f");
+ //legend->AddEntry(TT,"top","f");
  legend->AddEntry(STop,"singletop","f");
 
   
@@ -533,7 +533,7 @@ Stackhist->SetLineWidth(2);
 
 
 //Setting canvas without log axis
-c12->SetLogy(0);
+c12->SetLogy(ISLOG);
   
   
   
