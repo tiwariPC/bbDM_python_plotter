@@ -349,10 +349,10 @@ if(NORATIOPLOT){
 
  }else{
  t2b = new TLatex(0.180,0.88,latexCMSname);
- t2b->SetTextSize(0.05);
+ t2b->SetTextSize(0.03);
 
  t2a = new TLatex(0.15,0.95,latexname);
- t2a->SetTextSize(0.047); 
+ t2a->SetTextSize(0.015); 
 
  //t2c = new TLatex(0.180,0.835,latexPreCMSname);
  //t2c->SetTextSize(0.047);
@@ -594,7 +594,7 @@ h_prefit->SetFillColor(0);
   hs->GetXaxis()->SetLabelSize(.03);
   hs->GetYaxis()->SetTitle("Events / GeV");
   hs->GetYaxis()->SetTitleSize(0.03);
-  hs->GetYaxis()->SetTitleOffset(0.88);
+  hs->GetYaxis()->SetTitleOffset(0.99);
   hs->GetYaxis()->SetTitleFont(42);
   hs->GetYaxis()->SetLabelFont(42);
   hs->GetYaxis()->SetLabelSize(0.03);
@@ -602,7 +602,7 @@ h_prefit->SetFillColor(0);
   else{
   hs->GetXaxis()->SetTitle("XAXISLABEL");
   hs->GetXaxis()->SetTitleSize(0.03);
-  hs->GetXaxis()->SetTitleOffset(0.97);
+  hs->GetXaxis()->SetTitleOffset(0.99);
   hs->GetXaxis()->SetTitleFont(42);
   hs->GetXaxis()->SetLabelFont(42);
   hs->GetXaxis()->SetLabelSize(.03);
@@ -610,7 +610,7 @@ h_prefit->SetFillColor(0);
   hs->GetXaxis()->SetLabelSize(0.03); 
   hs->GetYaxis()->SetTitle("Events / GeV");
   hs->GetYaxis()->SetTitleSize(0.03); 
-  hs->GetYaxis()->SetTitleOffset(0.9);
+  hs->GetYaxis()->SetTitleOffset(0.99);
   hs->GetYaxis()->SetTitleFont(42);
   hs->GetYaxis()->SetLabelFont(42);
   hs->GetYaxis()->SetLabelSize(.03);
