@@ -637,15 +637,15 @@ hs->GetXaxis()->SetNdivisions(508);
   hs->GetXaxis()->SetTitleFont(42);
   hs->GetXaxis()->SetLabelFont(42);
   hs->GetXaxis()->SetLabelSize(.05);
-  hs->GetXaxis()->SetLabelOffset(999);
-  hs->GetXaxis()->SetLabelSize(0); 
+  hs->GetXaxis()->SetLabelOffset(.03);
+  hs->GetXaxis()->SetLabelSize(0.05); 
   hs->GetYaxis()->SetTitle("Events / GeV");                                                                                                                                                 if(!VARIABLEBINS){   hs->GetYaxis()->SetTitle("Events / GeV");                                   }
 
-  hs->GetYaxis()->SetTitleSize(0.07); 
+  hs->GetYaxis()->SetTitleSize(0.05); 
   hs->GetYaxis()->SetTitleOffset(0.9);
   hs->GetYaxis()->SetTitleFont(42);
   hs->GetYaxis()->SetLabelFont(42);
-  hs->GetYaxis()->SetLabelSize(.07);
+  hs->GetYaxis()->SetLabelSize(.05);
 
   }  
 
