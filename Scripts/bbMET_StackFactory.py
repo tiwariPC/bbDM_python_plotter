@@ -1085,21 +1085,20 @@ for dirname in dirnames:
     makeLinearplots=True;
     if makeLinearplots :
        ##for Signal
+        makeplot([dirname+"jet1_eta_cr1",'h_jet1_eta_cr1_','jet 1 #eta','-3.','3.','70','0'])
+        makeplot([dirname+"jet2_eta_cr1",'h_jet2_eta_cr1_','jet 2 #eta','-3.','3.','70','0'])
       
-       makeplot([dirname+"jet1_eta_cr1",'h_jet1_eta_cr1_','jet 1 #eta','-3.','3.','70','0'])
-       makeplot([dirname+"jet2_eta_cr1",'h_jet2_eta_cr1_','jet 2 #eta','-3.','3.','70','0'])
-      
-       makeplot([dirname+"jet1_eta_cr2",'h_jet1_eta_cr2_','jet 1 #eta','-3.','3.','70','0'])
-       makeplot([dirname+"jet2_eta_cr2",'h_jet2_eta_cr2_','jet 2 #eta','-3.','3.','70','0'])
-       makeplot([dirname+"jet3_eta_cr2",'h_jet3_eta_cr2_','jet 3 #eta','-3.','3.','70','0'])
+        makeplot([dirname+"jet1_eta_cr2",'h_jet1_eta_cr2_','jet 1 #eta','-3.','3.','70','0'])
+        makeplot([dirname+"jet2_eta_cr2",'h_jet2_eta_cr2_','jet 2 #eta','-3.','3.','70','0'])
+        makeplot([dirname+"jet3_eta_cr2",'h_jet3_eta_cr2_','jet 3 #eta','-3.','3.','70','0'])
       
       
-       makeplot([dirname+"jet1_csv_cr1",'h_jet1_csv_cr1_','jet 1 csv','0.','1.','100','0'])
-       makeplot([dirname+"jet2_csv_cr1",'h_jet2_csv_cr1_','jet 2 csv','0.','1.','100','0'])
+        makeplot([dirname+"jet1_csv_cr1",'h_jet1_csv_cr1_','jet 1 csv','0.','1.','100','0'])
+        makeplot([dirname+"jet2_csv_cr1",'h_jet2_csv_cr1_','jet 2 csv','0.','1.','100','0'])
       
-       makeplot([dirname+"jet1_csv_cr2",'h_jet1_csv_cr2_','jet 1 csv','0.','1.','100','0'])
-       makeplot([dirname+"jet2_csv_cr2",'h_jet2_csv_cr2_','jet 2 csv','0.','1.','100','0'])
-       makeplot([dirname+"jet3_csv_cr2",'h_jet3_csv_cr2_','jet 3 csv','0.','1.','100','0'])
+        makeplot([dirname+"jet1_csv_cr2",'h_jet1_csv_cr2_','jet 1 csv','0.','1.','100','0'])
+        makeplot([dirname+"jet2_csv_cr2",'h_jet2_csv_cr2_','jet 2 csv','0.','1.','100','0'])
+        makeplot([dirname+"jet3_csv_cr2",'h_jet3_csv_cr2_','jet 3 csv','0.','1.','100','0'])
       
       
        ##for Z
