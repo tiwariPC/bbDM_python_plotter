@@ -401,7 +401,7 @@ if(NORATIOPLOT){
 
 
 //============== CANVAS DECLARATION ===================
-TCanvas *c12 = new TCanvas("Hist", "Hist", 0,0,550,550);
+TCanvas *c12 = new TCanvas("Hist", "Hist", 0,0,1000,1000);
  
 //==================Stack==========================                                                                  
 THStack *hs = new THStack("hs"," ");
@@ -679,22 +679,11 @@ legendsig = new TLegend(0.57, 0.5, 0.94,0.65,NULL,"brNDC");
  legendsig->SetFillStyle(0);
  legendsig->SetTextFont(42);
 // legendsig->SetNColumns(2);
- legendsig->AddEntry(h_mc[9],"m_{Z'}=1000 GeV", "l");
- legendsig->AddEntry(h_mc[10],"m_{Z'}=1200 GeV", "l");
- legendsig->AddEntry(h_mc[11],"m_{Z'}=1400 GeV", "l");
 
 
    legend->Draw("same"); 
   legendsig->Draw("same");
 
- TLatex* sig;
- sig = new TLatex(0.58,0.67,"m_{A}=300 GeV");
- sig->SetTextSize(0.034);
- sig->SetTextSize(0.047); 
- sig->SetTextAlign(12);
- sig->SetNDC(kTRUE);
- sig->SetTextFont(42);
- sig->Draw("same");
 
 t2a->Draw("same");
   t2b->Draw("same");
