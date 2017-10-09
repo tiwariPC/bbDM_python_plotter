@@ -11,7 +11,7 @@ tm *ltm = localtime(&now);
 TString dirpathname;
 
  TString DirPreName = "/afs/cern.ch/work/p/ptiwari/bb+DM_analysis/DMAnaRun2/CMSSW_8_0_26_patch1/src/plotting_code/bbMETplot/Scripts/test";
- dirpathname = "06102017"; //.Form("%d%1.2d%d",ltm->tm_mday,1 + ltm->tm_mon,1900 + ltm->tm_year);
+ dirpathname = "09102017"; //.Form("%d%1.2d%d",ltm->tm_mday,1 + ltm->tm_mon,1900 + ltm->tm_year);
  
  system("mkdir -p  " + DirPreName+dirpathname +"/bbMETROOT");
  system("mkdir -p  " + DirPreName+dirpathname +"/bbMETPdf");
@@ -53,7 +53,7 @@ gStyle->SetLineWidth(1);
 //Provide luminosity of total data
 float lumi = 2263.5; // It will print on your plots too
 //float lumi = 3200.; // It will print on your plots too
-float luminosity = 2.3;
+float luminosity = 35.9;
 
 std::vector<TString> filenameString;
 //Change here Directories of the file
@@ -124,18 +124,8 @@ filenameString.push_back(filenamepath + "Output_ST_tW_antitop_5f_inclusiveDecays
 //filenameString.push_back(filenamepath + "Merged_TT_TuneCUETP8M1_13TeV-powheg-pythia8-runallAnalysis.root");
 
 //bbMET Signal Sample 
-/*
-filenameString.push_back(filenamepath + "Merged_ZprimeToA0hToA0chichihbb_2HDM_MZp-600_MA0-300_13TeV-madgraph-runallAnalysis.root");
-filenameString.push_back(filenamepath + "Merged_ZprimeToA0hToA0chichihbb_2HDM_MZp-800_MA0-300_13TeV-madgraph-runallAnalysis.root");  
-filenameString.push_back(filenamepath + "Merged_ZprimeToA0hToA0chichihbb_2HDM_MZp-1000_MA0-300_13TeV-madgraph-runallAnalysis.root");  
-filenameString.push_back(filenamepath + "Merged_ZprimeToA0hToA0chichihbb_2HDM_MZp-1200_MA0-300_13TeV-madgraph-runallAnalysis.root");  
-filenameString.push_back(filenamepath + "Merged_ZprimeToA0hToA0chichihbb_2HDM_MZp-1400_MA0-300_13TeV-madgraph-runallAnalysis.root");  
-filenameString.push_back(filenamepath + "Merged_ZprimeToA0hToA0chichihbb_2HDM_MZp-1700_MA0-300_13TeV-madgraph-runallAnalysis.root");  
-filenameString.push_back(filenamepath + "Merged_ZprimeToA0hToA0chichihbb_2HDM_MZp-2000_MA0-300_13TeV-madgraph-runallAnalysis.root");  
-filenameString.push_back(filenamepath + "Merged_ZprimeToA0hToA0chichihbb_2HDM_MZp-2500_MA0-300_13TeV-madgraph-runallAnalysis.root");  
-*/
 
-//                                                                   
+//
 //Data File
 //filenameString.push_back(filenamepath + "Merged_MET-Run2015B-PromptReco-v1TotalV3-runallAnalysis.root");
 //filenameString.push_back(filenamepath + "Merged_MET.root");
@@ -143,7 +133,7 @@ filenameString.push_back(filenamepath + "Merged_ZprimeToA0hToA0chichihbb_2HDM_MZ
 
 //const int n_integral = (int)filenameString.size();
 
-TString histnameString("HISTPATH/HISTNAME");
+TString histnameString("HISTNAME");
 
 TFile *fIn;
 const int nfiles = (int) filenameString.size();
@@ -204,7 +194,6 @@ TH1F *h_data;
 TH1F *h_temp;
 TH1F *hnew;
 TH1F *h_total;
-
 for(int i =0; i<(int)filenameString.size()-1; i++){
 fIn = new TFile(filenameString[i],"READ");
 //if(VARIABLEBINS){
@@ -255,19 +244,19 @@ DIBOSON->Add(h_mc[2]);
 //TTJets        = (TH1F*)h_mc[5]->Clone();
 
 ZJets     = (TH1F*)h_mc[3]->Clone();
-for(int zjets1 = 4; zjets1 < 10; zjets1++){
+for(int zjets1 = 4; zjets1 < 11; zjets1++){
 ZJets->Add(h_mc[zjets1]);}
 
-WJets     = (TH1F*)h_mc[17]->Clone();
-for(int wjets1 = 18; wjets1 < 24; wjets1++){
+WJets     = (TH1F*)h_mc[11]->Clone();
+for(int wjets1 = 12; wjets1 < 19; wjets1++){
 WJets->Add(h_mc[wjets1]);}
 
-DYJets    = (TH1F*)h_mc[10]->Clone();
-for(int DYjets = 11; DYjets < 17; DYjets++){
+DYJets    = (TH1F*)h_mc[3]->Clone();
+for(int DYjets = 4; DYjets < 11; DYjets++){
 DYJets->Add(h_mc[DYjets]);}
 
-STop=(TH1F*)h_mc[24]->Clone();
-for(int ttjets = 25; ttjets < 29; ttjets++){
+STop   = (TH1F*)h_mc[19]->Clone();
+for(int ttjets = 20; ttjets < 23; ttjets++){
 STop->Add(h_mc[ttjets]);}
 
  //Legend
@@ -291,28 +280,28 @@ legend = new TLegend(0.57, 0.7, 0.94,0.90,NULL,"brNDC");
  legend->SetFillStyle(0);
  legend->SetTextFont(42);
  legend->SetNColumns(2);
- //legend->AddEntry(h_data,"Data","PEL");                                                                                                         
- legend->AddEntry(DYJets,"DYj","f");
- legend->AddEntry(ZJets,"Zj","f");
- legend->AddEntry(WJets,"Wj","f");
- legend->AddEntry(TT,"top","f");
- legend->AddEntry(STop,"singletop","f");
+ //legend->AddEntry(h_data,"Data","PEL");
+ legend->AddEntry(DYJets,"Z(ll) + jets","f");
+ legend->AddEntry(ZJets,"Z(#nu #nu) + jets","f");
+ legend->AddEntry(WJets,"W(l#nu) + jets","f");
+ //legend->AddEntry(TT,"top","f");
+ legend->AddEntry(STop,"single t","f");
 
   
 
  
 //===========================Latex=================//
 TString latexCMSname= "CMS";// #it{#bf{Preliminary}}";
-TString latexPreCMSname= "Z'#rightarrow DM+h(b#bar{b})";
- 
+TString latexPreCMSname= "DM + heavy flavor";
+TString space = "       ";
 TString latexnamemiddle;
 latexnamemiddle.Form("%1.1f fb^{-1}",luminosity); 
 TString latexnamepost = " (13 TeV)";
-//TString latexname = latexnamepre+latexnamemiddle+latexnamepost;  
-TString latexname = latexnamemiddle+latexnamepost;
+//TString latexname = latexnamepre+latexnamemiddle+latexnamepost;
+TString latexname = latexPreCMSname+space+latexnamemiddle+latexnamepost;
 TString histolabel;
 
-histolabel = "bbMET";
+//histolabel = "bbMET";
 
 TLatex *t2a;
 TLatex *t2b;
@@ -323,14 +312,14 @@ if(NORATIOPLOT){
  t2b = new TLatex(0.15,0.85,latexCMSname);
  t2b->SetTextSize(0.036);
 
- t2a = new TLatex(0.75,0.95,latexname);
- t2a->SetTextSize(0.034);
+ t2a = new TLatex(0.10,0.95,latexname);
+ t2a->SetTextSize(0.025);
 
 // t2c = new TLatex(0.25,0.82,latexPreCMSname);
 // t2c->SetTextSize(0.036);
 // t2d = new TLatex(0.25,0.77,histolabel);
 // t2d->SetTextSize(0.036);
- t2c = new TLatex(0.15,0.84,latexPreCMSname);
+ //t2c = new TLatex(0.15,0.84,latexPreCMSname);
  t2c->SetTextSize(0.036);
 
  t2d = new TLatex(0.15,0.79,histolabel);
@@ -379,17 +368,16 @@ if(NORATIOPLOT){
 
 
 //============== CANVAS DECLARATION ===================
-TCanvas *c12 = new TCanvas("Hist", "Hist", 0,0,550,550);
+TCanvas *c12 = new TCanvas("Hist", "Hist", 0,0,1000,1000);
  
-//==================Stack==========================                                                                  
+//==================Stack==============================
 THStack *hs = new THStack("hs"," ");
 
 // For N-1 Plots only
 bool nminus = 0;
-TLatex *tt;                                                                          
+TLatex *tt;
 
 
-                                                                                       
 //Colors for Histos
 
 //h_mc[0]->SetFillColor(616);
@@ -407,8 +395,8 @@ DIBOSON->SetFillColor(kGray+2);
 DIBOSON->SetLineColor(1);
 
 //TT->SetFillColor(596);
-TT->SetFillColor(kCyan+2);
-TT->SetLineColor(1);
+//TT->SetFillColor(kCyan+2);
+//TT->SetLineColor(1);
 
 //WJets->SetFillColor(820);                                                                                                            
 WJets->SetFillColor(kGreen+3);                                                                                                            
@@ -425,44 +413,44 @@ STop->SetLineColor(1);
 float zj_i = ZJets->Integral();
 float dyj_i = DYJets->Integral();
 float wj_i = WJets->Integral();
-float tt_i = TT->Integral();
+//float tt_i = TT->Integral();
 float st_i = STop->Integral();
 
 int order_ = 0;
-if ( zj_i > tt_i && zj_i > st_i && zj_i > wj_i && zj_i > dyj_i ) order_ = 0;
-if ( dyj_i > tt_i && dyj_i > wj_i && dyj_i > zj_i && dyj_i > st_i ) order_ = 1;
-if ( wj_i > tt_i && wj_i > zj_i && wj_i > dyj_i && wj_i > st_i ) order_ = 2;
-if ( tt_i > wj_i && tt_i > zj_i && tt_i > dyj_i && tt_i > st_i ) order_ = 3;
-if ( st_i > wj_i && st_i > zj_i && st_i > tt_i && st_i > dyj_i ) order_ = 4;
+if ( /*zj_i > tt_i &&*/ zj_i > st_i && zj_i > wj_i && zj_i > dyj_i ) order_ = 0;
+if ( /*dyj_i > tt_i &&*/ dyj_i > wj_i && dyj_i > zj_i && dyj_i > st_i ) order_ = 1;
+if ( /*wj_i > tt_i &&*/ wj_i > zj_i && wj_i > dyj_i && wj_i > st_i ) order_ = 2;
+//if ( tt_i > wj_i && tt_i > zj_i && tt_i > dyj_i && tt_i > st_i ) order_ = 3;
+if ( st_i > wj_i && st_i > zj_i && /*st_i > tt_i &&*/ st_i > dyj_i ) order_ = 4;
 
 hs->Add(DIBOSON,"hist");
 hs->Add(ZJets,"hist"); 
 
 if (order_==1) {
 hs->Add(WJets,"hist");
-hs->Add(TT,"hist");
+//hs->Add(TT,"hist");
 hs->Add(STop,"hist");
 hs->Add(DYJets,"hist");
 }
 
 if (order_==2) {
 hs->Add(DYJets,"hist");
-hs->Add(TT,"hist");
+//hs->Add(TT,"hist");
 hs->Add(STop,"hist");
 hs->Add(WJets,"hist");
 }
-
+/*
 if (order_==3) {
 hs->Add(WJets,"hist");
 hs->Add(DYJets,"hist");
 hs->Add(STop,"hist");
 hs->Add(TT,"hist");
 }
-
+*/
 if (order_==4) {
 hs->Add(WJets,"hist");
 hs->Add(DYJets,"hist");
-hs->Add(TT,"hist");
+//hs->Add(TT,"hist");
 hs->Add(STop,"hist");
 }
 
@@ -474,10 +462,11 @@ hs->Add(STop,"hist");
 
  TH1F *Stackhist = (TH1F*)hs->GetStack()->Last(); 
  TH1F* h_err;
- h_err = (TH1F*) h_data->Clone("h_err");
+ //h_err = (TH1F*) h_data->Clone("h_err");
+ h_err = (TH1F*) h_mc[0]->Clone("h_err");
  h_err->Sumw2();
  h_err->Reset();
- h_err->Add(h_mc[0]);
+ //h_err->Add(h_mc[0]);
  h_err->Add(h_mc[1]);
  h_err->Add(h_mc[2]);
  h_err->Add(h_mc[3]);
@@ -500,13 +489,9 @@ hs->Add(STop,"hist");
  h_err->Add(h_mc[20]);
  h_err->Add(h_mc[21]);
  h_err->Add(h_mc[22]);
- h_err->Add(h_mc[23]);
- h_err->Add(h_mc[24]);
- h_err->Add(h_mc[25]);
- h_err->Add(h_mc[26]);
- h_err->Add(h_mc[27]);
- h_err->Add(h_mc[28]);
-Stackhist->SetLineWidth(2);                                                                                                                                                        
+
+Stackhist->SetLineWidth(2);
+
 
 // for (int ibin=0; ibin<h_err->GetNbinsX();ibin++){
   // std::cout<<" stack err = "<<h_err->GetBinError(ibin)<<std::endl;
@@ -514,7 +499,7 @@ Stackhist->SetLineWidth(2);
 
 
 //Setting canvas without log axis
-c12->SetLogy(0);
+c12->SetLogy(ISLOG);
   
   
   
@@ -575,7 +560,7 @@ h_prefit->SetFillColor(0);
   if(!ISLOG)   hs->SetMinimum(1);
   //if(!ISLOG)   hs->SetMaximum(maxi *1.8);
   //if(ISLOG)    hs->SetMaximum(maxi *10);
-  //if(!ISLOG) hs->SetMaximum(0.4);
+  if(!ISLOG) hs->SetMaximum(0.4);
   }else{
   if(ISLOG)    hs->SetMinimum(1.0);
   if(!ISLOG)   hs->SetMinimum(1);
@@ -583,7 +568,7 @@ h_prefit->SetFillColor(0);
   //if(ISLOG)    hs->SetMaximum(maxi *100);
 } 
 
-
+cout<<endl<<"Debug 1"<<endl;
 //  cout <<"binofwidth = "<< binofwidth <<" binwidth_ = "<<binwidth_<<std::endl;
 
   double binofwidth = h_mc[0]->GetBinWidth(1);
@@ -591,36 +576,42 @@ h_prefit->SetFillColor(0);
   binwidth_.Form("%1.1f",binofwidth);
   
 //hs->GetXaxis()->SetTickLength(0.07);
-hs->GetXaxis()->SetNdivisions(508);                                                                                                                                             
+  hs->GetXaxis()->SetNdivisions(508);                                                                                                                                             
 
   if(NORATIOPLOT){
   hs->GetXaxis()->SetTitleSize(0.05);
   hs->GetXaxis()->SetTitleOffset(0.97);
   hs->GetXaxis()->SetTitleFont(42);
   hs->GetXaxis()->SetLabelFont(42);
-  hs->GetXaxis()->SetLabelSize(.05);
+  hs->GetXaxis()->SetLabelSize(.03);
   hs->GetYaxis()->SetTitle("Events / GeV");
   if(!VARIABLEBINS){    hs->GetYaxis()->SetTitle("Events/"+binwidth_);}
   hs->GetYaxis()->SetTitleSize(0.05);
   hs->GetYaxis()->SetTitleOffset(0.88);
   hs->GetYaxis()->SetTitleFont(42);
   hs->GetYaxis()->SetLabelFont(42);
-  hs->GetYaxis()->SetLabelSize(0.05);
+  hs->GetYaxis()->SetLabelSize(0.03);
   hs->GetXaxis()->SetTitle("XAXISLABEL");
   if(VARIABLEBINS){
    hs->GetXaxis()->SetMoreLogLabels();                                                                                                       
   hs->GetXaxis()->SetNoExponent();}
   }
   else{
-  hs->GetXaxis()->SetLabelOffset(999);
-  hs->GetXaxis()->SetLabelSize(0); 
+  hs->GetXaxis()->SetTitle("XAXISLABEL");
+  hs->GetXaxis()->SetTitleSize(0.05);
+  hs->GetXaxis()->SetTitleOffset(0.97);
+  hs->GetXaxis()->SetTitleFont(42);
+  hs->GetXaxis()->SetLabelFont(42);
+  hs->GetXaxis()->SetLabelSize(.03);
+  hs->GetXaxis()->SetLabelOffset(.03);
+  hs->GetXaxis()->SetLabelSize(0.03); 
   hs->GetYaxis()->SetTitle("Events / GeV");                                                                                                                                                 if(!VARIABLEBINS){   hs->GetYaxis()->SetTitle("Events / GeV");                                   }
 
-  hs->GetYaxis()->SetTitleSize(0.07); 
+  hs->GetYaxis()->SetTitleSize(0.03); 
   hs->GetYaxis()->SetTitleOffset(0.9);
   hs->GetYaxis()->SetTitleFont(42);
   hs->GetYaxis()->SetLabelFont(42);
-  hs->GetYaxis()->SetLabelSize(.07);
+  hs->GetYaxis()->SetLabelSize(.03);
 
   }  
 
@@ -660,22 +651,11 @@ legendsig = new TLegend(0.57, 0.5, 0.94,0.65,NULL,"brNDC");
  legendsig->SetFillStyle(0);
  legendsig->SetTextFont(42);
 // legendsig->SetNColumns(2);
- legendsig->AddEntry(h_mc[9],"m_{Z'}=1000 GeV", "l");
- legendsig->AddEntry(h_mc[10],"m_{Z'}=1200 GeV", "l");
- legendsig->AddEntry(h_mc[11],"m_{Z'}=1400 GeV", "l");
 
 
    legend->Draw("same"); 
   legendsig->Draw("same");
 
- TLatex* sig;
- sig = new TLatex(0.58,0.67,"m_{A}=300 GeV");
- sig->SetTextSize(0.034);
- sig->SetTextSize(0.047); 
- sig->SetTextAlign(12);
- sig->SetNDC(kTRUE);
- sig->SetTextFont(42);
- sig->Draw("same");
 
 t2a->Draw("same");
   t2b->Draw("same");
@@ -730,7 +710,7 @@ for(Int_t i = 0; i < h_err->GetNbinsX()+2; i++) {
    pow(0.20 * WJets->GetBinContent(i), 2) +
    pow(0.30 * ZJets->GetBinContent(i), 2) +
    pow(0.30 * DYJets->GetBinContent(i), 2) +
-   pow(0.20 * TT->GetBinContent(i), 2) +
+   /*pow(0.20 * TT->GetBinContent(i), 2) +*/
    pow(0.30 * STop->GetBinContent(i), 2) +
    pow(0.30 * DIBOSON->GetBinContent(i), 2));
    double binerror = sqrt(binerror2);
@@ -834,7 +814,8 @@ ratioleg1->AddEntry(ratiostaterr, "Postfit", "f");
  c1_1->SetFrameBorderMode(0);
  c1_1->SetLogy(0);
 if(VARIABLEBINS){ c1_1->SetLogx(0);                                                                                                           
- DataMC->GetXaxis()->SetMoreLogLabels();                                                                                                       DataMC->GetXaxis()->SetNoExponent();
+ DataMC->GetXaxis()->SetMoreLogLabels(); 
+ DataMC->GetXaxis()->SetNoExponent();
  DataMC->GetXaxis()->SetNdivisions(508);
  }     
  DataMC->GetXaxis()->SetRangeUser(XMIN,XMAX);
@@ -891,21 +872,20 @@ if(TEXTINFILE){
  Int_t binxmin = xaxis->FindBin(XMIN);
  Int_t binxmax = xaxis->FindBin(XMAX);
       
-float dyjets = h_mc[10]->Integral()+h_mc[11]->Integral()+h_mc[12]->Integral()+h_mc[13]->Integral()+h_mc[14]->Integral()+h_mc[15]->Integral()+h_mc[16]->Integral() ; 
-float dyjets_error = TMath::Sqrt(pow(Integral_Error[10],2) + pow(Integral_Error[11],2) + pow(Integral_Error[12],2) + pow(Integral_Error[13],2) + pow(Integral_Error[14],2)+ pow(Integral_Error[15],2)+ pow(Integral_Error[16],2));
+float dyjets = h_mc[3]->Integral()+h_mc[4]->Integral()+h_mc[5]->Integral()+h_mc[6]->Integral()+h_mc[7]->Integral()+h_mc[8]->Integral()+h_mc[9]->Integral()+h_mc[10]->Integral() ; 
+float dyjets_error = TMath::Sqrt( pow(Integral_Error[3],2) + pow(Integral_Error[4],2) + pow(Integral_Error[5],2) + pow(Integral_Error[6],2) + pow(Integral_Error[7],2) + pow(Integral_Error[8],2)+ pow(Integral_Error[9],2)+ pow(Integral_Error[10],2));
 
 float diboson_ = h_mc[0]->Integral() + h_mc[1]->Integral() + h_mc[2]->Integral();
 float diboson_error = TMath::Sqrt(pow(Integral_Error[0],2) + pow(Integral_Error[1],2) + pow(Integral_Error[2],2));
 
-float st_ = h_mc[24]->Integral() + h_mc[25]->Integral()+h_mc[26]->Integral()+h_mc[27]->Integral()+h_mc[28]->Integral() ;
-float st_error = TMath::Sqrt(pow(Integral_Error[24],2) + pow(Integral_Error[25],2) + pow(Integral_Error[26],2) +pow(Integral_Error[27],2) +pow(Integral_Error[28],2) ) ;
+float st_ = h_mc[19]->Integral() + h_mc[20]->Integral()+h_mc[21]->Integral()+h_mc[22]->Integral()+h_mc[22]->Integral() ;
+float st_error = TMath::Sqrt(pow(Integral_Error[20],2) + pow(Integral_Error[21],2) + pow(Integral_Error[22],2) +pow(Integral_Error[22],2) +pow(Integral_Error[19],2) ) ;
 
-float wjets = h_mc[17]->Integral() +h_mc[18]->Integral()+h_mc[19]->Integral()+h_mc[20]->Integral()+h_mc[21]->Integral()+h_mc[22]->Integral()+h_mc[23]->Integral() ;
-float wjets_error = TMath::Sqrt(pow(Integral_Error[17],2) + pow(Integral_Error[18],2) +pow(Integral_Error[19],2) +pow(Integral_Error[20],2) +pow(Integral_Error[21],2) +pow(Integral_Error[22],2) +pow(Integral_Error[23],2)) ;
+float wjets = h_mc[11]->Integral() +h_mc[12]->Integral()+h_mc[13]->Integral()+h_mc[14]->Integral()+h_mc[15]->Integral()+h_mc[16]->Integral()+h_mc[17]->Integral()+h_mc[18]->Integral() ;
+float wjets_error = TMath::Sqrt( pow(Integral_Error[11],2) + pow(Integral_Error[12],2) +pow(Integral_Error[13],2) +pow(Integral_Error[14],2) +pow(Integral_Error[15],2) +pow(Integral_Error[16],2) +pow(Integral_Error[17],2) +pow(Integral_Error[18],2));
 
-std::cout<<" wjets_error = "<<wjets_error<<std::endl;
-float zjets = h_mc[3]->Integral() +h_mc[4]->Integral()+h_mc[5]->Integral()+h_mc[6]->Integral()+h_mc[7]->Integral()+h_mc[8]->Integral()+h_mc[9]->Integral() ;
-float zjets_error = TMath::Sqrt(pow(Integral_Error[3],2) + pow(Integral_Error[4],2) +pow(Integral_Error[5],2) +pow(Integral_Error[6],2) +pow(Integral_Error[7],2) +pow(Integral_Error[8],2) +pow(Integral_Error[9],2)) ;
+float zjets = h_mc[3]->Integral()+h_mc[4]->Integral()+h_mc[5]->Integral()+h_mc[6]->Integral()+h_mc[7]->Integral()+h_mc[8]->Integral()+h_mc[9]->Integral()+h_mc[10]->Integral() ;
+float zjets_error = TMath::Sqrt(pow(Integral_Error[3],2) + pow( Integral_Error[4],2) + pow(Integral_Error[5],2) + pow(Integral_Error[6],2) + pow(Integral_Error[7],2) + pow(Integral_Error[8],2)+ pow(Integral_Error[9],2)+ pow(Integral_Error[10],2));
 
 
   mout << "HISTPATH_HISTNAME"            <<  " a b"<<std::endl; 
