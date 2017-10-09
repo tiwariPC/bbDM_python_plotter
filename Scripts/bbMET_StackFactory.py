@@ -76,7 +76,7 @@ gStyle->SetLineWidth(1);
 //Provide luminosity of total data
 float lumi = 2263.5; // It will print on your plots too
 //float lumi = 3200.; // It will print on your plots too
-float luminosity = 2.3;
+float luminosity = 35.9;
 
 std::vector<TString> filenameString;
 //Change here Directories of the file
@@ -147,18 +147,8 @@ filenameString.push_back(filenamepath + "Output_ST_tW_antitop_5f_inclusiveDecays
 //filenameString.push_back(filenamepath + "Merged_TT_TuneCUETP8M1_13TeV-powheg-pythia8-runallAnalysis.root");
 
 //bbMET Signal Sample 
-/*
-filenameString.push_back(filenamepath + "Merged_ZprimeToA0hToA0chichihbb_2HDM_MZp-600_MA0-300_13TeV-madgraph-runallAnalysis.root");
-filenameString.push_back(filenamepath + "Merged_ZprimeToA0hToA0chichihbb_2HDM_MZp-800_MA0-300_13TeV-madgraph-runallAnalysis.root");  
-filenameString.push_back(filenamepath + "Merged_ZprimeToA0hToA0chichihbb_2HDM_MZp-1000_MA0-300_13TeV-madgraph-runallAnalysis.root");  
-filenameString.push_back(filenamepath + "Merged_ZprimeToA0hToA0chichihbb_2HDM_MZp-1200_MA0-300_13TeV-madgraph-runallAnalysis.root");  
-filenameString.push_back(filenamepath + "Merged_ZprimeToA0hToA0chichihbb_2HDM_MZp-1400_MA0-300_13TeV-madgraph-runallAnalysis.root");  
-filenameString.push_back(filenamepath + "Merged_ZprimeToA0hToA0chichihbb_2HDM_MZp-1700_MA0-300_13TeV-madgraph-runallAnalysis.root");  
-filenameString.push_back(filenamepath + "Merged_ZprimeToA0hToA0chichihbb_2HDM_MZp-2000_MA0-300_13TeV-madgraph-runallAnalysis.root");  
-filenameString.push_back(filenamepath + "Merged_ZprimeToA0hToA0chichihbb_2HDM_MZp-2500_MA0-300_13TeV-madgraph-runallAnalysis.root");  
-*/
 
-//                                                                   
+//
 //Data File
 //filenameString.push_back(filenamepath + "Merged_MET-Run2015B-PromptReco-v1TotalV3-runallAnalysis.root");
 //filenameString.push_back(filenamepath + "Merged_MET.root");
@@ -313,12 +303,12 @@ legend = new TLegend(0.57, 0.7, 0.94,0.90,NULL,"brNDC");
  legend->SetFillStyle(0);
  legend->SetTextFont(42);
  legend->SetNColumns(2);
- //legend->AddEntry(h_data,"Data","PEL");                                                                                                         
- legend->AddEntry(DYJets,"DYj","f");
- legend->AddEntry(ZJets,"Zj","f");
- legend->AddEntry(WJets,"Wj","f");
+ //legend->AddEntry(h_data,"Data","PEL");
+ legend->AddEntry(DYJets,"Z(ll) + jets","f");
+ legend->AddEntry(ZJets,"Z(#nu #nu) + jets","f");
+ legend->AddEntry(WJets,"W(l#nu) + jets","f");
  //legend->AddEntry(TT,"top","f");
- legend->AddEntry(STop,"singletop","f");
+ legend->AddEntry(STop,"single t","f");
 
   
 
@@ -326,17 +316,18 @@ legend = new TLegend(0.57, 0.7, 0.94,0.90,NULL,"brNDC");
 //===========================Latex=================//
 TString latexCMSname= "CMS";// #it{#bf{Preliminary}}";
 TString latexPreCMSname= "DM + heavy flavor";
- 
+TString latexnamefirst= "DM + heavy flavor";
 TString latexnamemiddle;
 latexnamemiddle.Form("%1.1f fb^{-1}",luminosity); 
-TString latexnamepost = " (13 TeV)";
-//TString latexname = latexnamepre+latexnamemiddle+latexnamepost;  
+TString latexnamepost = "(13 TeV)";
+//TString latexname = latexnamepre+latexnamemiddle+latexnamepost;
 TString latexname = latexnamemiddle+latexnamepost;
 TString histolabel;
 
 //histolabel = "bbMET";
 
 TLatex *t2a;
+TLatex *t2a1;
 TLatex *t2b;
 TLatex *t2c;
 TLatex *t2d;
@@ -344,7 +335,10 @@ TLatex *t2d;
 if(NORATIOPLOT){
  t2b = new TLatex(0.15,0.85,latexCMSname);
  t2b->SetTextSize(0.036);
-
+ 
+ t2a1 = new TLatex(0.05,0.20,latexname);
+ t2a1->SetTextSize(0.025);
+ 
  t2a = new TLatex(0.75,0.95,latexname);
  t2a->SetTextSize(0.034);
 
@@ -381,6 +375,10 @@ if(NORATIOPLOT){
  }
 //SetTextAlign(12);
 //    latex->SetTextFont(42);
+ t2a1->SetTextAlign(12);
+ t2a1->SetNDC(kTRUE);
+ t2a1->SetTextFont(42);
+ 
  t2a->SetTextAlign(12);
  t2a->SetNDC(kTRUE);
  t2a->SetTextFont(42);
@@ -406,12 +404,6 @@ TCanvas *c12 = new TCanvas("Hist", "Hist", 0,0,1000,1000);
 //==================Stack==========================                                                                  
 THStack *hs = new THStack("hs"," ");
 
-// For N-1 Plots only
-bool nminus = 0;
-TLatex *tt;                                                                          
-
-
-                                                                                       
 //Colors for Histos
 
 //h_mc[0]->SetFillColor(616);
@@ -641,11 +633,11 @@ hs->GetXaxis()->SetNdivisions(508);
   hs->GetXaxis()->SetLabelSize(0.05); 
   hs->GetYaxis()->SetTitle("Events / GeV");                                                                                                                                                 if(!VARIABLEBINS){   hs->GetYaxis()->SetTitle("Events / GeV");                                   }
 
-  hs->GetYaxis()->SetTitleSize(0.05); 
+  hs->GetYaxis()->SetTitleSize(0.03); 
   hs->GetYaxis()->SetTitleOffset(0.9);
   hs->GetYaxis()->SetTitleFont(42);
   hs->GetYaxis()->SetLabelFont(42);
-  hs->GetYaxis()->SetLabelSize(.05);
+  hs->GetYaxis()->SetLabelSize(.03);
 
   }  
 
@@ -690,8 +682,8 @@ legendsig = new TLegend(0.57, 0.5, 0.94,0.65,NULL,"brNDC");
    legend->Draw("same"); 
   legendsig->Draw("same");
 
-
-t2a->Draw("same");
+  t2a1->Draw("same");
+  t2a->Draw("same");
   t2b->Draw("same");
   t2c->Draw("same");
   t2d->Draw("same");
@@ -705,7 +697,7 @@ t2a->Draw("same");
 //  h_data->Draw("same p e1");
 // for lower band stat and sys band
 
-
+/*
 TH1F * ratiostaterr = (TH1F *) h_err->Clone("ratiostaterr");
 ratiostaterr->Sumw2();
 ratiostaterr->SetStats(0);
@@ -763,6 +755,7 @@ ratioleg->SetNColumns(2);
 //ratioleg->SetTextSize(0.07);
 ratioleg->AddEntry(ratiosysterr, "Pred. uncert. (stat + syst)", "f");                                                                                    
 ratioleg->AddEntry(ratiostaterr, "Pred. uncert. (stat)", "f");
+*/
 
 /*
 TLegend * ratioleg1 = new TLegend(0.35, 0.35, 0.94, 0.94);
