@@ -330,8 +330,8 @@ TString latexPreCMSname= "DM + heavy flavor";
 TString latexnamemiddle;
 latexnamemiddle.Form("%1.1f fb^{-1}",luminosity); 
 TString latexnamepost = " (13 TeV)";
-TString latexname = latexnamepre+latexnamemiddle+latexnamepost;  
-//TString latexname = latexnamemiddle+latexnamepost;
+//TString latexname = latexnamepre+latexnamemiddle+latexnamepost;  
+TString latexname = latexnamemiddle+latexnamepost;
 TString histolabel;
 
 //histolabel = "bbMET";
@@ -632,6 +632,11 @@ hs->GetXaxis()->SetNdivisions(508);
   }
   else{
   hs->GetXaxis()->SetTitle("XAXISLABEL");
+  hs->GetXaxis()->SetTitleSize(0.05);
+  hs->GetXaxis()->SetTitleOffset(0.97);
+  hs->GetXaxis()->SetTitleFont(42);
+  hs->GetXaxis()->SetLabelFont(42);
+  hs->GetXaxis()->SetLabelSize(.05);
   hs->GetXaxis()->SetLabelOffset(999);
   hs->GetXaxis()->SetLabelSize(0); 
   hs->GetYaxis()->SetTitle("Events / GeV");                                                                                                                                                 if(!VARIABLEBINS){   hs->GetYaxis()->SetTitle("Events / GeV");                                   }
@@ -1177,12 +1182,12 @@ for dirname in dirnames:
         makeplot([dirname+"jet3_eta_Zmumucr2",'h_jet3_eta_Zmumucr2_','jet 1 #eta','-3.','3.','70','0'])
         
         
-        makeplot([dirname+"jet1_csv_Zmumucr1",'h_jet1_eta_Zmumucr1_','jet 1 #eta','-3.','3.','70','0'])
-        makeplot([dirname+"jet2_csv_Zmumucr1",'h_jet2_eta_Zmumucr1_','jet 1 #eta','-3.','3.','70','0'])
+        makeplot([dirname+"jet1_csv_Zmumucr1",'h_jet1_eta_Zmumucr1_','jet 1 csv','-3.','3.','100','0'])
+        makeplot([dirname+"jet2_csv_Zmumucr1",'h_jet2_eta_Zmumucr1_','jet 1 csv','-3.','3.','100','0'])
         
-        makeplot([dirname+"jet1_csv_Zmumucr2",'h_jet1_csv_Zmumucr2_','jet 1 #eta','-3.','3.','70','0'])
-        makeplot([dirname+"jet2_csv_Zmumucr2",'h_jet2_csv_Zmumucr2_','jet 1 #eta','-3.','3.','70','0'])
-        makeplot([dirname+"jet3_csv_Zmumucr2",'h_jet3_csv_Zmumucr2_','jet 1 #eta','-3.','3.','0','0'])
+        makeplot([dirname+"jet1_csv_Zmumucr2",'h_jet1_csv_Zmumucr2_','jet 1 csv','-3.','3.','100','0'])
+        makeplot([dirname+"jet2_csv_Zmumucr2",'h_jet2_csv_Zmumucr2_','jet 1 csv','-3.','3.','100','0'])
+        makeplot([dirname+"jet3_csv_Zmumucr2",'h_jet3_csv_Zmumucr2_','jet 1 csv','-3.','3.','100','0'])
         
 #makeplot([dirname,'h_Mjj_Rebin0','m_{AK8}[GeV]','30','250','1','0','1','','0','1','PrefitMass']) 
         #makeplot([dirname,'h_MET0','E_{T}^{miss}[GeV]','200','1000','1','0','1','','0','1','PrefitMET']) ## last bin is for variable met bins  ## second last is for data option
