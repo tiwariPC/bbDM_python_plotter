@@ -1193,51 +1193,6 @@ for dirname in dirnames:
       makeplot([dirname+"jet2_csv_TOPcr2",'h_jet2_csv_TOPcr2_','jet 2 csv','0.','1.','100','0'])
       makeplot([dirname+"jet3_csv_TOPcr2",'h_jet3_csv_TOPcr2_','jet 3 csv','0.','1.','100','0'])
         
-#makeplot([dirname,'h_Mjj_Rebin0','m_{AK8}[GeV]','30','250','1','0','1','','0','1','PrefitMass']) 
-        #makeplot([dirname,'h_MET0','E_{T}^{miss}[GeV]','200','1000','1','0','1','','0','1','PrefitMET']) ## last bin is for variable met bins  ## second last is for data option
-        #makeplot([dirname,'h_nMuons0','N_{add. #mu}','0','5','1','0','1','','0'])## last option 0 will plot data
-        #makeplot([dirname,'h_cutFlow0','','0','7','1','1','1','','0'])
-        #makeplot([dirname,'h_MET0','MET','200','1000','25','1','1','NoData','1','0']) ## last bin is for variable met bins  ## second last is for data option
-
-        '''makeplot([dirname,'h_MET0','E_{T}^{miss}[GeV]','200','1000','25','1','1','NoData','0','1']) ## last bin is for variable met bins  ## second last is for data option
-        makeplot([dirname,'h_MET0','E_{T}^{miss}[GeV]','200','1000','25','0','1','','0','0']) ## last bin is for variable met bins  ## second last is for data option
-        #makeplot([dirname,'h_MET0','MET','200','1000','25','1','1','NoData','1','0']) ## last bin is for variable met bins  ## second last is for data option
-        
-        
-        makeplot([dirname,'h_cutFlow0','','0','7','1','1','1','NoData','1'])
-        
-        makeplot([dirname,'h_MT_bb_MET0', 'M_{T}', '450.','1000', '25','1','1','','0'])
-        makeplot([dirname,'h_MT_bb_MET0', 'M_{T}', '450.','1000', '25','0','1','','0'])
-        makeplot([dirname,'h_MT_bb_MET0', 'M_{T}', '450.','1000', '25','1','0','NoData','1'])
-        
-        #makeplot([dirname,'h_NThinJets0','N_{AK04 Jets}','0','10','1','0','1','NoData','1'])
-        makeplot([dirname,'h_NThinJets0','N_{AK04 Jets}','0','10','1','0','1','','0'])
-        
-        makeplot([dirname,'h_pTjj0','p_{T}^{AK8Jet}','100','1000','25','0'])
-        makeplot([dirname,'h_CSV10', 'CSV_{1}', '0','1', '1','0'])
-        makeplot([dirname,'h_CSV20', 'CSV_{2}', '0','1', '1','0'])
-        makeplot([dirname,'h_Mjj0','Mass [GeV]','20','260','20','0']) 
-        makeplot([dirname,'h_nElectrons0','N_{add. e}','0','5','1','0'])
-        makeplot([dirname,'h_nJetss0','N_{add. Jets}','0','5','1','0']) 
-        makeplot([dirname,'h_dPhiThinJetMET0','Min #Delta#phi_{J-MET}','0.','3.5','10','0'])
-        #makeplot([dirname,'h_MHT0','MHT','0.','600','25','0'])
-        makeplot([dirname,'h_CSVSum0','CSV','0','1','1','0'])
-        makeplot([dirname,'h_phijj0','#phi_{AK8Jet}','-3.5','3.5','20','0'])
-        makeplot([dirname,'h_etajj0','#eta_{AK8Jet}','-2.4','2.4','20','0'])
-        makeplot([dirname,'h_nTaus0','N_{#tau}','0','5','1','0'])
-        makeplot([dirname,'h_dPhi_bb_MET0','#Delta#phi_{AK8Jet-MET}','0.','3.5','10','0'])
-        makeplot([dirname,'h_MET_Over_SumET0', 'MET/SumET', '0','5', '1','0'])
-        makeplot([dirname,'h_MET_Over_pTFatJet0', 'MET/p_{T}^{AK8-Jet}', '0','2.', '1','0'])
-        makeplot([dirname,'h_DRSJ0', '#DeltaR_{sub-jets}', '0','1', '1','0'])
-        makeplot([dirname,'h_CSVMax0', 'CSV_{Max}', '0','1', '1','0'])
-        makeplot([dirname,'h_CSVMin0', 'CSV_{Min}', '0','1', '1','0'])
-        makeplot([dirname,'h_h_Tau21jj0','#tau_{21}','0','1','1','0'])
-        makeplot([dirname,'h_CEmEF0', 'CEmEF', '0','1.', '1','0'])
-        makeplot([dirname,'h_CHadEF0', 'CHadEF', '0','1.', '1','0'])
-        makeplot([dirname,'h_PhoEF0', 'PhoEF', '0','1.', '1','0'])
-        makeplot([dirname,'h_NHadEF0', 'NHadEF', '0','1.', '1','0'])
-        makeplot([dirname,'h_MuEF0', 'MuEF', '0','1.', '1','0'])
-        '''
     makelogplots=True
     
     if makelogplots : 
