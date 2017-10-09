@@ -290,7 +290,6 @@ STop->Add(h_mc[ttjets]);}
 legend = new TLegend(0.58, 0.69, 0.92,0.94,NULL,"brNDC");
  legend->SetTextSize(0.036);
  }else{
-
 legend = new TLegend(0.57, 0.7, 0.94,0.90,NULL,"brNDC"); 
 //legend = new TLegend(0.13, 0.85, 0.95,0.92,NULL,"brNDC");
 // legend = new TLegend(0.7, 0.68, 0.95,0.92,NULL,"brNDC");
@@ -361,16 +360,7 @@ if(NORATIOPLOT){
  t2d = new TLatex(0.180,0.785,histolabel);
  t2d->SetTextSize(0.05);
 
-// t2c = new TLatex(0.270,0.79,latexPreCMSname);
-// t2c->SetTextSize(0.047);
-
-// t2d = new TLatex(0.270,0.74.5,histolabel);
-// t2d->SetTextSize(0.05);
-
-
  }
-//SetTextAlign(12);
-//    latex->SetTextFont(42);
  t2a->SetTextAlign(12);
  t2a->SetNDC(kTRUE);
  t2a->SetTextFont(42);
@@ -387,8 +377,6 @@ if(NORATIOPLOT){
  t2d->SetNDC(kTRUE);
  t2d->SetTextFont(42);
 
- 
-
 
 //============== CANVAS DECLARATION ===================
 TCanvas *c12 = new TCanvas("Hist", "Hist", 0,0,1000,1000);
@@ -396,24 +384,15 @@ TCanvas *c12 = new TCanvas("Hist", "Hist", 0,0,1000,1000);
 //==================Stack==============================
 THStack *hs = new THStack("hs"," ");
 
-// For N-1 Plots only
-bool nminus = 0;
-TLatex *tt;
-
-
 //Colors for Histos
 
-//h_mc[0]->SetFillColor(616);
-//h_mc[0]->SetLineColor(1);
-//DYJets->SetFillColor(5);
-DYJets->SetFillColor(kOrange-3);
+DYJets->SetFillColor(kOrange);
 DYJets->SetLineColor(1);
 //DYJets->SetLineWidth(3);
 
-ZJets->SetFillColor(kRed-10);
+ZJets->SetFillColor(kRed);
 ZJets->SetLineColor(1);
 
-//DIBOSON->SetFillColor(920);
 DIBOSON->SetFillColor(kGray+2);
 DIBOSON->SetLineColor(1);
 
@@ -421,12 +400,10 @@ DIBOSON->SetLineColor(1);
 //TT->SetFillColor(kCyan+2);
 //TT->SetLineColor(1);
 
-//WJets->SetFillColor(820);                                                                                                            
-WJets->SetFillColor(kGreen+3);                                                                                                            
+WJets->SetFillColor(kGreen);
 WJets->SetLineColor(1);
 
 
-//TT->SetFillColor(596);
 STop->SetFillColor(kBlue+2);
 STop->SetLineColor(1);
 
@@ -477,8 +454,6 @@ hs->Add(DYJets,"hist");
 hs->Add(STop,"hist");
 }
 
-
-
 //h_data->SetMarkerColor(kBlack);
 //h_data->SetMarkerStyle(20);
 //float maxi = h_data->GetMaximum();
@@ -523,10 +498,9 @@ Stackhist->SetLineWidth(2);
 
 //Setting canvas without log axis
 c12->SetLogy(ISLOG);
-  
-  
-  
-  // Upper canvas declaration
+
+
+// Upper canvas declaration
  /*
   if(NORATIOPLOT){
   TPad *c1_2 = new TPad("c1_2","newpad",0,0.05,1,0.993);
@@ -579,13 +553,13 @@ h_prefit->SetFillColor(0);
  // h_data->Draw("same p e1");
   }
   if(!NORATIOPLOT){
-  if(ISLOG)    hs->SetMinimum(1.0);
+  if(ISLOG)    hs->SetMinimum(0.01);
   if(!ISLOG)   hs->SetMinimum(1);
   //if(!ISLOG)   hs->SetMaximum(maxi *1.8);
   //if(ISLOG)    hs->SetMaximum(maxi *10);
   if(!ISLOG) hs->SetMaximum(0.4);
   }else{
-  if(ISLOG)    hs->SetMinimum(1.0);
+  if(ISLOG)    hs->SetMinimum(0.01);
   if(!ISLOG)   hs->SetMinimum(1);
   //if(!ISLOG)   hs->SetMaximum(maxi *1.70);
   //if(ISLOG)    hs->SetMaximum(maxi *100);
@@ -599,8 +573,8 @@ h_prefit->SetFillColor(0);
   binwidth_.Form("%1.1f",binofwidth);
   
 //hs->GetXaxis()->SetTickLength(0.07);
-  hs->GetXaxis()->SetNdivisions(508);                                                                                                                                             
-
+  hs->GetXaxis()->SetNdivisions(508);
+  
   if(NORATIOPLOT){
   hs->GetXaxis()->SetTitleSize(0.05);
   hs->GetXaxis()->SetTitleOffset(0.97);
@@ -608,17 +582,12 @@ h_prefit->SetFillColor(0);
   hs->GetXaxis()->SetLabelFont(42);
   hs->GetXaxis()->SetLabelSize(.03);
   hs->GetYaxis()->SetTitle("Events / GeV");
-  if(!VARIABLEBINS){    hs->GetYaxis()->SetTitle("Events/"+binwidth_);}
   hs->GetYaxis()->SetTitleSize(0.05);
   hs->GetYaxis()->SetTitleOffset(0.88);
   hs->GetYaxis()->SetTitleFont(42);
   hs->GetYaxis()->SetLabelFont(42);
   hs->GetYaxis()->SetLabelSize(0.03);
-  hs->GetXaxis()->SetTitle("XAXISLABEL");
-  if(VARIABLEBINS){
-   hs->GetXaxis()->SetMoreLogLabels();                                                                                                       
-  hs->GetXaxis()->SetNoExponent();}
-  }
+  hs->GetXaxis()->SetTitle("XAXISLABEL");}
   else{
   hs->GetXaxis()->SetTitle("XAXISLABEL");
   hs->GetXaxis()->SetTitleSize(0.05);
@@ -626,17 +595,15 @@ h_prefit->SetFillColor(0);
   hs->GetXaxis()->SetTitleFont(42);
   hs->GetXaxis()->SetLabelFont(42);
   hs->GetXaxis()->SetLabelSize(.03);
-  hs->GetXaxis()->SetLabelOffset(.03);
+  hs->GetXaxis()->SetLabelOffset(.05);
   hs->GetXaxis()->SetLabelSize(0.03); 
-  hs->GetYaxis()->SetTitle("Events / GeV");                                                                                                                                                 if(!VARIABLEBINS){   hs->GetYaxis()->SetTitle("Events / GeV");                                   }
-
+  hs->GetYaxis()->SetTitle("Events / GeV");
   hs->GetYaxis()->SetTitleSize(0.03); 
   hs->GetYaxis()->SetTitleOffset(0.9);
   hs->GetYaxis()->SetTitleFont(42);
   hs->GetYaxis()->SetLabelFont(42);
   hs->GetYaxis()->SetLabelSize(.03);
-
-  }  
+  }
 
 
   hs->GetXaxis()->SetRangeUser(XMIN,XMAX);  
@@ -661,10 +628,7 @@ h_prefit->SetFillColor(0);
 legend = new TLegend(0.58, 0.69, 0.92,0.94,NULL,"brNDC");
  legend->SetTextSize(0.036);
  }else{
-
-legendsig = new TLegend(0.57, 0.5, 0.94,0.65,NULL,"brNDC"); 
-//legend = new TLegend(0.13, 0.85, 0.95,0.92,NULL,"brNDC");
-// legend = new TLegend(0.7, 0.68, 0.95,0.92,NULL,"brNDC");
+ legendsig = new TLegend(0.57, 0.5, 0.94,0.65,NULL,"brNDC");
  legendsig->SetTextSize(0.046); }
  legendsig->SetBorderSize(0);
  legendsig->SetLineColor(1);
@@ -673,14 +637,12 @@ legendsig = new TLegend(0.57, 0.5, 0.94,0.65,NULL,"brNDC");
  legendsig->SetFillColor(0);
  legendsig->SetFillStyle(0);
  legendsig->SetTextFont(42);
-// legendsig->SetNColumns(2);
+
+ legend->Draw("same"); 
+ legendsig->Draw("same");
 
 
-   legend->Draw("same"); 
-  legendsig->Draw("same");
-
-
-t2a->Draw("same");
+  t2a->Draw("same");
   t2b->Draw("same");
   t2c->Draw("same");
   t2d->Draw("same");
@@ -750,7 +712,7 @@ ratioleg->SetTextSize(0.09);
 ratioleg->SetBorderSize(1);
 ratioleg->SetNColumns(2);
 //ratioleg->SetTextSize(0.07);
-ratioleg->AddEntry(ratiosysterr, "Pred. uncert. (stat + syst)", "f");                                                                                    
+ratioleg->AddEntry(ratiosysterr, "Pred. uncert. (stat + syst)", "f");
 ratioleg->AddEntry(ratiostaterr, "Pred. uncert. (stat)", "f");
 
 /*
@@ -763,7 +725,7 @@ ratioleg1->SetTextSize(0.09);
 ratioleg1->SetBorderSize(1);
 ratioleg1->SetNColumns(2);
 //ratioleg->SetTextSize(0.07);
-ratioleg1->AddEntry(ratiosysterr, "Pre-fit", "f");                                                                                    
+ratioleg1->AddEntry(ratiosysterr, "Pre-fit", "f");
 ratioleg1->AddEntry(ratiostaterr, "Postfit", "f");
 */
 
@@ -792,33 +754,7 @@ ratioleg1->AddEntry(ratiostaterr, "Postfit", "f");
   DataMC->GetXaxis()->SetLabelFont(42);
   DataMC->GetYaxis()->SetLabelFont(42);     
   
- if("HISTNAME"=="h_cutFlow0"){
-   if("HISTPATH" == "MonoHFatJetSelection_JetAndLeptonVeto"){
-    DataMC->GetXaxis()->SetBinLabel(1,"Preselection");
-    DataMC->GetXaxis()->SetBinLabel(2,"AntiQCD");
-    DataMC->GetXaxis()->SetBinLabel(3,"Mass");
-    DataMC->GetXaxis()->SetBinLabel(4,"CSV1/2");
-    DataMC->GetXaxis()->SetBinLabel(5,"l-veto");
-    DataMC->GetXaxis()->SetBinLabel(6,"jet(b)-veto");
-}
-
-   if("HISTPATH" == "histfacFatJet_ZLight"){
-    DataMC->GetXaxis()->SetBinLabel(1,"Preselection");
-    DataMC->GetXaxis()->SetBinLabel(2,"AntiQCD");
-    DataMC->GetXaxis()->SetBinLabel(3,"Mass");
-    DataMC->GetXaxis()->SetBinLabel(4,"CSV1/2");
-    DataMC->GetXaxis()->SetBinLabel(5,"l-veto");
-    DataMC->GetXaxis()->SetBinLabel(6,"jet(b)-veto");
-}
-
-
-   if("HISTPATH" == "histfacFatJet_WHeavy"){
-    DataMC->GetXaxis()->SetBinLabel(1,"Preselection");
-    DataMC->GetXaxis()->SetBinLabel(2,"AntiQCD");
-    DataMC->GetXaxis()->SetBinLabel(3,"Mass");
-    DataMC->GetXaxis()->SetBinLabel(4,"CSV1/2");
-    DataMC->GetXaxis()->SetBinLabel(5,"1-lepton");
-}
+ 
 }
 
  TPad *c1_1 = new TPad("c1_1", "newpad",0,0.00,1,0.3);
@@ -836,7 +772,7 @@ ratioleg1->AddEntry(ratiostaterr, "Postfit", "f");
  c1_1->SetFrameFillStyle(0);
  c1_1->SetFrameBorderMode(0);
  c1_1->SetLogy(0);
-if(VARIABLEBINS){ c1_1->SetLogx(0);                                                                                                           
+if(VARIABLEBINS){ c1_1->SetLogx(0);
  DataMC->GetXaxis()->SetMoreLogLabels();                                                                                                       DataMC->GetXaxis()->SetNoExponent();
  DataMC->GetXaxis()->SetNdivisions(508);
  }     
@@ -1128,6 +1064,7 @@ def makeplot(inputs):
     os.system('root -l -b -q  Plot.C')
 
 ##########Start Adding your plots here
+
 
 dirnames=['bbMETbackground_']
 
