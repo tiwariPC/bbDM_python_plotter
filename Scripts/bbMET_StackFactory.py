@@ -288,12 +288,12 @@ STop->Add(h_mc[ttjets]);}
  if(NORATIOPLOT){
  //legend = new TLegend(0.73, 0.62, 0.95,0.92,NULL,"brNDC");
 legend = new TLegend(0.58, 0.69, 0.92,0.94,NULL,"brNDC");
- legend->SetTextSize(0.036);
+ legend->SetTextSize(0.020);
  }else{
 legend = new TLegend(0.57, 0.7, 0.94,0.90,NULL,"brNDC"); 
 //legend = new TLegend(0.13, 0.85, 0.95,0.92,NULL,"brNDC");
 // legend = new TLegend(0.7, 0.68, 0.95,0.92,NULL,"brNDC");
- legend->SetTextSize(0.046); }
+ legend->SetTextSize(0.020); }
  legend->SetBorderSize(0);
  legend->SetLineColor(1);
  legend->SetLineStyle(1);
@@ -327,7 +327,7 @@ TString histolabel;
 
 TLatex *t2a;
 TLatex *t2b;
-TLatex *t2c;
+//TLatex *t2c;
 TLatex *t2d;
 
 if(NORATIOPLOT){
@@ -341,8 +341,8 @@ if(NORATIOPLOT){
 // t2c->SetTextSize(0.036);
 // t2d = new TLatex(0.25,0.77,histolabel);
 // t2d->SetTextSize(0.036);
- //t2c = new TLatex(0.15,0.84,latexPreCMSname);
- t2c->SetTextSize(0.036);
+// t2c = new TLatex(0.15,0.84,latexPreCMSname);
+// t2c->SetTextSize(0.036);
 
  t2d = new TLatex(0.15,0.79,histolabel);
  t2d->SetTextSize(0.036);
@@ -351,11 +351,11 @@ if(NORATIOPLOT){
  t2b = new TLatex(0.180,0.88,latexCMSname);
  t2b->SetTextSize(0.05);
 
- t2a = new TLatex(0.75,0.975,latexname);
+ t2a = new TLatex(0.15,0.95,latexname);
  t2a->SetTextSize(0.047); 
 
- t2c = new TLatex(0.180,0.835,latexPreCMSname);
- t2c->SetTextSize(0.047);
+ //t2c = new TLatex(0.180,0.835,latexPreCMSname);
+ //t2c->SetTextSize(0.047);
 
  t2d = new TLatex(0.180,0.785,histolabel);
  t2d->SetTextSize(0.05);
@@ -369,9 +369,9 @@ if(NORATIOPLOT){
  t2b->SetNDC(kTRUE);
  t2b->SetTextFont(61);
 
- t2c->SetTextAlign(12);
- t2c->SetNDC(kTRUE);
- t2c->SetTextFont(42);
+ //t2c->SetTextAlign(12);
+ //t2c->SetNDC(kTRUE);
+ //t2c->SetTextFont(42);
 
  t2d->SetTextAlign(12);
  t2d->SetNDC(kTRUE);
@@ -587,13 +587,13 @@ h_prefit->SetFillColor(0);
   hs->GetXaxis()->SetNdivisions(508);
   
   if(NORATIOPLOT){
-  hs->GetXaxis()->SetTitleSize(0.05);
+  hs->GetXaxis()->SetTitleSize(0.03);
   hs->GetXaxis()->SetTitleOffset(0.97);
   hs->GetXaxis()->SetTitleFont(42);
   hs->GetXaxis()->SetLabelFont(42);
   hs->GetXaxis()->SetLabelSize(.03);
   hs->GetYaxis()->SetTitle("Events / GeV");
-  hs->GetYaxis()->SetTitleSize(0.05);
+  hs->GetYaxis()->SetTitleSize(0.03);
   hs->GetYaxis()->SetTitleOffset(0.88);
   hs->GetYaxis()->SetTitleFont(42);
   hs->GetYaxis()->SetLabelFont(42);
@@ -601,12 +601,12 @@ h_prefit->SetFillColor(0);
   hs->GetXaxis()->SetTitle("XAXISLABEL");}
   else{
   hs->GetXaxis()->SetTitle("XAXISLABEL");
-  hs->GetXaxis()->SetTitleSize(0.05);
+  hs->GetXaxis()->SetTitleSize(0.03);
   hs->GetXaxis()->SetTitleOffset(0.97);
   hs->GetXaxis()->SetTitleFont(42);
   hs->GetXaxis()->SetLabelFont(42);
   hs->GetXaxis()->SetLabelSize(.03);
-  hs->GetXaxis()->SetLabelOffset(.05);
+  hs->GetXaxis()->SetLabelOffset(.01);
   hs->GetXaxis()->SetLabelSize(0.03); 
   hs->GetYaxis()->SetTitle("Events / GeV");
   hs->GetYaxis()->SetTitleSize(0.03); 
@@ -637,10 +637,10 @@ h_prefit->SetFillColor(0);
  if(NORATIOPLOT){
  //legend = new TLegend(0.73, 0.62, 0.95,0.92,NULL,"brNDC");
 legend = new TLegend(0.58, 0.69, 0.92,0.94,NULL,"brNDC");
- legend->SetTextSize(0.036);
+ legend->SetTextSize(0.020);
  }else{
  legendsig = new TLegend(0.57, 0.5, 0.94,0.65,NULL,"brNDC");
- legendsig->SetTextSize(0.046); }
+ legendsig->SetTextSize(0.030); }
  legendsig->SetBorderSize(0);
  legendsig->SetLineColor(1);
  legendsig->SetLineStyle(1);
@@ -655,7 +655,7 @@ legend = new TLegend(0.58, 0.69, 0.92,0.94,NULL,"brNDC");
 
   t2a->Draw("same");
   t2b->Draw("same");
-  t2c->Draw("same");
+  //t2c->Draw("same");
   t2d->Draw("same");
   
   
