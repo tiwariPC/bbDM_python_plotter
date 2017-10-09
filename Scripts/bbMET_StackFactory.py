@@ -1129,27 +1129,7 @@ def makeplot(inputs):
 
 ##########Start Adding your plots here
 
-
-#dirnames=['histfacFatJet_WHeavy','MonoHFatJetSelection_JetAndLeptonVeto','histfacFatJet_ZLight']
-#'histfacFatJet_WLight','histfacFatJet_TTBar','histfacFatJet_ZLight','histfacFatJet_TTBar_Merged','histfacFatJet_WHeavy','MonoHFatJetSelection_JetAndLeptonVeto']
-#dirnames=['histfacFatJet_QCD']
-#dirnames=['histfacFatJet_ZLight']
-#dirnames=['MonoHFatJetSelection_JetAndLeptonVeto']
-
 dirnames=['bbMETbackground_']
-
-#dirnames=['histfacFatJet_WLight']
-
-#dirnames=['MonoHFatJetSelection_Jetveto','MonoHFatJetSelection_LeptonVeto','MonoHFatJetSelection_JetAndLeptonVeto']
-#dirnames=['histfacFatJet_WLight','histfacFatJet_TTBar','histfacFatJet_ZLight']
-#dirnames=['histfacFatJet_ZLight']
-#dirnames=['histfacFatJet_ZLight']
-
-#dirnames=['MonoHFatJetSelection_JetAndLeptonVeto']
-#dirnames=['MonoHFatJetsPreselection_1subj','MonoHFatJetsPreselection_2subj','histfacFatJet_TTBar','histfacFatJet_ZLight','histfacFatJet_ZHeavy','histfacFatJet_WLight','histfacFatJet_WHeavy']
-#dirnames=['MonoHFatJetsPreselection_2subj','MonoHFatJetSelection_Jetveto','MonoHFatJetSelection_LeptonVeto','MonoHFatJetSelection_JetAndLeptonVeto']
-## Plots After Pre-selection
-#makeplot(['CutFlowAndEachCutFatJet', 'h_cutflow_0_f', 'Cut Flow', '0','5', '1', '1','1'])
 
 
 
@@ -1297,40 +1277,40 @@ for dirname in dirnames:
     makelogplots=True
     
     if makelogplots : 
-        makeplot([dirname+"jet1_pT_Zmumucr1",'h_jet1_pT_Zmumucr1_','jet 1 p_{T} (GeV)','0.','800.','2','1'])
-        makeplot([dirname+"jet2_pT_Zmumucr1",'h_jet2_pT_Zmumucr1_','jet 2 p_{T} (GeV)','0.','400.','1','1'])
+        makeplot([dirname+"jet1_pT_Zmumucr1",'h_jet1_pT_Zmumucr1_','jet 1 p_{T} (GeV)','0.','800.','100','1'])
+        makeplot([dirname+"jet2_pT_Zmumucr1",'h_jet2_pT_Zmumucr1_','jet 2 p_{T} (GeV)','0.','400.','100','1'])
         
-        makeplot([dirname+"jet1_pT_Zeecr1",'h_jet1_pT_Zeecr1_','jet 1 p_{T} (GeV)','0.','800.','2','1'])
-        makeplot([dirname+"jet2_pT_Zeecr1",'h_jet2_pT_Zeecr1_','jet 2 p_{T} (GeV)','0.','800.','2','1'])
-        
-        
-        makeplot([dirname+"jet1_pT_Zmumucr2",'h_jet1_pT_Zmumucr2_','jet 1 p_{T} (GeV)','0.','800.','2','1'])
-        makeplot([dirname+"jet2_pT_Zmumucr2",'h_jet2_pT_Zmumucr2_','jet 2 p_{T} (GeV)','0.','800.','2','1'])
-        makeplot([dirname+"jet3_pT_Zmumucr2",'h_jet3_pT_Zmumucr2_','jet 2 p_{T} (GeV)','0.','400.','1','1'])
-        
-        makeplot([dirname+"jet1_pT_Zeecr2",'h_jet1_pT_Zeecr2_','jet 1 p_{T} (GeV)','0.','800.','2','1'])
-        makeplot([dirname+"jet2_pT_Zeecr2",'h_jet2_pT_Zeecr2_','jet 2 p_{T} (GeV)','0.','800.','2','1'])
-        makeplot([dirname+"jet3_pT_Zmumucr2",'h_jet3_pT_Zmumucr2_','jet 2 p_{T} (GeV)','0.','400.','1','1'])
+        makeplot([dirname+"jet1_pT_Zeecr1",'h_jet1_pT_Zeecr1_','jet 1 p_{T} (GeV)','0.','800.','100','1'])
+        makeplot([dirname+"jet2_pT_Zeecr1",'h_jet2_pT_Zeecr1_','jet 2 p_{T} (GeV)','0.','800.','100','1'])
         
         
-        makeplot([dirname+"ZpT1mumu",'h_ZpT1mumu_','Z candidate p_{T} (GeV)','0.','400.','1','1'])
-        makeplot([dirname+"ZpT1ee",'h_ZpT1ee_','Z candidate p_{T} (GeV)','0.','400.','1','1'])
+        makeplot([dirname+"jet1_pT_Zmumucr2",'h_jet1_pT_Zmumucr2_','jet 1 p_{T} (GeV)','0.','800.','100','1'])
+        makeplot([dirname+"jet2_pT_Zmumucr2",'h_jet2_pT_Zmumucr2_','jet 2 p_{T} (GeV)','0.','800.','100','1'])
+        makeplot([dirname+"jet3_pT_Zmumucr2",'h_jet3_pT_Zmumucr2_','jet 2 p_{T} (GeV)','0.','400.','100','1'])
         
-        makeplot([dirname+"ZpT2mumu",'h_ZpT2mumu_','Z candidate p_{T} (GeV)','0.','400.','1','1'])
-        makeplot([dirname+"ZpT2ee",'h_ZpT2ee_','Z candidate p_{T} (GeV)','0.','400.','1','1'])
-        
-        
-        makeplot([dirname+"mu1_iso_Zmumucr1",'h_mu1_iso_Zmumucr1_','lepton 1 PFIso','0.','0.25','1','1'])
-        makeplot([dirname+"mu2_iso_Zmumucr1",'h_mu2_iso_Zmumucr1_','lepton 2 PFIso','0','0.25','1','1'])
-        
-        makeplot([dirname+"mu1_iso_Zmumucr2",'h_mu1_iso_Zmumucr2_','lepton 1 PFIso','0','0.25','1','1'])
-        makeplot([dirname+"mu2_iso_Zmumucr2",'h_mu2_iso_Zmumucr2_','lepton 2 PFIso','0','0.25','1','1'])
+        makeplot([dirname+"jet1_pT_Zeecr2",'h_jet1_pT_Zeecr2_','jet 1 p_{T} (GeV)','0.','800.','100','1'])
+        makeplot([dirname+"jet2_pT_Zeecr2",'h_jet2_pT_Zeecr2_','jet 2 p_{T} (GeV)','0.','800.','100','1'])
+        makeplot([dirname+"jet3_pT_Zmumucr2",'h_jet3_pT_Zmumucr2_','jet 2 p_{T} (GeV)','0.','400.','100','1'])
         
         
-        makeplot([dirname+"ZhadronRecoilmumu1",'h_ZhadronRecoilmumu1_','hadronic recoil ','0.','800.','2','1'])
-        makeplot([dirname+"ZhadronRecoilee1",'h_ZhadronRecoilee1_','hadronic recoil','0.','400.','1','1'])
+        makeplot([dirname+"ZpT1mumu",'h_ZpT1mumu_','Z candidate p_{T} (GeV)','0.','400.','100','1'])
+        makeplot([dirname+"ZpT1ee",'h_ZpT1ee_','Z candidate p_{T} (GeV)','0.','400.','100','1'])
         
-        makeplot([dirname+"ZhadronRecoilmumu2",'h_ZhadronRecoilmumu2_','hadronic recoil','0.','800.','2','1'])
-        makeplot([dirname+"ZhadronRecoilee2",'h_ZhadronRecoilee2_','hadronic recoil','0.','800.','2','1'])
+        makeplot([dirname+"ZpT2mumu",'h_ZpT2mumu_','Z candidate p_{T} (GeV)','0.','400.','100','1'])
+        makeplot([dirname+"ZpT2ee",'h_ZpT2ee_','Z candidate p_{T} (GeV)','0.','400.','100','1'])
+        
+        
+        makeplot([dirname+"mu1_iso_Zmumucr1",'h_mu1_iso_Zmumucr1_','lepton 1 PFIso','0.','0.25','100','1'])
+        makeplot([dirname+"mu2_iso_Zmumucr1",'h_mu2_iso_Zmumucr1_','lepton 2 PFIso','0','0.25','100','1'])
+        
+        makeplot([dirname+"mu1_iso_Zmumucr2",'h_mu1_iso_Zmumucr2_','lepton 1 PFIso','0','0.25','100','1'])
+        makeplot([dirname+"mu2_iso_Zmumucr2",'h_mu2_iso_Zmumucr2_','lepton 2 PFIso','0','0.25','100','1'])
+        
+        
+        makeplot([dirname+"ZhadronRecoilmumu1",'h_ZhadronRecoilmumu1_','hadronic recoil ','0.','800.','100','1'])
+        makeplot([dirname+"ZhadronRecoilee1",'h_ZhadronRecoilee1_','hadronic recoil','0.','400.','100','1'])
+        
+        makeplot([dirname+"ZhadronRecoilmumu2",'h_ZhadronRecoilmumu2_','hadronic recoil','0.','800.','100','1'])
+        makeplot([dirname+"ZhadronRecoilee2",'h_ZhadronRecoilee2_','hadronic recoil','0.','800.','100','1'])
         
 
