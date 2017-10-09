@@ -2,6 +2,8 @@
 #include <ctime>
 #include <stdlib.h>
 #include "TStyle.h"
+#include "TString.h"
+#include "TRegexp.h"
 
 void Plot(){
 time_t now = time(0);
@@ -9,7 +11,7 @@ tm *ltm = localtime(&now);
 TString dirpathname;
 
  TString DirPreName = "/afs/cern.ch/work/p/ptiwari/bb+DM_analysis/DMAnaRun2/CMSSW_8_0_26_patch1/src/plotting_code/bbMETplot/Scripts/test";
- dirpathname = ""; //"05102017"; //.Form("%d%1.2d%d",ltm->tm_mday,1 + ltm->tm_mon,1900 + ltm->tm_year);
+ dirpathname = "09102017"; //.Form("%d%1.2d%d",ltm->tm_mday,1 + ltm->tm_mon,1900 + ltm->tm_year);
  
  system("mkdir -p  " + DirPreName+dirpathname +"/bbMETROOT");
  system("mkdir -p  " + DirPreName+dirpathname +"/bbMETPdf");
@@ -40,7 +42,7 @@ ofstream metbinsout_3;
  metbinsout_3.open(DirPreName+"METBIN_3/bbMETbackground_ZhadronRecoilee2"+dirpathname +"Integral.txt",std::ios::app);
 }
 
-gROOT->ProcessLine(".L tdrstyle.C+");
+gROOT->ProcessLine(".L tdrstyle.C");
 //setTDRStyle();
 gStyle->SetOptStat(0);
 gStyle->SetOptTitle(0);
@@ -141,7 +143,7 @@ filenameString.push_back(filenamepath + "Merged_ZprimeToA0hToA0chichihbb_2HDM_MZ
 
 //const int n_integral = (int)filenameString.size();
 
-TString histnameString("bbMETbackground_ZhadronRecoilee2/h_ZhadronRecoilee2_");
+TString histnameString("h_ZhadronRecoilee2_");
 
 TFile *fIn;
 const int nfiles = (int) filenameString.size();
@@ -202,7 +204,6 @@ TH1F *h_data;
 TH1F *h_temp;
 TH1F *hnew;
 TH1F *h_total;
-
 for(int i =0; i<(int)filenameString.size()-1; i++){
 fIn = new TFile(filenameString[i],"READ");
 //if(0){
@@ -253,19 +254,19 @@ DIBOSON->Add(h_mc[2]);
 //TTJets        = (TH1F*)h_mc[5]->Clone();
 
 ZJets     = (TH1F*)h_mc[3]->Clone();
-for(int zjets1 = 4; zjets1 < 10; zjets1++){
+for(int zjets1 = 4; zjets1 < 11; zjets1++){
 ZJets->Add(h_mc[zjets1]);}
 
-WJets     = (TH1F*)h_mc[17]->Clone();
-for(int wjets1 = 18; wjets1 < 24; wjets1++){
+WJets     = (TH1F*)h_mc[11]->Clone();
+for(int wjets1 = 12; wjets1 < 19; wjets1++){
 WJets->Add(h_mc[wjets1]);}
 
-DYJets    = (TH1F*)h_mc[10]->Clone();
-for(int DYjets = 11; DYjets < 17; DYjets++){
+DYJets    = (TH1F*)h_mc[3]->Clone();
+for(int DYjets = 4; DYjets < 11; DYjets++){
 DYJets->Add(h_mc[DYjets]);}
 
-STop=(TH1F*)h_mc[24]->Clone();
-for(int ttjets = 25; ttjets < 29; ttjets++){
+STop   = (TH1F*)h_mc[19]->Clone();
+for(int ttjets = 20; ttjets < 23; ttjets++){
 STop->Add(h_mc[ttjets]);}
 
  //Legend
@@ -293,7 +294,7 @@ legend = new TLegend(0.57, 0.7, 0.94,0.90,NULL,"brNDC");
  legend->AddEntry(DYJets,"DYj","f");
  legend->AddEntry(ZJets,"Zj","f");
  legend->AddEntry(WJets,"Wj","f");
- legend->AddEntry(TT,"top","f");
+ //legend->AddEntry(TT,"top","f");
  legend->AddEntry(STop,"singletop","f");
 
   
@@ -301,7 +302,7 @@ legend = new TLegend(0.57, 0.7, 0.94,0.90,NULL,"brNDC");
  
 //===========================Latex=================//
 TString latexCMSname= "CMS";// #it{#bf{Preliminary}}";
-TString latexPreCMSname= "Z'#rightarrow DM+h(b#bar{b})";
+TString latexPreCMSname= "DM + heavy flavor";
  
 TString latexnamemiddle;
 latexnamemiddle.Form("%1.1f fb^{-1}",luminosity); 
@@ -310,7 +311,7 @@ TString latexnamepost = " (13 TeV)";
 TString latexname = latexnamemiddle+latexnamepost;
 TString histolabel;
 
-histolabel = "bbMET";
+//histolabel = "bbMET";
 
 TLatex *t2a;
 TLatex *t2b;
@@ -377,7 +378,7 @@ if(0){
 
 
 //============== CANVAS DECLARATION ===================
-TCanvas *c12 = new TCanvas("Hist", "Hist", 0,0,550,550);
+TCanvas *c12 = new TCanvas("Hist", "Hist", 0,0,1000,1000);
  
 //==================Stack==========================                                                                  
 THStack *hs = new THStack("hs"," ");
@@ -405,8 +406,8 @@ DIBOSON->SetFillColor(kGray+2);
 DIBOSON->SetLineColor(1);
 
 //TT->SetFillColor(596);
-TT->SetFillColor(kCyan+2);
-TT->SetLineColor(1);
+//TT->SetFillColor(kCyan+2);
+//TT->SetLineColor(1);
 
 //WJets->SetFillColor(820);                                                                                                            
 WJets->SetFillColor(kGreen+3);                                                                                                            
@@ -423,44 +424,44 @@ STop->SetLineColor(1);
 float zj_i = ZJets->Integral();
 float dyj_i = DYJets->Integral();
 float wj_i = WJets->Integral();
-float tt_i = TT->Integral();
+//float tt_i = TT->Integral();
 float st_i = STop->Integral();
 
 int order_ = 0;
-if ( zj_i > tt_i && zj_i > st_i && zj_i > wj_i && zj_i > dyj_i ) order_ = 0;
-if ( dyj_i > tt_i && dyj_i > wj_i && dyj_i > zj_i && dyj_i > st_i ) order_ = 1;
-if ( wj_i > tt_i && wj_i > zj_i && wj_i > dyj_i && wj_i > st_i ) order_ = 2;
-if ( tt_i > wj_i && tt_i > zj_i && tt_i > dyj_i && tt_i > st_i ) order_ = 3;
-if ( st_i > wj_i && st_i > zj_i && st_i > tt_i && st_i > dyj_i ) order_ = 4;
+if ( /*zj_i > tt_i &&*/ zj_i > st_i && zj_i > wj_i && zj_i > dyj_i ) order_ = 0;
+if ( /*dyj_i > tt_i &&*/ dyj_i > wj_i && dyj_i > zj_i && dyj_i > st_i ) order_ = 1;
+if ( /*wj_i > tt_i &&*/ wj_i > zj_i && wj_i > dyj_i && wj_i > st_i ) order_ = 2;
+//if ( tt_i > wj_i && tt_i > zj_i && tt_i > dyj_i && tt_i > st_i ) order_ = 3;
+if ( st_i > wj_i && st_i > zj_i && /*st_i > tt_i &&*/ st_i > dyj_i ) order_ = 4;
 
 hs->Add(DIBOSON,"hist");
 hs->Add(ZJets,"hist"); 
 
 if (order_==1) {
 hs->Add(WJets,"hist");
-hs->Add(TT,"hist");
+//hs->Add(TT,"hist");
 hs->Add(STop,"hist");
 hs->Add(DYJets,"hist");
 }
 
 if (order_==2) {
 hs->Add(DYJets,"hist");
-hs->Add(TT,"hist");
+//hs->Add(TT,"hist");
 hs->Add(STop,"hist");
 hs->Add(WJets,"hist");
 }
-
+/*
 if (order_==3) {
 hs->Add(WJets,"hist");
 hs->Add(DYJets,"hist");
 hs->Add(STop,"hist");
 hs->Add(TT,"hist");
 }
-
+*/
 if (order_==4) {
 hs->Add(WJets,"hist");
 hs->Add(DYJets,"hist");
-hs->Add(TT,"hist");
+//hs->Add(TT,"hist");
 hs->Add(STop,"hist");
 }
 
@@ -472,10 +473,11 @@ hs->Add(STop,"hist");
 
  TH1F *Stackhist = (TH1F*)hs->GetStack()->Last(); 
  TH1F* h_err;
- h_err = (TH1F*) h_data->Clone("h_err");
+ //h_err = (TH1F*) h_data->Clone("h_err");
+ h_err = (TH1F*) h_mc[0]->Clone("h_err");
  h_err->Sumw2();
  h_err->Reset();
- h_err->Add(h_mc[0]);
+ //h_err->Add(h_mc[0]);
  h_err->Add(h_mc[1]);
  h_err->Add(h_mc[2]);
  h_err->Add(h_mc[3]);
@@ -498,13 +500,9 @@ hs->Add(STop,"hist");
  h_err->Add(h_mc[20]);
  h_err->Add(h_mc[21]);
  h_err->Add(h_mc[22]);
- h_err->Add(h_mc[23]);
- h_err->Add(h_mc[24]);
- h_err->Add(h_mc[25]);
- h_err->Add(h_mc[26]);
- h_err->Add(h_mc[27]);
- h_err->Add(h_mc[28]);
-Stackhist->SetLineWidth(2);                                                                                                                                                        
+
+Stackhist->SetLineWidth(2);
+
 
 // for (int ibin=0; ibin<h_err->GetNbinsX();ibin++){
   // std::cout<<" stack err = "<<h_err->GetBinError(ibin)<<std::endl;
@@ -512,7 +510,7 @@ Stackhist->SetLineWidth(2);
 
 
 //Setting canvas without log axis
-c12->SetLogy(0);
+c12->SetLogy(1);
   
   
   
@@ -610,20 +608,26 @@ hs->GetXaxis()->SetNdivisions(508);
   hs->GetXaxis()->SetNoExponent();}
   }
   else{
-  hs->GetXaxis()->SetLabelOffset(999);
-  hs->GetXaxis()->SetLabelSize(0); 
+  hs->GetXaxis()->SetTitle("hadronic recoil");
+  hs->GetXaxis()->SetTitleSize(0.05);
+  hs->GetXaxis()->SetTitleOffset(0.97);
+  hs->GetXaxis()->SetTitleFont(42);
+  hs->GetXaxis()->SetLabelFont(42);
+  hs->GetXaxis()->SetLabelSize(.05);
+  hs->GetXaxis()->SetLabelOffset(.03);
+  hs->GetXaxis()->SetLabelSize(0.05); 
   hs->GetYaxis()->SetTitle("Events / GeV");                                                                                                                                                 if(!0){   hs->GetYaxis()->SetTitle("Events / GeV");                                   }
 
-  hs->GetYaxis()->SetTitleSize(0.07); 
+  hs->GetYaxis()->SetTitleSize(0.05); 
   hs->GetYaxis()->SetTitleOffset(0.9);
   hs->GetYaxis()->SetTitleFont(42);
   hs->GetYaxis()->SetLabelFont(42);
-  hs->GetYaxis()->SetLabelSize(.07);
+  hs->GetYaxis()->SetLabelSize(.05);
 
   }  
 
 
-  hs->GetXaxis()->SetRangeUser(0,800);  
+  hs->GetXaxis()->SetRangeUser(0.,800.);  
   hs->GetXaxis()->SetNdivisions(508); 
  // if(0){ hs->GetXaxis()->SetNdivisions(310);}
 
@@ -658,22 +662,11 @@ legendsig = new TLegend(0.57, 0.5, 0.94,0.65,NULL,"brNDC");
  legendsig->SetFillStyle(0);
  legendsig->SetTextFont(42);
 // legendsig->SetNColumns(2);
- legendsig->AddEntry(h_mc[9],"m_{Z'}=1000 GeV", "l");
- legendsig->AddEntry(h_mc[10],"m_{Z'}=1200 GeV", "l");
- legendsig->AddEntry(h_mc[11],"m_{Z'}=1400 GeV", "l");
 
 
    legend->Draw("same"); 
   legendsig->Draw("same");
 
- TLatex* sig;
- sig = new TLatex(0.58,0.67,"m_{A}=300 GeV");
- sig->SetTextSize(0.034);
- sig->SetTextSize(0.047); 
- sig->SetTextAlign(12);
- sig->SetNDC(kTRUE);
- sig->SetTextFont(42);
- sig->Draw("same");
 
 t2a->Draw("same");
   t2b->Draw("same");
@@ -728,7 +721,7 @@ for(Int_t i = 0; i < h_err->GetNbinsX()+2; i++) {
    pow(0.20 * WJets->GetBinContent(i), 2) +
    pow(0.30 * ZJets->GetBinContent(i), 2) +
    pow(0.30 * DYJets->GetBinContent(i), 2) +
-   pow(0.20 * TT->GetBinContent(i), 2) +
+   /*pow(0.20 * TT->GetBinContent(i), 2) +*/
    pow(0.30 * STop->GetBinContent(i), 2) +
    pow(0.30 * DIBOSON->GetBinContent(i), 2));
    double binerror = sqrt(binerror2);
@@ -835,7 +828,7 @@ if(0){ c1_1->SetLogx(0);
  DataMC->GetXaxis()->SetMoreLogLabels();                                                                                                       DataMC->GetXaxis()->SetNoExponent();
  DataMC->GetXaxis()->SetNdivisions(508);
  }     
- DataMC->GetXaxis()->SetRangeUser(0,800);
+ DataMC->GetXaxis()->SetRangeUser(0.,800.);
  DataMC->SetMarkerSize(0.7);
  DataMC->SetMarkerStyle(20);
  DataMC->SetMarkerColor(1);
@@ -857,7 +850,7 @@ DataMC->Draw("P e1 same");
  DataMC->SetMaximum(2.2);
  DataMC->GetXaxis()->SetNdivisions(508);
  DataMC->GetYaxis()->SetNdivisions(505);
- TLine* line0= new TLine(0,1,800,1);
+ TLine* line0= new TLine(0.,1,800.,1);
  line0->SetLineStyle(2);
  //line0->Draw("same");
  //c1_1->SetGridy();
@@ -886,24 +879,23 @@ if(0){
   //Calculating the contribution of each background in particular range
  // As Data DY(ee) diboson TTjets WWJets
  TAxis *xaxis = h_mc[0]->GetXaxis();
- Int_t binxmin = xaxis->FindBin(0);
- Int_t binxmax = xaxis->FindBin(800);
+ Int_t binxmin = xaxis->FindBin(0.);
+ Int_t binxmax = xaxis->FindBin(800.);
       
-float dyjets = h_mc[10]->Integral()+h_mc[11]->Integral()+h_mc[12]->Integral()+h_mc[13]->Integral()+h_mc[14]->Integral()+h_mc[15]->Integral()+h_mc[16]->Integral() ; 
-float dyjets_error = TMath::Sqrt(pow(Integral_Error[10],2) + pow(Integral_Error[11],2) + pow(Integral_Error[12],2) + pow(Integral_Error[13],2) + pow(Integral_Error[14],2)+ pow(Integral_Error[15],2)+ pow(Integral_Error[16],2));
+float dyjets = h_mc[3]->Integral()+h_mc[4]->Integral()+h_mc[5]->Integral()+h_mc[6]->Integral()+h_mc[7]->Integral()+h_mc[8]->Integral()+h_mc[9]->Integral()+h_mc[10]->Integral() ; 
+float dyjets_error = TMath::Sqrt( pow(Integral_Error[3],2) + pow(Integral_Error[4],2) + pow(Integral_Error[5],2) + pow(Integral_Error[6],2) + pow(Integral_Error[7],2) + pow(Integral_Error[8],2)+ pow(Integral_Error[9],2)+ pow(Integral_Error[10],2));
 
 float diboson_ = h_mc[0]->Integral() + h_mc[1]->Integral() + h_mc[2]->Integral();
 float diboson_error = TMath::Sqrt(pow(Integral_Error[0],2) + pow(Integral_Error[1],2) + pow(Integral_Error[2],2));
 
-float st_ = h_mc[24]->Integral() + h_mc[25]->Integral()+h_mc[26]->Integral()+h_mc[27]->Integral()+h_mc[28]->Integral() ;
-float st_error = TMath::Sqrt(pow(Integral_Error[24],2) + pow(Integral_Error[25],2) + pow(Integral_Error[26],2) +pow(Integral_Error[27],2) +pow(Integral_Error[28],2) ) ;
+float st_ = h_mc[19]->Integral() + h_mc[20]->Integral()+h_mc[21]->Integral()+h_mc[22]->Integral()+h_mc[22]->Integral() ;
+float st_error = TMath::Sqrt(pow(Integral_Error[20],2) + pow(Integral_Error[21],2) + pow(Integral_Error[22],2) +pow(Integral_Error[22],2) +pow(Integral_Error[19],2) ) ;
 
-float wjets = h_mc[17]->Integral() +h_mc[18]->Integral()+h_mc[19]->Integral()+h_mc[20]->Integral()+h_mc[21]->Integral()+h_mc[22]->Integral()+h_mc[23]->Integral() ;
-float wjets_error = TMath::Sqrt(pow(Integral_Error[17],2) + pow(Integral_Error[18],2) +pow(Integral_Error[19],2) +pow(Integral_Error[20],2) +pow(Integral_Error[21],2) +pow(Integral_Error[22],2) +pow(Integral_Error[23],2)) ;
+float wjets = h_mc[11]->Integral() +h_mc[12]->Integral()+h_mc[13]->Integral()+h_mc[14]->Integral()+h_mc[15]->Integral()+h_mc[16]->Integral()+h_mc[17]->Integral()+h_mc[18]->Integral() ;
+float wjets_error = TMath::Sqrt( pow(Integral_Error[11],2) + pow(Integral_Error[12],2) +pow(Integral_Error[13],2) +pow(Integral_Error[14],2) +pow(Integral_Error[15],2) +pow(Integral_Error[16],2) +pow(Integral_Error[17],2) +pow(Integral_Error[18],2));
 
-std::cout<<" wjets_error = "<<wjets_error<<std::endl;
-float zjets = h_mc[3]->Integral() +h_mc[4]->Integral()+h_mc[5]->Integral()+h_mc[6]->Integral()+h_mc[7]->Integral()+h_mc[8]->Integral()+h_mc[9]->Integral() ;
-float zjets_error = TMath::Sqrt(pow(Integral_Error[3],2) + pow(Integral_Error[4],2) +pow(Integral_Error[5],2) +pow(Integral_Error[6],2) +pow(Integral_Error[7],2) +pow(Integral_Error[8],2) +pow(Integral_Error[9],2)) ;
+float zjets = h_mc[3]->Integral()+h_mc[4]->Integral()+h_mc[5]->Integral()+h_mc[6]->Integral()+h_mc[7]->Integral()+h_mc[8]->Integral()+h_mc[9]->Integral()+h_mc[10]->Integral() ;
+float zjets_error = TMath::Sqrt(pow(Integral_Error[3],2) + pow( Integral_Error[4],2) + pow(Integral_Error[5],2) + pow(Integral_Error[6],2) + pow(Integral_Error[7],2) + pow(Integral_Error[8],2)+ pow(Integral_Error[9],2)+ pow(Integral_Error[10],2));
 
 
   mout << "bbMETbackground_ZhadronRecoilee2_h_ZhadronRecoilee2_"            <<  " a b"<<std::endl; 
