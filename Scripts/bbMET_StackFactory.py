@@ -1180,28 +1180,59 @@ for dirname in dirnames:
         makeplot([dirname+"jet2_csv_Zmumucr2",'h_jet2_csv_Zmumucr2_','jet 2 csv','0.','1.','100','0'])
         makeplot([dirname+"jet3_csv_Zmumucr2",'h_jet3_csv_Zmumucr2_','jet 3 csv','0.','1.','100','0'])
         
+        makeplot([dirname+"jet1_eta_Zeecr1",'h_jet1_eta_Zeecr1_','jet 1 #eta','-3.','3.','70','0'])
+        makeplot([dirname+"jet2_eta_Zeecr1",'h_jet2_eta_Zeecr1_','jet 2 #eta','-3.','3.','70','0'])
+        
+        makeplot([dirname+"jet1_eta_Zeecr2",'h_jet1_eta_Zeecr2_','jet 1 #eta','-3.','3.','70','0'])
+        makeplot([dirname+"jet2_eta_Zeecr2",'h_jet2_eta_Zeecr2_','jet 2 #eta','-3.','3.','70','0'])
+        makeplot([dirname+"jet3_eta_Zeecr2",'h_jet3_eta_Zeecr2_','jet 3 #eta','-3.','3.','70','0'])
+        
+        
+        makeplot([dirname+"jet1_csv_Zeecr1",'h_jet1_csv_Zeecr1_','jet 1 csv','0.','1.','100','0'])
+        makeplot([dirname+"jet2_csv_Zeecr1",'h_jet2_csv_Zeecr1_','jet 2 csv','0.','1.','100','0'])
+        
+        makeplot([dirname+"jet1_csv_Zeecr2",'h_jet1_csv_Zeecr2_','jet 1 csv','0.','1.','100','0'])
+        makeplot([dirname+"jet2_csv_Zeecr2",'h_jet2_csv_Zeecr2_','jet 2 csv','0.','1.','100','0'])
+        makeplot([dirname+"jet3_csv_Zeecr2",'h_jet3_csv_Zeecr2_','jet 3 csv','0.','1.','100','0'])
+        
+        
         ##for W
-        makeplot([dirname+"Wmass1mumu",'h_Wmass1mumu_','m_{W} [GeV]','70.','110.','1','0'])
-        makeplot([dirname+"Wmass1ee",'h_Wmass1ee_','m_{W} [GeV]','70.','110.','1','0'])
+        makeplot([dirname+"Wmass1mu",'h_Wmass1mu_','m_{W} [GeV]','70.','110.','1','0'])
+        makeplot([dirname+"Wmass1e",'h_Wmass1e_','m_{W} [GeV]','70.','110.','1','0'])
         
-        makeplot([dirname+"Wmass2mumu",'h_Wmass2mumu_','m_{W} [GeV]','70.','110.','1','0'])
-        makeplot([dirname+"Wmass2ee",'h_Wmass2ee_','m_{W} [GeV]','70.','110.','1','0'])
-        
-        
-        makeplot([dirname+"jet1_eta_Wmumucr1",'h_jet1_eta_Wmumucr1_','jet 1 #eta','-3.','3.','70','0'])
-        makeplot([dirname+"jet2_eta_Wmumucr1",'h_jet2_eta_Wmumucr1_','jet 2 #eta','-3.','3.','70','0'])
-        
-        makeplot([dirname+"jet1_eta_Wmumucr2",'h_jet1_eta_Wmumucr2_','jet 1 #eta','-3.','3.','70','0'])
-        makeplot([dirname+"jet2_eta_Wmumucr2",'h_jet2_eta_Wmumucr2_','jet 2 #eta','-3.','3.','70','0'])
-        makeplot([dirname+"jet3_eta_Wmumucr2",'h_jet3_eta_Wmumucr2_','jet 3 #eta','-3.','3.','70','0'])
+        makeplot([dirname+"Wmass2mu",'h_Wmass2mu_','m_{W} [GeV]','70.','110.','1','0'])
+        makeplot([dirname+"Wmass2e",'h_Wmass2e_','m_{W} [GeV]','70.','110.','1','0'])
         
         
-        makeplot([dirname+"jet1_csv_Wmumucr1",'h_jet1_csv_Wmumucr1_','jet 1 csv','0.','1.','100','0'])
-        makeplot([dirname+"jet2_csv_Wmumucr1",'h_jet2_csv_Wmumucr1_','jet 2 csv','0.','1.','100','0'])
+        makeplot([dirname+"jet1_eta_Wmucr1",'h_jet1_eta_Wmucr1_','jet 1 #eta','-3.','3.','70','0'])
+        makeplot([dirname+"jet2_eta_Wmucr1",'h_jet2_eta_Wmucr1_','jet 2 #eta','-3.','3.','70','0'])
         
-        makeplot([dirname+"jet1_csv_Wmumucr2",'h_jet1_csv_Wmumucr2_','jet 1 csv','0.','1.','100','0'])
-        makeplot([dirname+"jet2_csv_Wmumucr2",'h_jet2_csv_Wmumucr2_','jet 2 csv','0.','1.','100','0'])
-        makeplot([dirname+"jet3_csv_Wmumucr2",'h_jet3_csv_Wmumucr2_','jet 3 csv','0.','1.','100','0'])
+        makeplot([dirname+"jet1_eta_Wmucr2",'h_jet1_eta_Wmucr2_','jet 1 #eta','-3.','3.','70','0'])
+        makeplot([dirname+"jet2_eta_Wmucr2",'h_jet2_eta_Wmucr2_','jet 2 #eta','-3.','3.','70','0'])
+        makeplot([dirname+"jet3_eta_Wmucr2",'h_jet3_eta_Wmucr2_','jet 3 #eta','-3.','3.','70','0'])
+        
+        
+        makeplot([dirname+"jet1_csv_Wmucr1",'h_jet1_csv_Wmucr1_','jet 1 csv','0.','1.','100','0'])
+        makeplot([dirname+"jet2_csv_Wmucr1",'h_jet2_csv_Wmucr1_','jet 2 csv','0.','1.','100','0'])
+        
+        makeplot([dirname+"jet1_csv_Wmucr2",'h_jet1_csv_Wmucr2_','jet 1 csv','0.','1.','100','0'])
+        makeplot([dirname+"jet2_csv_Wmucr2",'h_jet2_csv_Wmucr2_','jet 2 csv','0.','1.','100','0'])
+        makeplot([dirname+"jet3_csv_Wmucr2",'h_jet3_csv_Wmucr2_','jet 3 csv','0.','1.','100','0'])
+        
+        makeplot([dirname+"jet1_eta_Wecr1",'h_jet1_eta_Wecr1_','jet 1 #eta','-3.','3.','70','0'])
+        makeplot([dirname+"jet2_eta_Wecr1",'h_jet2_eta_Wecr1_','jet 2 #eta','-3.','3.','70','0'])
+        
+        makeplot([dirname+"jet1_eta_Wecr2",'h_jet1_eta_Wecr2_','jet 1 #eta','-3.','3.','70','0'])
+        makeplot([dirname+"jet2_eta_Wecr2",'h_jet2_eta_Wecr2_','jet 2 #eta','-3.','3.','70','0'])
+        makeplot([dirname+"jet3_eta_Wecr2",'h_jet3_eta_Wecr2_','jet 3 #eta','-3.','3.','70','0'])
+        
+        
+        makeplot([dirname+"jet1_csv_Wecr1",'h_jet1_csv_Wecr1_','jet 1 csv','0.','1.','100','0'])
+        makeplot([dirname+"jet2_csv_Wecr1",'h_jet2_csv_Wecr1_','jet 2 csv','0.','1.','100','0'])
+        
+        makeplot([dirname+"jet1_csv_Wecr2",'h_jet1_csv_Wecr2_','jet 1 csv','0.','1.','100','0'])
+        makeplot([dirname+"jet2_csv_Wecr2",'h_jet2_csv_Wecr2_','jet 2 csv','0.','1.','100','0'])
+        makeplot([dirname+"jet3_csv_Wecr2",'h_jet3_csv_Wecr2_','jet 3 csv','0.','1.','100','0'])
         
         ##for TOP
         makeplot([dirname+"jet1_eta_TOPcr1",'h_jet1_eta_TOPcr1_','jet 1 #eta','-3.','3.','70','0'])
