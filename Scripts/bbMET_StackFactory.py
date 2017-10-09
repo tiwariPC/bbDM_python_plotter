@@ -316,12 +316,12 @@ legend = new TLegend(0.57, 0.7, 0.94,0.90,NULL,"brNDC");
 //===========================Latex=================//
 TString latexCMSname= "CMS";// #it{#bf{Preliminary}}";
 TString latexPreCMSname= "DM + heavy flavor";
- 
+TString space = "       ";
 TString latexnamemiddle;
 latexnamemiddle.Form("%1.1f fb^{-1}",luminosity); 
 TString latexnamepost = " (13 TeV)";
 //TString latexname = latexnamepre+latexnamemiddle+latexnamepost;
-TString latexname = latexPreCMSname+'    '+latexnamemiddle+latexnamepost;
+TString latexname = latexPreCMSname+space+latexnamemiddle+latexnamepost;
 TString histolabel;
 
 //histolabel = "bbMET";
