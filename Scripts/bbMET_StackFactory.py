@@ -393,15 +393,14 @@ if(NORATIOPLOT){
 //============== CANVAS DECLARATION ===================
 TCanvas *c12 = new TCanvas("Hist", "Hist", 0,0,1000,1000);
  
-//==================Stack==========================                                                                  
+//==================Stack==============================
 THStack *hs = new THStack("hs"," ");
 
 // For N-1 Plots only
 bool nminus = 0;
-TLatex *tt;                                                                          
+TLatex *tt;
 
 
-                                                                                       
 //Colors for Histos
 
 //h_mc[0]->SetFillColor(616);
@@ -600,21 +599,21 @@ h_prefit->SetFillColor(0);
   binwidth_.Form("%1.1f",binofwidth);
   
 //hs->GetXaxis()->SetTickLength(0.07);
-hs->GetXaxis()->SetNdivisions(508);                                                                                                                                             
+  hs->GetXaxis()->SetNdivisions(508);                                                                                                                                             
 
   if(NORATIOPLOT){
   hs->GetXaxis()->SetTitleSize(0.05);
   hs->GetXaxis()->SetTitleOffset(0.97);
   hs->GetXaxis()->SetTitleFont(42);
   hs->GetXaxis()->SetLabelFont(42);
-  hs->GetXaxis()->SetLabelSize(.05);
+  hs->GetXaxis()->SetLabelSize(.03);
   hs->GetYaxis()->SetTitle("Events / GeV");
   if(!VARIABLEBINS){    hs->GetYaxis()->SetTitle("Events/"+binwidth_);}
   hs->GetYaxis()->SetTitleSize(0.05);
   hs->GetYaxis()->SetTitleOffset(0.88);
   hs->GetYaxis()->SetTitleFont(42);
   hs->GetYaxis()->SetLabelFont(42);
-  hs->GetYaxis()->SetLabelSize(0.05);
+  hs->GetYaxis()->SetLabelSize(0.03);
   hs->GetXaxis()->SetTitle("XAXISLABEL");
   if(VARIABLEBINS){
    hs->GetXaxis()->SetMoreLogLabels();                                                                                                       
@@ -626,9 +625,9 @@ hs->GetXaxis()->SetNdivisions(508);
   hs->GetXaxis()->SetTitleOffset(0.97);
   hs->GetXaxis()->SetTitleFont(42);
   hs->GetXaxis()->SetLabelFont(42);
-  hs->GetXaxis()->SetLabelSize(.05);
+  hs->GetXaxis()->SetLabelSize(.03);
   hs->GetXaxis()->SetLabelOffset(.03);
-  hs->GetXaxis()->SetLabelSize(0.05); 
+  hs->GetXaxis()->SetLabelSize(0.03); 
   hs->GetYaxis()->SetTitle("Events / GeV");                                                                                                                                                 if(!VARIABLEBINS){   hs->GetYaxis()->SetTitle("Events / GeV");                                   }
 
   hs->GetYaxis()->SetTitleSize(0.03); 
