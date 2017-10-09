@@ -328,13 +328,13 @@ TString latexCMSname= "CMS";// #it{#bf{Preliminary}}";
 TString latexPreCMSname= "DM + heavy flavor";
  
 TString latexnamemiddle;
-//latexnamemiddle.Form("%1.1f fb^{-1}",luminosity); 
+latexnamemiddle.Form("%1.1f fb^{-1}",luminosity); 
 TString latexnamepost = " (13 TeV)";
-//TString latexname = latexnamepre+latexnamemiddle+latexnamepost;  
-TString latexname = latexnamemiddle+latexnamepost;
+TString latexname = latexnamepre+latexnamemiddle+latexnamepost;  
+//TString latexname = latexnamemiddle+latexnamepost;
 TString histolabel;
 
-histolabel = "bbMET";
+//histolabel = "bbMET";
 
 TLatex *t2a;
 TLatex *t2b;
@@ -631,6 +631,7 @@ hs->GetXaxis()->SetNdivisions(508);
   hs->GetXaxis()->SetNoExponent();}
   }
   else{
+  hs->GetXaxis()->SetTitle("XAXISLABEL");
   hs->GetXaxis()->SetLabelOffset(999);
   hs->GetXaxis()->SetLabelSize(0); 
   hs->GetYaxis()->SetTitle("Events / GeV");                                                                                                                                                 if(!VARIABLEBINS){   hs->GetYaxis()->SetTitle("Events / GeV");                                   }
