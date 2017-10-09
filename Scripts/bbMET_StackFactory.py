@@ -321,7 +321,7 @@ TString latexnamemiddle;
 latexnamemiddle.Form("%1.1f fb^{-1}",luminosity); 
 TString latexnamepost = " (13 TeV)";
 //TString latexname = latexnamepre+latexnamemiddle+latexnamepost;
-TString latexname = latexnamemiddle+latexnamepost;
+TString latexname = latexPreCMSname+'    '+latexnamemiddle+latexnamepost;
 TString histolabel;
 
 //histolabel = "bbMET";
@@ -335,14 +335,14 @@ if(NORATIOPLOT){
  t2b = new TLatex(0.15,0.85,latexCMSname);
  t2b->SetTextSize(0.036);
 
- t2a = new TLatex(0.75,0.95,latexname);
- t2a->SetTextSize(0.034);
+ t2a = new TLatex(0.10,0.95,latexname);
+ t2a->SetTextSize(0.025);
 
 // t2c = new TLatex(0.25,0.82,latexPreCMSname);
 // t2c->SetTextSize(0.036);
 // t2d = new TLatex(0.25,0.77,histolabel);
 // t2d->SetTextSize(0.036);
- t2c = new TLatex(0.15,0.84,latexPreCMSname);
+ //t2c = new TLatex(0.15,0.84,latexPreCMSname);
  t2c->SetTextSize(0.036);
 
  t2d = new TLatex(0.15,0.79,histolabel);
@@ -584,7 +584,7 @@ h_prefit->SetFillColor(0);
   if(!ISLOG)   hs->SetMinimum(1);
   //if(!ISLOG)   hs->SetMaximum(maxi *1.8);
   //if(ISLOG)    hs->SetMaximum(maxi *10);
-  //if(!ISLOG) hs->SetMaximum(0.4);
+  if(!ISLOG) hs->SetMaximum(0.4);
   }else{
   if(ISLOG)    hs->SetMinimum(1.0);
   if(!ISLOG)   hs->SetMinimum(1);
@@ -1157,6 +1157,7 @@ dirnames=['bbMETbackground_']
 for dirname in dirnames:
     makeLinearplots=True;
     if makeLinearplots :
+       ##for Z
         makeplot([dirname+"Zmass1mumu",'h_Zmass1mumu_','m_{Z} [GeV]','70.','110.','1','0'])
         makeplot([dirname+"Zmass1ee",'h_Zmass1ee_','m_{Z} [GeV]','70.','110.','1','0'])
         
@@ -1178,6 +1179,45 @@ for dirname in dirnames:
         makeplot([dirname+"jet1_csv_Zmumucr2",'h_jet1_csv_Zmumucr2_','jet 1 csv','0.','1.','100','0'])
         makeplot([dirname+"jet2_csv_Zmumucr2",'h_jet2_csv_Zmumucr2_','jet 2 csv','0.','1.','100','0'])
         makeplot([dirname+"jet3_csv_Zmumucr2",'h_jet3_csv_Zmumucr2_','jet 3 csv','0.','1.','100','0'])
+        
+        ##for W
+        makeplot([dirname+"Wmass1mumu",'h_Wmass1mumu_','m_{W} [GeV]','70.','110.','1','0'])
+        makeplot([dirname+"Wmass1ee",'h_Wmass1ee_','m_{W} [GeV]','70.','110.','1','0'])
+        
+        makeplot([dirname+"Wmass2mumu",'h_Wmass2mumu_','m_{W} [GeV]','70.','110.','1','0'])
+        makeplot([dirname+"Wmass2ee",'h_Wmass2ee_','m_{W} [GeV]','70.','110.','1','0'])
+        
+        
+        makeplot([dirname+"jet1_eta_Wmumucr1",'h_jet1_eta_Wmumucr1_','jet 1 #eta','-3.','3.','70','0'])
+        makeplot([dirname+"jet2_eta_Wmumucr1",'h_jet2_eta_Wmumucr1_','jet 2 #eta','-3.','3.','70','0'])
+        
+        makeplot([dirname+"jet1_eta_Wmumucr2",'h_jet1_eta_Wmumucr2_','jet 1 #eta','-3.','3.','70','0'])
+        makeplot([dirname+"jet2_eta_Wmumucr2",'h_jet2_eta_Wmumucr2_','jet 2 #eta','-3.','3.','70','0'])
+        makeplot([dirname+"jet3_eta_Wmumucr2",'h_jet3_eta_Wmumucr2_','jet 3 #eta','-3.','3.','70','0'])
+        
+        
+        makeplot([dirname+"jet1_csv_Wmumucr1",'h_jet1_csv_Wmumucr1_','jet 1 csv','0.','1.','100','0'])
+        makeplot([dirname+"jet2_csv_Wmumucr1",'h_jet2_csv_Wmumucr1_','jet 2 csv','0.','1.','100','0'])
+        
+        makeplot([dirname+"jet1_csv_Wmumucr2",'h_jet1_csv_Wmumucr2_','jet 1 csv','0.','1.','100','0'])
+        makeplot([dirname+"jet2_csv_Wmumucr2",'h_jet2_csv_Wmumucr2_','jet 2 csv','0.','1.','100','0'])
+        makeplot([dirname+"jet3_csv_Wmumucr2",'h_jet3_csv_Wmumucr2_','jet 3 csv','0.','1.','100','0'])
+        
+        ##for TOP
+        makeplot([dirname+"jet1_eta_TOPcr1",'h_jet1_eta_TOPcr1_','jet 1 #eta','-3.','3.','70','0'])
+        makeplot([dirname+"jet2_eta_TOPcr1",'h_jet2_eta_TOPcr1_','jet 2 #eta','-3.','3.','70','0'])
+        
+        makeplot([dirname+"jet1_eta_TOPcr2",'h_jet1_eta_TOPcr2_','jet 1 #eta','-3.','3.','70','0'])
+        makeplot([dirname+"jet2_eta_TOPcr2",'h_jet2_eta_TOPcr2_','jet 2 #eta','-3.','3.','70','0'])
+        makeplot([dirname+"jet3_eta_TOPcr2",'h_jet3_eta_TOPcr2_','jet 3 #eta','-3.','3.','70','0'])
+        
+        
+        makeplot([dirname+"jet1_csv_TOPcr1",'h_jet1_csv_TOPcr1_','jet 1 csv','0.','1.','100','0'])
+        makeplot([dirname+"jet2_csv_TOPcr1",'h_jet2_csv_TOPcr1_','jet 2 csv','0.','1.','100','0'])
+        
+        makeplot([dirname+"jet1_csv_TOPcr2",'h_jet1_csv_TOPcr2_','jet 1 csv','0.','1.','100','0'])
+        makeplot([dirname+"jet2_csv_TOPcr2",'h_jet2_csv_TOPcr2_','jet 2 csv','0.','1.','100','0'])
+        makeplot([dirname+"jet3_csv_TOPcr2",'h_jet3_csv_TOPcr2_','jet 3 csv','0.','1.','100','0'])
         
 #makeplot([dirname,'h_Mjj_Rebin0','m_{AK8}[GeV]','30','250','1','0','1','','0','1','PrefitMass']) 
         #makeplot([dirname,'h_MET0','E_{T}^{miss}[GeV]','200','1000','1','0','1','','0','1','PrefitMET']) ## last bin is for variable met bins  ## second last is for data option
