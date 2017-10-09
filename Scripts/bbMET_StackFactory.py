@@ -316,10 +316,10 @@ legend = new TLegend(0.57, 0.7, 0.94,0.90,NULL,"brNDC");
 //===========================Latex=================//
 TString latexCMSname= "CMS";// #it{#bf{Preliminary}}";
 TString latexPreCMSname= "DM + heavy flavor";
-TString latexnamefirst= "DM + heavy flavor";
+ 
 TString latexnamemiddle;
 latexnamemiddle.Form("%1.1f fb^{-1}",luminosity); 
-TString latexnamepost = "(13 TeV)";
+TString latexnamepost = " (13 TeV)";
 //TString latexname = latexnamepre+latexnamemiddle+latexnamepost;
 TString latexname = latexnamemiddle+latexnamepost;
 TString histolabel;
@@ -327,7 +327,6 @@ TString histolabel;
 //histolabel = "bbMET";
 
 TLatex *t2a;
-TLatex *t2a1;
 TLatex *t2b;
 TLatex *t2c;
 TLatex *t2d;
@@ -335,10 +334,7 @@ TLatex *t2d;
 if(NORATIOPLOT){
  t2b = new TLatex(0.15,0.85,latexCMSname);
  t2b->SetTextSize(0.036);
- 
- t2a1 = new TLatex(0.05,0.20,latexname);
- t2a1->SetTextSize(0.025);
- 
+
  t2a = new TLatex(0.75,0.95,latexname);
  t2a->SetTextSize(0.034);
 
@@ -375,10 +371,6 @@ if(NORATIOPLOT){
  }
 //SetTextAlign(12);
 //    latex->SetTextFont(42);
- t2a1->SetTextAlign(12);
- t2a1->SetNDC(kTRUE);
- t2a1->SetTextFont(42);
- 
  t2a->SetTextAlign(12);
  t2a->SetNDC(kTRUE);
  t2a->SetTextFont(42);
@@ -404,6 +396,12 @@ TCanvas *c12 = new TCanvas("Hist", "Hist", 0,0,1000,1000);
 //==================Stack==========================                                                                  
 THStack *hs = new THStack("hs"," ");
 
+// For N-1 Plots only
+bool nminus = 0;
+TLatex *tt;                                                                          
+
+
+                                                                                       
 //Colors for Histos
 
 //h_mc[0]->SetFillColor(616);
@@ -682,8 +680,8 @@ legendsig = new TLegend(0.57, 0.5, 0.94,0.65,NULL,"brNDC");
    legend->Draw("same"); 
   legendsig->Draw("same");
 
-  t2a1->Draw("same");
-  t2a->Draw("same");
+
+t2a->Draw("same");
   t2b->Draw("same");
   t2c->Draw("same");
   t2d->Draw("same");
