@@ -697,7 +697,7 @@ legendsig = new TLegend(0.57, 0.5, 0.94,0.65,NULL,"brNDC");
 //  h_data->Draw("same p e1");
 // for lower band stat and sys band
 
-/*
+
 TH1F * ratiostaterr = (TH1F *) h_err->Clone("ratiostaterr");
 ratiostaterr->Sumw2();
 ratiostaterr->SetStats(0);
@@ -755,7 +755,6 @@ ratioleg->SetNColumns(2);
 //ratioleg->SetTextSize(0.07);
 ratioleg->AddEntry(ratiosysterr, "Pred. uncert. (stat + syst)", "f");                                                                                    
 ratioleg->AddEntry(ratiostaterr, "Pred. uncert. (stat)", "f");
-*/
 
 /*
 TLegend * ratioleg1 = new TLegend(0.35, 0.35, 0.94, 0.94);
