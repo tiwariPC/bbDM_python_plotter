@@ -315,34 +315,33 @@ legend = new TLegend(0.57, 0.7, 0.94,0.90,NULL,"brNDC");
 //===========================Latex=================//
 TString latexCMSname= "CMS";// #it{#bf{Preliminary}}";
 TString latexPreCMSname= "DM + heavy flavor";
-TString space = "       ";
 TString latexnamemiddle;
 latexnamemiddle.Form("%1.1f fb^{-1}",luminosity); 
 TString latexnamepost = " (13 TeV)";
 //TString latexname = latexnamepre+latexnamemiddle+latexnamepost;
-TString latexname = latexPreCMSname+space+latexnamemiddle+latexnamepost;
+TString latexname = latexnamemiddle+latexnamepost;
 TString histolabel;
 
 //histolabel = "bbMET";
 
 TLatex *t2a;
 TLatex *t2b;
-//TLatex *t2c;
+TLatex *t2c;
 TLatex *t2d;
 
 if(NORATIOPLOT){
  t2b = new TLatex(0.15,0.85,latexCMSname);
  t2b->SetTextSize(0.036);
 
- t2a = new TLatex(0.10,0.95,latexname);
+ t2a = new TLatex(0.70,0.90,latexname);
  t2a->SetTextSize(0.025);
 
 // t2c = new TLatex(0.25,0.82,latexPreCMSname);
 // t2c->SetTextSize(0.036);
 // t2d = new TLatex(0.25,0.77,histolabel);
 // t2d->SetTextSize(0.036);
-// t2c = new TLatex(0.15,0.84,latexPreCMSname);
-// t2c->SetTextSize(0.036);
+ t2c = new TLatex(0.10,0.90,latexPreCMSname);
+ t2c->SetTextSize(0.015);
 
  t2d = new TLatex(0.15,0.79,histolabel);
  t2d->SetTextSize(0.036);
@@ -351,11 +350,11 @@ if(NORATIOPLOT){
  t2b = new TLatex(0.180,0.88,latexCMSname);
  t2b->SetTextSize(0.03);
 
- t2a = new TLatex(0.15,0.95,latexname);
+ t2a = new TLatex(0.70,0.90,latexname);
  t2a->SetTextSize(0.015); 
 
- //t2c = new TLatex(0.180,0.835,latexPreCMSname);
- //t2c->SetTextSize(0.047);
+ t2c = new TLatex(0.10,0.90,latexPreCMSname);
+ t2c->SetTextSize(0.015);
 
  t2d = new TLatex(0.180,0.785,histolabel);
  t2d->SetTextSize(0.05);
@@ -369,9 +368,9 @@ if(NORATIOPLOT){
  t2b->SetNDC(kTRUE);
  t2b->SetTextFont(61);
 
- //t2c->SetTextAlign(12);
- //t2c->SetNDC(kTRUE);
- //t2c->SetTextFont(42);
+ t2c->SetTextAlign(12);
+ t2c->SetNDC(kTRUE);
+ t2c->SetTextFont(42);
 
  t2d->SetTextAlign(12);
  t2d->SetNDC(kTRUE);
@@ -588,13 +587,13 @@ h_prefit->SetFillColor(0);
   
   if(NORATIOPLOT){
   hs->GetXaxis()->SetTitleSize(0.03);
-  hs->GetXaxis()->SetTitleOffset(0.97);
+  hs->GetXaxis()->SetTitleOffset(1.01);
   hs->GetXaxis()->SetTitleFont(42);
   hs->GetXaxis()->SetLabelFont(42);
   hs->GetXaxis()->SetLabelSize(.03);
   hs->GetYaxis()->SetTitle("Events / GeV");
   hs->GetYaxis()->SetTitleSize(0.03);
-  hs->GetYaxis()->SetTitleOffset(0.99);
+  hs->GetYaxis()->SetTitleOffset(1.01);
   hs->GetYaxis()->SetTitleFont(42);
   hs->GetYaxis()->SetLabelFont(42);
   hs->GetYaxis()->SetLabelSize(0.03);
@@ -602,7 +601,7 @@ h_prefit->SetFillColor(0);
   else{
   hs->GetXaxis()->SetTitle("XAXISLABEL");
   hs->GetXaxis()->SetTitleSize(0.03);
-  hs->GetXaxis()->SetTitleOffset(0.99);
+  hs->GetXaxis()->SetTitleOffset(1.01);
   hs->GetXaxis()->SetTitleFont(42);
   hs->GetXaxis()->SetLabelFont(42);
   hs->GetXaxis()->SetLabelSize(.03);
@@ -610,7 +609,7 @@ h_prefit->SetFillColor(0);
   hs->GetXaxis()->SetLabelSize(0.03); 
   hs->GetYaxis()->SetTitle("Events / GeV");
   hs->GetYaxis()->SetTitleSize(0.03); 
-  hs->GetYaxis()->SetTitleOffset(0.99);
+  hs->GetYaxis()->SetTitleOffset(1.01);
   hs->GetYaxis()->SetTitleFont(42);
   hs->GetYaxis()->SetLabelFont(42);
   hs->GetYaxis()->SetLabelSize(.03);
@@ -625,7 +624,7 @@ h_prefit->SetFillColor(0);
   //legend->AddEntry(h_prefit,"Pre-fit","l");
   legend->AddEntry(DIBOSON,"VV","f");
   legend->AddEntry(Stackhist,"Post-fit","l");
-  legend->AddEntry(ZJets,"Vh","f");
+  //legend->AddEntry(ZJets,"Vh","f");
   legend->AddEntry(h_err,"Stat. Unc.","f");
     
 
@@ -655,7 +654,7 @@ legend = new TLegend(0.58, 0.69, 0.92,0.94,NULL,"brNDC");
 
   t2a->Draw("same");
   t2b->Draw("same");
-  //t2c->Draw("same");
+  t2c->Draw("same");
   t2d->Draw("same");
   
   
