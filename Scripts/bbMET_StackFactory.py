@@ -333,11 +333,11 @@ if(NORATIOPLOT){
  t2b = new TLatex(0.15,0.85,latexCMSname);
  t2b->SetTextSize(0.036);
 
- t2a = new TLatex(0.75,0.92,latexname);
+ t2a = new TLatex(0.70,0.92,latexname);
  t2a->SetTextSize(0.025);
 
  t2c = new TLatex(0.10,0.92,latexPreCMSname);
- t2c->SetTextSize(0.020);
+ t2c->SetTextSize(0.030);
 
  t2d = new TLatex(0.15,0.79,histolabel);
  t2d->SetTextSize(0.036);
@@ -346,11 +346,11 @@ if(NORATIOPLOT){
  t2b = new TLatex(0.180,0.88,latexCMSname);
  t2b->SetTextSize(0.03);
 
- t2a = new TLatex(0.75,0.92,latexname);
+ t2a = new TLatex(0.70,0.92,latexname);
  t2a->SetTextSize(0.030); 
 
  t2c = new TLatex(0.10,0.92,latexPreCMSname);
- t2c->SetTextSize(0.30);
+ t2c->SetTextSize(0.030);
 
  t2d = new TLatex(0.180,0.785,histolabel);
  t2d->SetTextSize(0.05);
