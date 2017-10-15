@@ -116,6 +116,7 @@ filenameString.push_back(filenamepath + "Output_ZJetsToNuNu_HT-800To1200_13TeV-m
 filenameString.push_back(filenamepath + "Output_ZJetsToNuNu_HT-1200To2500_13TeV-madgraph-runallAnalysis.root");
 filenameString.push_back(filenamepath + "Output_ZJetsToNuNu_HT-2500ToInf_13TeV-madgraph-runallAnalysis.root");
 */
+
 //DYJets High pt DYSample 10,11,12,13,14,15,16
 filenameString.push_back(filenamepath + "Output_DYJetsToLL_M-50_HT-70to100_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_LegacyMC_20170328.root");
 filenameString.push_back(filenamepath + "Output_DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_LegacyMC_20170328.root");
@@ -144,10 +145,59 @@ filenameString.push_back(filenamepath + "Output_ST_tW_top_5f_inclusiveDecays_13T
 filenameString.push_back(filenamepath + "Output_ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1_MC25ns_LegacyMC_20170328.root");
 
 // TTJets 3
-//filenameString.push_back(filenamepath + "Merged_TT_TuneCUETP8M1_13TeV-powheg-pythia8-runallAnalysis.root");
+//filenameString.push_back(filenamepath + "Output_TT_TuneCUETP8M2T4_13TeV-powheg-pythia8-runallAnalysis.root");
+//filenameString.push_back(filenamepath + "Output_TT_TuneCUETP8M2T4_13TeV-powheg-isrup-pythia8-runallAnalysis.root");
+//
 
+/*
+// Gamma + Jets
+filenameString.push_back(filenamepath + "Output_GJets_HT-40To100_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_LegacyMC_20170328.root");
+filenameString.push_back(filenamepath + "Output_GJets_HT-100To200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_LegacyMC_20170328.root");
+filenameString.push_back(filenamepath + "Output_GJets_HT-200To400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_LegacyMC_20170328.root");
+filenameString.push_back(filenamepath + "GJets_HT-400To600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_LegacyMC_20170328.root");
+filenameString.push_back(filenamepath + "GJets_HT-600ToInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_LegacyMC_20170328.root");
+*/
+/*
 //bbMET Signal Sample 
-
+filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-50_Mphi-400 signal_1.root");
+filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-50_Mphi-350 signal_2.root");
+filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-50_Mphi-300 signal_3.root");
+filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-450_Mphi-1000 signal_4.root");
+filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-350_Mphi-750 signal_5.root");
+filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-350_Mphi-1000 signal_6.root");
+filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-1_Mphi-750 signal_7.root");
+filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-1_Mphi-500 signal_8.root");
+filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-1_Mphi-400 signal_9.root");
+filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-1_Mphi-350 signal_10.root");
+filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-1_Mphi-300 signal_11.root");
+filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-10_Mphi-50 signal_12.root");
+filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-10_Mphi-10 signal_13.root");
+filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-10_Mphi-100 signal_14.root");
+filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-100_Mphi-500 signal_15.root");
+filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-100_Mphi-400 signal_16.root");
+filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-100_Mphi-350 signal_17.root");
+filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-100_Mphi-300 signal_18.root");
+filenameString.push_back(filenamepath + "Output_pseudo_NLO_Mchi-50_Mphi-50 signal_19.root");
+filenameString.push_back(filenamepath + "Output_pseudo_NLO_Mchi-50_Mphi-500 signal_20.root");
+filenameString.push_back(filenamepath + "Output_pseudo_NLO_Mchi-50_Mphi-400 signal_21.root");
+filenameString.push_back(filenamepath + "Output_pseudo_NLO_Mchi-50_Mphi-350 signal_22.root");
+filenameString.push_back(filenamepath + "Output_pseudo_NLO_Mchi-50_Mphi-300 signal_23.root");
+filenameString.push_back(filenamepath + "Output_pseudo_NLO_Mchi-50_Mphi-200 signal_24.root");
+filenameString.push_back(filenamepath + "Output_pseudo_NLO_Mchi-450_Mphi-1000 signal_25.root");
+filenameString.push_back(filenamepath + "Output_pseudo_NLO_Mchi-1_Mphi-50 signal_26.root");
+filenameString.push_back(filenamepath + "Output_pseudo_NLO_Mchi-1_Mphi-500 signal_27.root");
+filenameString.push_back(filenamepath + "Output_pseudo_NLO_Mchi-1_Mphi-400 signal_28.root");
+filenameString.push_back(filenamepath + "Output_pseudo_NLO_Mchi-1_Mphi-350 signal_29.root");
+filenameString.push_back(filenamepath + "Output_pseudo_NLO_Mchi-1_Mphi-100 signal_30.root");
+filenameString.push_back(filenamepath + "Output_pseudo_NLO_Mchi-1_Mphi-1000 signal_31.root");
+filenameString.push_back(filenamepath + "Output_pseudo_NLO_Mchi-10_Mphi-50 signal_32.root");
+filenameString.push_back(filenamepath + "Output_pseudo_NLO_Mchi-10_Mphi-10 signal_33.root");
+filenameString.push_back(filenamepath + "Output_pseudo_NLO_Mchi-10_Mphi-100 signal_34.root");
+filenameString.push_back(filenamepath + "Output_pseudo_NLO_Mchi-100_Mphi-750 signal_35.root");
+filenameString.push_back(filenamepath + "Output_pseudo_NLO_Mchi-100_Mphi-500 signal_36.root");
+filenameString.push_back(filenamepath + "Output_pseudo_NLO_Mchi-100_Mphi-400 signal_37.root");
+filenameString.push_back(filenamepath + "Output_pseudo_NLO_Mchi-100_Mphi-350 signal_38.root");
+*/
 //
 //Data File
 //filenameString.push_back(filenamepath + "Merged_MET-Run2015B-PromptReco-v1TotalV3-runallAnalysis.root");
@@ -163,52 +213,56 @@ const int nfiles = (int) filenameString.size();
 
 float Integral[nfiles] , Integral_Error[nfiles];
 
-//check it once
+//kfactor * lo crossection
+//check it once 
+
 float Xsec[nfiles];
-Xsec[0] = 118.7; // WW
-Xsec[1] = 47.2;  // WZ
-Xsec[2] = 16.6;  // ZZ
 
-//float Sznunu = 1.;
-float Sznunu = 0.77;
-Xsec[3] = Sznunu *  1.626*280.47; // Znunu HT 100-200
-Xsec[4] = Sznunu *  1.617*77.7; // Znunu HT 200-400
-Xsec[5] = Sznunu *  1.459*10.71; // Znunu HT 400-600
-Xsec[6] = Sznunu *  1.391*2.562;  // Znunu HT 600-800
-Xsec[7] = Sznunu *  1.391*1.183;  // Znunu HT 800-1200
-Xsec[8] = Sznunu *  1.391*0.286;  // Znunu HT 1200-2500
-Xsec[9] = Sznunu *  1.391*0.006945;  // Znunu HT 2500-inf
+Xsec[0] = 118.7;                   // WW
+Xsec[1] = 47.2;                    // WZ
+Xsec[2] = 16.6;                    // ZZ
 
-// what to put in place of Sznunu and after that
-Xsec[10] = Sznunu *  1.626*148; // DYJetsToLL HT 100-200
-Xsec[11] = Sznunu *  1.617*40.94; // DYJetsToLL HT 200-400
-Xsec[12] = Sznunu *  1.459*5.497; // DYJetsToLL HT 400-600
-Xsec[13] = Sznunu *  1.391*1.367;  // DYJetsToLL HT 600-800
-Xsec[14] = Sznunu *  1.391*0.6304;  // DYJetsToLL HT 800-1200
-Xsec[15] = Sznunu *  1.391*0.1514;  // DYJetsToLL HT 1200-2500
-Xsec[16] = Sznunu *  1.391*0.003565;  // DYJetsToLL HT 2500-inf
-float Stt = 0.95;
-//float Stt = 1.;
+Xsec[3] = 1.23 * 280.35;           // Znunu HT 100-200
+Xsec[4] = 1.23 * 77.67;            // Znunu HT 200-400
+Xsec[5] = 1.23 * 10.73;            // Znunu HT 400-600
+Xsec[6] = 1.23 * 2.559;            // Znunu HT 600-800
+Xsec[7] = 1.23 * 1.1796;           // Znunu HT 800-1200
+Xsec[8] = 1.23 * 0.28833;          // Znunu HT 1200-2500
+Xsec[9] = 1.23 * 0.006945;         // Znunu HT 2500-inf
+
+Xsec[10] = 1.23 * 169.9;           // DYJetsToLL HT 70-100
+Xsec[10] = 1.23 * 147.4;           // DYJetsToLL HT 100-200
+Xsec[11] = 1.23 * 40.99;           // DYJetsToLL HT 200-400
+Xsec[12] = 1.23 * 5.678;           // DYJetsToLL HT 400-600
+Xsec[13] = 1.23 * 1.367;           // DYJetsToLL HT 600-800
+Xsec[14] = 1.23 * 0.6304;          // DYJetsToLL HT 800-1200
+Xsec[15] = 1.23 * 0.1514;          // DYJetsToLL HT 1200-2500
+Xsec[16] = 1.23 * 0.003565;        // DYJetsToLL HT 2500-inf
 
 //Xsec[5] = Stt * 831.76; // ttbar
 
-float Sw = 0.95;
-//float Sw = 1.;
+Xsec[17] = 1.459 * 1343;           // WJets HT 70-100     ***not available in twiki***
+Xsec[17] = 1.21 * 1345;            // WJets HT 100-200
+Xsec[18] = 1.21 * 359.7;           // WJets HT 200-400
+Xsec[19] = 1.21 * 48.91;           // WJets HT 400-600
+Xsec[20] = 1.21 * 12.05;           // WJets HT 600-800
+Xsec[21] = 1.21 * 5.501;           // WJets HT 800-1200
+Xsec[22] = 1.21 * 1.329;           // WJets HT 1200-2500
+Xsec[23] = 1.21 * 0.03216;         // WJets HT 2500-Inf
 
-Xsec[17] = Sw  *  1.459*1343;  // WJets HT 100-200
-Xsec[18] = Sw  *  1.434*359.6;   // WJets HT 200-400
-Xsec[19] = Sw  *  1.532*48.85;  // WJets HT 400-600
-Xsec[20] = Sw  *  1.004*12.05;  // WJets HT 600-800
-Xsec[21] = Sw  *  1.004*5.501;  // WJets HT 800-1200
-Xsec[22] = Sw  *  1.004*1.329;  // WJets HT 1200-2500
-Xsec[23] = Sw  *  1.004*0.03216;  // WJets HT 2500-Inf
+Xsec[24] =  44.07;                 // single top t-channel_top_4f_inclusiveDecays       ***not available in twiki***
+Xsec[25] =  26.22;                 // single top t-channel_antitop_4f_inclusiveDecays   ***not available in twiki***
+Xsec[26] =  3.36;                  // single top s-channel_4f_leptonDecays
+Xsec[27] =  35.85;                 // single top tW_top_5f_inclusiveDecays
+Xsec[28] =  35.85;                 // single top tW_antitop_5f_inclusiveDecays
 
-Xsec[24] = Stt  *  44.07; // single top
-Xsec[25] = Stt  *  26.22; // single top
-Xsec[26] = Stt  *  10.11; // single top
-Xsec[27] = Stt  *  35.85; // single top (to check)
-Xsec[28] = Stt  *  35.85; // single top (to check)
-
+/*
+Xsec[0] = 20790;                   // GJets_HT-40To100
+Xsec[1] = 9238;                    // GJets_HT-100To200
+Xsec[0] = 2305;                    // GJets_HT-200To400
+Xsec[1] = 274.4;                   // GJets_HT-400To600
+Xsec[0] = 93.46;                   // GJets_HT-600ToInf
+*/
 
 double metbins[4]={200,350,500,1000};
 TH1F* h_mc[nfiles] ;
