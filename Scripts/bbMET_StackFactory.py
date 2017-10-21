@@ -540,7 +540,7 @@ hs->Add(STop,"hist");
  h_err->Add(h_mc[22]);
  h_err->Add(h_mc[23]);
  h_err->Add(h_mc[24]);
- h_err->Add(h_mcc[25]);
+ h_err->Add(h_mc[25]);
  h_err->Add(h_mc[26]);
  h_err->Add(h_mc[27]);
  h_err->Add(h_mc[28]);
