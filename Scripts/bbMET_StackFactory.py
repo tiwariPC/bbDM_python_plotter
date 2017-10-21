@@ -149,15 +149,18 @@ filenameString.push_back(filenamepath + "Output_ST_tW_antitop_5f_inclusiveDecays
 //filenameString.push_back(filenamepath + "Output_TT_TuneCUETP8M2T4_13TeV-powheg-isrup-pythia8-runallAnalysis.root");
 //
 
-/*
+
 // Gamma + Jets
 filenameString.push_back(filenamepath + "Output_GJets_HT-40To100_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_LegacyMC_20170328.root");
 filenameString.push_back(filenamepath + "Output_GJets_HT-100To200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_LegacyMC_20170328.root");
 filenameString.push_back(filenamepath + "Output_GJets_HT-200To400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_LegacyMC_20170328.root");
-filenameString.push_back(filenamepath + "GJets_HT-400To600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_LegacyMC_20170328.root");
-filenameString.push_back(filenamepath + "GJets_HT-600ToInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_LegacyMC_20170328.root");
-*/
+filenameString.push_back(filenamepath + "Output_GJets_HT-400To600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_LegacyMC_20170328.root");
+//filenameString.push_back(filenamepath + "Output_GJets_HT-600ToInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_LegacyMC_20170328.root");
+
+
 /*
+
+TString filenamepath("/afs/cern.ch/work/s/spmondal/public/bbDM/bbMETSamples_all_lim/signal/"); 
 //bbMET Signal Sample 
 filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-50_Mphi-400 signal_1.root");
 filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-50_Mphi-350 signal_2.root");
