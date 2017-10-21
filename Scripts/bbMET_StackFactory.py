@@ -74,7 +74,7 @@ gStyle->SetFrameLineWidth(3);
 gStyle->SetLineWidth(1);
 
 //Provide luminosity of total data
-float lumi = 2263.5; // It will print on your plots too
+float lumi = 35.9; // It will print on your plots too
 //float lumi = 3200.; // It will print on your plots too
 float luminosity = 35.9;
 
@@ -288,13 +288,12 @@ h_mc[i]->Sumw2();
 //h_total      = (TH1F*) fIn->Get("nEvents_weight");
  h_total      = (TH1F*) fIn->Get("h_total");
  
-//std::cout<<" normalization for = "<<i<<"  "<<filenameString[i]<<"   "
-//<<h_mc[i]->Integral()
-//<<std::endl;
+std::cout<<" normalization for = "<<i<<"  "<<filenameString[i]<<"   "<<h_mc[i]->Integral()
+<<std::endl;
 
 if(h_total->Integral()>0) normalization[i]     = (lumi* Xsec[i])/(h_total->Integral());
    else normalization[i]      = 0;
- //cout<<"normalization :" << normalization[i] << std::endl;
+ cout<<"normalization :" << normalization[i] << std::endl;
 
  Integral[i] = h_mc[i]->Integral();
  if(Integral[i]<=0) Integral_Error[i] = 0.0;
