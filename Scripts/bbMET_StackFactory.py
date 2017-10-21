@@ -99,7 +99,7 @@ TH1F*  DYJets;
 TH1F*  ZJets;
 TH1F*  STop;
 //TH1F*  data_obs;
-TString filenamepath("/eos/user/p/ptiwari/bbMETSamples/ForBranchReader/bkg/"); 
+TString filenamepath("/eos/user/p/ptiwari/bbMETSamples/ForPlotting/bkg/"); 
 
 // Diboson WW WZ ZZ 0 1 2
 filenameString.push_back(filenamepath + "Output_WW_TuneCUETP8M1_13TeV-pythia8_MC25ns_LegacyMC_20170328.root");
@@ -160,7 +160,7 @@ filenameString.push_back(filenamepath + "Output_GJets_HT-400To600_TuneCUETP8M1_1
 
 /*
 
-TString filenamepath("/eos/user/p/ptiwari/bbMETSamples/ForBranchReader/signal/"); 
+TString filenamepath("/eos/user/p/ptiwari/bbMETSamples/ForPlotting/signal/"); 
 //bbMET Signal Sample 
 filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-50_Mphi-400 signal_1.root");
 filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-50_Mphi-350 signal_2.root");
