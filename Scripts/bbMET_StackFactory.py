@@ -99,14 +99,14 @@ TH1F*  DYJets;
 TH1F*  ZJets;
 TH1F*  STop;
 //TH1F*  data_obs;
-TString filenamepath("/afs/cern.ch/work/s/spmondal/public/bbDM/bbMETSamples_all_lim/bkg/"); 
+TString filenamepath("/eos/user/p/ptiwari/bbMETSamples/ForBranchReader/bkg/"); 
 
 // Diboson WW WZ ZZ 0 1 2
 filenameString.push_back(filenamepath + "Output_WW_TuneCUETP8M1_13TeV-pythia8_MC25ns_LegacyMC_20170328.root");
 filenameString.push_back(filenamepath + "Output_WZ_TuneCUETP8M1_13TeV-pythia8_MC25ns_LegacyMC_20170328.root");
 filenameString.push_back(filenamepath + "Output_ZZ_TuneCUETP8M1_13TeV-pythia8_MC25ns_LegacyMC_20170328.root");
 
-/*
+
 //ZJets High pt DYSample 3,4,5,6,7,8,9
 filenameString.push_back(filenamepath + "Output_ZJetsToNuNu_HT-100To200_13TeV-madgraph-runallAnalysis.root");
 filenameString.push_back(filenamepath + "Output_ZJetsToNuNu_HT-200To400_13TeV-madgraph-runallAnalysis.root");
@@ -115,9 +115,9 @@ filenameString.push_back(filenamepath + "Output_ZJetsToNuNu_HT-600To800_13TeV-ma
 filenameString.push_back(filenamepath + "Output_ZJetsToNuNu_HT-800To1200_13TeV-madgraph-runallAnalysis.root");
 filenameString.push_back(filenamepath + "Output_ZJetsToNuNu_HT-1200To2500_13TeV-madgraph-runallAnalysis.root");
 filenameString.push_back(filenamepath + "Output_ZJetsToNuNu_HT-2500ToInf_13TeV-madgraph-runallAnalysis.root");
-*/
 
-//DYJets High pt DYSample 10,11,12,13,14,15,16
+
+//DYJets High pt DYSample 10,11,12,13,14,15,16,17
 filenameString.push_back(filenamepath + "Output_DYJetsToLL_M-50_HT-70to100_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_LegacyMC_20170328.root");
 filenameString.push_back(filenamepath + "Output_DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_LegacyMC_20170328.root");
 filenameString.push_back(filenamepath + "Output_DYJetsToLL_M-50_HT-200to400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_LegacyMC_20170328.root");
@@ -127,7 +127,7 @@ filenameString.push_back(filenamepath + "Output_DYJetsToLL_M-50_HT-800to1200_Tun
 filenameString.push_back(filenamepath + "Output_DYJetsToLL_M-50_HT-1200to2500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_LegacyMC_20170328.root");
 filenameString.push_back(filenamepath + "Output_DYJetsToLL_M-50_HT-2500toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_LegacyMC_20170328.root");
 
-// WJets in Bins  17,18,19,20,21,22,23
+// WJets in Bins  18,18,19,20,21,22,23,24,25
 filenameString.push_back(filenamepath + "Output_WJetsToLNu_HT-70To100_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_LegacyMC_20170328.root");
 filenameString.push_back(filenamepath + "Output_WJetsToLNu_HT-100To200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_LegacyMC_20170328.root");
 filenameString.push_back(filenamepath + "Output_WJetsToLNu_HT-200To400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_LegacyMC_20170328.root");
@@ -137,7 +137,7 @@ filenameString.push_back(filenamepath + "Output_WJetsToLNu_HT-800To1200_TuneCUET
 filenameString.push_back(filenamepath + "Output_WJetsToLNu_HT-1200To2500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_LegacyMC_20170328.root");
 filenameString.push_back(filenamepath + "Output_WJetsToLNu_HT-2500ToInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_LegacyMC_20170328.root");
 
-// Single Top 24,25,26,27,28
+// Single Top 26,27,28,29 30
 filenameString.push_back(filenamepath + "Output_ST_t-channel_top_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1_MC25ns_LegacyMC_2017.root");
 filenameString.push_back(filenamepath + "Output_ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1_MC25ns_LegacyMC_.root");
 filenameString.push_back(filenamepath + "Output_ST_s-channel_4f_leptonDecays_13TeV-amcatnlo-pythia8_TuneCUETP8M1_MC25ns_LegacyMC_20170328.root");
@@ -160,7 +160,7 @@ filenameString.push_back(filenamepath + "Output_GJets_HT-400To600_TuneCUETP8M1_1
 
 /*
 
-TString filenamepath("/afs/cern.ch/work/s/spmondal/public/bbDM/bbMETSamples_all_lim/signal/"); 
+TString filenamepath("/eos/user/p/ptiwari/bbMETSamples/ForBranchReader/signal/"); 
 //bbMET Signal Sample 
 filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-50_Mphi-400 signal_1.root");
 filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-50_Mphi-350 signal_2.root");
@@ -213,7 +213,6 @@ TString histnameString("HISTNAME");
 
 TFile *fIn;
 const int nfiles = (int) filenameString.size();
-
 float Integral[nfiles] , Integral_Error[nfiles];
 
 //kfactor * lo crossection
@@ -234,30 +233,30 @@ Xsec[8] = 1.23 * 0.28833;          // Znunu HT 1200-2500
 Xsec[9] = 1.23 * 0.006945;         // Znunu HT 2500-inf
 
 Xsec[10] = 1.23 * 169.9;           // DYJetsToLL HT 70-100
-Xsec[10] = 1.23 * 147.4;           // DYJetsToLL HT 100-200
-Xsec[11] = 1.23 * 40.99;           // DYJetsToLL HT 200-400
-Xsec[12] = 1.23 * 5.678;           // DYJetsToLL HT 400-600
-Xsec[13] = 1.23 * 1.367;           // DYJetsToLL HT 600-800
-Xsec[14] = 1.23 * 0.6304;          // DYJetsToLL HT 800-1200
-Xsec[15] = 1.23 * 0.1514;          // DYJetsToLL HT 1200-2500
-Xsec[16] = 1.23 * 0.003565;        // DYJetsToLL HT 2500-inf
+Xsec[11] = 1.23 * 147.4;           // DYJetsToLL HT 100-200
+Xsec[12] = 1.23 * 40.99;           // DYJetsToLL HT 200-400
+Xsec[13] = 1.23 * 5.678;           // DYJetsToLL HT 400-600
+Xsec[14] = 1.23 * 1.367;           // DYJetsToLL HT 600-800
+Xsec[15] = 1.23 * 0.6304;          // DYJetsToLL HT 800-1200
+Xsec[16] = 1.23 * 0.1514;          // DYJetsToLL HT 1200-2500
+Xsec[17] = 1.23 * 0.003565;        // DYJetsToLL HT 2500-inf
 
 //Xsec[5] = Stt * 831.76; // ttbar
 
-Xsec[17] = 1.459 * 1343;           // WJets HT 70-100     ***not available in twiki***
-Xsec[17] = 1.21 * 1345;            // WJets HT 100-200
-Xsec[18] = 1.21 * 359.7;           // WJets HT 200-400
-Xsec[19] = 1.21 * 48.91;           // WJets HT 400-600
-Xsec[20] = 1.21 * 12.05;           // WJets HT 600-800
-Xsec[21] = 1.21 * 5.501;           // WJets HT 800-1200
-Xsec[22] = 1.21 * 1.329;           // WJets HT 1200-2500
-Xsec[23] = 1.21 * 0.03216;         // WJets HT 2500-Inf
+Xsec[18] = 1.459 * 1343;           // WJets HT 70-100     ***not available in twiki***
+Xsec[19] = 1.21 * 1345;            // WJets HT 100-200
+Xsec[20] = 1.21 * 359.7;           // WJets HT 200-400
+Xsec[21] = 1.21 * 48.91;           // WJets HT 400-600
+Xsec[22] = 1.21 * 12.05;           // WJets HT 600-800
+Xsec[23] = 1.21 * 5.501;           // WJets HT 800-1200
+Xsec[24] = 1.21 * 1.329;           // WJets HT 1200-2500
+Xsec[25] = 1.21 * 0.03216;         // WJets HT 2500-Inf
 
-Xsec[24] =  44.07;                 // single top t-channel_top_4f_inclusiveDecays       ***not available in twiki***
-Xsec[25] =  26.22;                 // single top t-channel_antitop_4f_inclusiveDecays   ***not available in twiki***
-Xsec[26] =  3.36;                  // single top s-channel_4f_leptonDecays
-Xsec[27] =  35.85;                 // single top tW_top_5f_inclusiveDecays
-Xsec[28] =  35.85;                 // single top tW_antitop_5f_inclusiveDecays
+Xsec[26] =  44.07;                 // single top t-channel_top_4f_inclusiveDecays       ***not available in twiki***
+Xsec[27] =  26.22;                 // single top t-channel_antitop_4f_inclusiveDecays   ***not available in twiki***
+Xsec[28] =  3.36;                  // single top s-channel_4f_leptonDecays
+Xsec[29] =  35.85;                 // single top tW_top_5f_inclusiveDecays
+Xsec[30] =  35.85;                 // single top tW_antitop_5f_inclusiveDecays
 
 /*
 Xsec[0] = 20790;                   // GJets_HT-40To100
@@ -324,15 +323,15 @@ DIBOSON->Add(h_mc[2]);
 //TTJets        = (TH1F*)h_mc[5]->Clone();
 
 ZJets     = (TH1F*)h_mc[3]->Clone();
-for(int zjets1 = 4; zjets1 < 11; zjets1++){
+for(int zjets1 = 4; zjets1 < 10; zjets1++){
 ZJets->Add(h_mc[zjets1]);}
 
 WJets     = (TH1F*)h_mc[11]->Clone();
 for(int wjets1 = 12; wjets1 < 19; wjets1++){
 WJets->Add(h_mc[wjets1]);}
 
-DYJets    = (TH1F*)h_mc[3]->Clone();
-for(int DYjets = 4; DYjets < 11; DYjets++){
+DYJets    = (TH1F*)h_mc[10]->Clone();
+for(int DYjets = 11; DYjets < 17; DYjets++){
 DYJets->Add(h_mc[DYjets]);}
 
 STop   = (TH1F*)h_mc[19]->Clone();
@@ -539,7 +538,12 @@ hs->Add(STop,"hist");
  h_err->Add(h_mc[20]);
  h_err->Add(h_mc[21]);
  h_err->Add(h_mc[22]);
-
+ h_err->Add(h_mc[23]);
+ h_err->Add(h_mc[24]);
+ h_err->Add(h_mcc[25]);
+ h_err->Add(h_mc[26]);
+ h_err->Add(h_mc[27]);
+ h_err->Add(h_mc[28]);
 Stackhist->SetLineWidth(2);
 
 
