@@ -288,20 +288,20 @@ h_mc[i]->Sumw2();
 //h_total      = (TH1F*) fIn->Get("nEvents_weight");
  h_total      = (TH1F*) fIn->Get("h_total");
  
-std::cout<<" normalization for = "<<i<<"  "<<filenameString[i]<<"   "<<h_mc[i]->Integral()
-<<std::endl;
+//std::cout<<" normalization for = "<<i<<"  "<<filenameString[i]<<"   "<<h_mc[i]->Integral()
+//<<std::endl;
 
 if(h_total->Integral()>0) normalization[i]     = (lumi* Xsec[i])/(h_total->Integral());
    else normalization[i]      = 0;
- cout<<"normalization :" << normalization[i] << std::endl;
+ //cout<<"normalization :" << normalization[i] << std::endl;
 
  Integral[i] = h_mc[i]->Integral();
  if(Integral[i]<=0) Integral_Error[i] = 0.0;
  if(Integral[i]>0) Integral_Error[i] = TMath::Sqrt(Integral[i]) * normalization[i];
- h_mc[i]->Scale(normalization[i]);
+ //h_mc[i]->Scale(normalization[i]);
 
  }
-/*
+/* 
 fIn = new TFile(filenameString[nfiles-1],"READ");
 if(VARIABLEBINS){
 h_temp =(TH1F*) fIn->Get(histnameString);
@@ -1157,11 +1157,11 @@ for dirname in dirnames:
       
    
        ##for Z
-      makeplot([dirname+"Zmass1mumu",'h_Zmass1mumu_','m_{Z} [GeV]','70.','110.','1','0'])
-      makeplot([dirname+"Zmass1ee",'h_Zmass1ee_','m_{Z} [GeV]','70.','110.','1','0'])
+      makeplot([dirname+"Zmass1mumu",'h_Zmass1mumu_','m_{Z} [GeV]','70.','110.','100','0'])
+      makeplot([dirname+"Zmass1ee",'h_Zmass1ee_','m_{Z} [GeV]','70.','110.','100','0'])
       
-      makeplot([dirname+"Zmass2mumu",'h_Zmass2mumu_','m_{Z} [GeV]','70.','110.','1','0'])
-      makeplot([dirname+"Zmass2ee",'h_Zmass2ee_','m_{Z} [GeV]','70.','110.','1','0'])
+      makeplot([dirname+"Zmass2mumu",'h_Zmass2mumu_','m_{Z} [GeV]','70.','110.','100','0'])
+      makeplot([dirname+"Zmass2ee",'h_Zmass2ee_','m_{Z} [GeV]','70.','110.','100','0'])
       
       
       makeplot([dirname+"jet1_eta_Zmumucr1",'h_jet1_eta_Zmumucr1_','jet 1 #eta','-3.','3.','70','0'])
@@ -1196,11 +1196,11 @@ for dirname in dirnames:
       
       
       ##for W
-      makeplot([dirname+"Wmass1mu",'h_Wmass1mu_','m_{W} [GeV]','70.','110.','1','0'])
-      makeplot([dirname+"Wmass1e",'h_Wmass1e_','m_{W} [GeV]','70.','110.','1','0'])
+      makeplot([dirname+"Wmass1mu",'h_Wmass1mu_','m_{W} [GeV]','70.','110.','100','0'])
+      makeplot([dirname+"Wmass1e",'h_Wmass1e_','m_{W} [GeV]','70.','110.','100','0'])
       
-      makeplot([dirname+"Wmass2mu",'h_Wmass2mu_','m_{W} [GeV]','70.','110.','1','0'])
-      makeplot([dirname+"Wmass2e",'h_Wmass2e_','m_{W} [GeV]','70.','110.','1','0'])
+      makeplot([dirname+"Wmass2mu",'h_Wmass2mu_','m_{W} [GeV]','70.','110.','100','0'])
+      makeplot([dirname+"Wmass2e",'h_Wmass2e_','m_{W} [GeV]','70.','110.','100','0'])
       
       
       makeplot([dirname+"jet1_eta_Wmucr1",'h_jet1_eta_Wmucr1_','jet 1 #eta','-3.','3.','70','0'])
