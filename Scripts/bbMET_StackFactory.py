@@ -325,16 +325,16 @@ ZJets     = (TH1F*)h_mc[3]->Clone();
 for(int zjets1 = 4; zjets1 < 10; zjets1++){
 ZJets->Add(h_mc[zjets1]);}
 
-WJets     = (TH1F*)h_mc[11]->Clone();
-for(int wjets1 = 12; wjets1 < 19; wjets1++){
+WJets     = (TH1F*)h_mc[18]->Clone();
+for(int wjets1 = 19; wjets1 < 26; wjets1++){
 WJets->Add(h_mc[wjets1]);}
 
 DYJets    = (TH1F*)h_mc[10]->Clone();
 for(int DYjets = 11; DYjets < 17; DYjets++){
 DYJets->Add(h_mc[DYjets]);}
 
-STop   = (TH1F*)h_mc[19]->Clone();
-for(int ttjets = 20; ttjets < 23; ttjets++){
+STop   = (TH1F*)h_mc[26]->Clone();
+for(int ttjets = 27; ttjets < 31; ttjets++){
 STop->Add(h_mc[ttjets]);}
 
  //Legend
