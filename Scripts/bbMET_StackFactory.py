@@ -13,7 +13,7 @@ import datetime
 
 if len(sys.argv) < 2 : 
     print "insufficiency inputs provided, please provide the directory with input files"
-
+#just for argument, the input file path is explicitly provided in line no 101
 if len(sys.argv) ==2 : 
     print "plotting from directory ",sys.argv[1]
     inputdirname = sys.argv[1]
@@ -74,9 +74,8 @@ gStyle->SetFrameLineWidth(3);
 gStyle->SetLineWidth(1);
 
 //Provide luminosity of total data
-float lumi = 35.9; // It will print on your plots too
-//float lumi = 3200.; // It will print on your plots too
-float luminosity = 35.9;
+float lumi = 36.773 * 1000 ; // from the twiki https://twiki.cern.ch/twiki/bin/view/CMS/PdmV2016Analysis
+float luminosity = 35.9;// It will print on your plots too
 
 std::vector<TString> filenameString;
 //Change here Directories of the file
@@ -159,7 +158,7 @@ filenameString.push_back(filenamepath + "Output_GJets_HT-400To600_TuneCUETP8M1_1
 
 
 /*
-
+// not used so far
 TString filenamepath("/eos/user/p/ptiwari/bbMETSamples/ForPlotting/signal/"); 
 //bbMET Signal Sample 
 filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-50_Mphi-400 signal_1.root");
@@ -243,7 +242,7 @@ Xsec[17] = 1.23 * 0.003565;        // DYJetsToLL HT 2500-inf
 
 //Xsec[5] = Stt * 831.76; // ttbar
 
-Xsec[18] = 1.459 * 1343;           // WJets HT 70-100     ***not available in twiki***
+Xsec[18] = 1.459 * 1343;           // WJets HT 70-100     ***not available in twiki*** https://twiki.cern.ch/twiki/bin/viewauth/CMS/SummaryTable1G25ns
 Xsec[19] = 1.21 * 1345;            // WJets HT 100-200
 Xsec[20] = 1.21 * 359.7;           // WJets HT 200-400
 Xsec[21] = 1.21 * 48.91;           // WJets HT 400-600
@@ -298,8 +297,7 @@ if(h_total->Integral()>0) normalization[i]     = (lumi* Xsec[i])/(h_total->Integ
  Integral[i] = h_mc[i]->Integral();
  if(Integral[i]<=0) Integral_Error[i] = 0.0;
  if(Integral[i]>0) Integral_Error[i] = TMath::Sqrt(Integral[i]) * normalization[i];
- //h_mc[i]->Scale(normalization[i]);
-
+ h_mc[i]->Scale(normalization[i]);
  }
 /* 
 fIn = new TFile(filenameString[nfiles-1],"READ");
@@ -473,6 +471,7 @@ if ( /*wj_i > tt_i &&*/ wj_i > zj_i && wj_i > dyj_i && wj_i > st_i ) order_ = 2;
 //if ( tt_i > wj_i && tt_i > zj_i && tt_i > dyj_i && tt_i > st_i ) order_ = 3;
 if ( st_i > wj_i && st_i > zj_i && /*st_i > tt_i &&*/ st_i > dyj_i ) order_ = 4;
 
+
 hs->Add(DIBOSON,"hist");
 hs->Add(ZJets,"hist"); 
 
@@ -543,6 +542,8 @@ hs->Add(STop,"hist");
  h_err->Add(h_mc[26]);
  h_err->Add(h_mc[27]);
  h_err->Add(h_mc[28]);
+ h_err->Add(h_mc[29]);
+ h_err->Add(h_mc[30]);
 Stackhist->SetLineWidth(2);
 
 
@@ -551,7 +552,7 @@ Stackhist->SetLineWidth(2);
 // }
 
 
-//Setting canvas without log axis
+//Setting canvas without log axis if it has zero entries
 int b1 = 1;
 for(int i =0; i<(int)filenameString.size()-1; i++){
    if(ISLOG){
