@@ -1272,7 +1272,7 @@ for dirname in dirnames:
       makeplot([dirname+"jet2_csv_TOPcr2",'h_jet2_csv_TOPcr2_','jet 2 csv','0.','1.','100','0'])
       makeplot([dirname+"jet3_csv_TOPcr2",'h_jet3_csv_TOPcr2_','jet 3 csv','0.','1.','100','0'])
         
-    makelogplots=False
+    makelogplots=True
     
     if makelogplots : 
         ##For Signal
