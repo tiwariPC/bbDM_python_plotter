@@ -661,7 +661,7 @@ h_prefit->SetFillColor(0);
 if (!hasNoEvents) {  
 //hs->GetXaxis()->SetTickLength(0.07);
     hs->GetXaxis();
-//  hs->GetXaxis()->SetNdivisions(508);      //Bug   
+   hs->GetXaxis()->SetNdivisions(508);        
   if(NORATIOPLOT){
   hs->GetXaxis()->SetTitleSize(0.03);
   hs->GetXaxis()->SetTitleOffset(1.05);
