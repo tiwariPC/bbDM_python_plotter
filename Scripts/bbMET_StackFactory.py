@@ -94,7 +94,7 @@ std::vector<TString> filenameString;
 //TH1F*  monoHbbM2500;
 TH1F*  DIBOSON;
 TH1F*  TT;
-TH1F*  TTJets;
+//TH1F*  TTJets;
 TH1F*  WJets;
 TH1F*  DYJets;
 TH1F*  ZJets;
@@ -147,8 +147,8 @@ filenameString.push_back(filenamepath + "Output_ST_tW_top_5f_inclusiveDecays_13T
 filenameString.push_back(filenamepath + "Output_ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1_MC25ns_LegacyMC_20170328.root");
 
 // TTJets 31,32
-//filenameString.push_back(filenamepath + "Output_TT_TuneCUETP8M2T4_13TeV-powheg-pythia8-runallAnalysis.root");
-//filenameString.push_back(filenamepath + "Output_TT_TuneCUETP8M2T4_13TeV-powheg-isrup-pythia8-runallAnalysis.root");
+filenameString.push_back(filenamepath + "Output_TT_TuneCUETP8M2T4_13TeV-powheg-pythia8.root");
+filenameString.push_back(filenamepath + "Output_TT_TuneCUETP8M2T4_13TeV-powheg-isrup-pythia8.root");
 //
 
 
@@ -158,6 +158,9 @@ filenameString.push_back(filenamepath + "Output_GJets_HT-100To200_TuneCUETP8M1_1
 filenameString.push_back(filenamepath + "Output_GJets_HT-200To400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_LegacyMC_20170328.root");
 filenameString.push_back(filenamepath + "Output_GJets_HT-400To600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_LegacyMC_20170328.root");
 filenameString.push_back(filenamepath + "Output_GJets_HT-600ToInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_LegacyMC_20170328.root");
+
+// dummy file
+filenameString.push_back(filenamepath + "Output_GJets_HT-600ToInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_LegacyMC_20170328_copy.root");
 
 
 /*
@@ -258,13 +261,16 @@ Xsec[28] =  3.36;                  // single top s-channel_4f_leptonDecays
 Xsec[29] =  35.85;                 // single top tW_top_5f_inclusiveDecays
 Xsec[30] =  35.85;                 // single top tW_antitop_5f_inclusiveDecays
 
-Xsec[5] = 831.76;             // ttbar incorrect
+Xsec[31] = 831.76;                  // ttbar     ***not available in twiki***
+Xsec[32] = 831.76;                  // ttbar     ***not available in twiki***
 
 Xsec[33] = 20790;                   // GJets_HT-40To100
 Xsec[34] = 9238;                    // GJets_HT-100To200
 Xsec[35] = 2305;                    // GJets_HT-200To400
 Xsec[36] = 274.4;                   // GJets_HT-400To600
 Xsec[37] = 93.46;                   // GJets_HT-600ToInf
+
+//Xsec[38] = 93.46;                   // Dummy
 
 double metbins[4]={200,350,500,1000};
 TH1F* h_mc[nfiles] ;
@@ -273,8 +279,13 @@ TH1F *h_data;
 TH1F *h_temp;
 TH1F *hnew;
 TH1F *h_total;
-for(int i =0; i<(int)filenameString.size()-1; i++){
+
+cout << to_string(nfiles) << endl;
+
+for(int i =0; i<nfiles-1; i++){
+    cout << "Reading file #" << to_string(i+1) << ": " << filenameString[i] << endl;
     fIn = new TFile(filenameString[i],"READ");
+
     //if(VARIABLEBINS){
     //h_temp = (TH1F*) fIn->Get(histnameString);
 
@@ -320,7 +331,8 @@ DIBOSON   = (TH1F*)h_mc[0]->Clone();
 DIBOSON->Add(h_mc[1]);
 DIBOSON->Add(h_mc[2]);
 
-//TTJets        = (TH1F*)h_mc[5]->Clone();
+TT        = (TH1F*)h_mc[31]->Clone();
+TT->Add(h_mc[32]);
 
 ZJets     = (TH1F*)h_mc[3]->Clone();
 for(int zjets1 = 4; zjets1 < 10; zjets1++){
@@ -339,7 +351,7 @@ for(int ttjets = 27; ttjets < 31; ttjets++){
 STop->Add(h_mc[ttjets]);}
 
 GJets   = (TH1F*)h_mc[33]->Clone();
-for(int gjets = 33; gjets < 38; gjets++){
+for(int gjets = 34; gjets < 38; gjets++){               // Should be till 37 (< 38), but that give segmentation violation, need to debug
 GJets->Add(h_mc[gjets]);}
 
  //Legend
@@ -366,11 +378,9 @@ legend = new TLegend(0.57, 0.7, 0.94,0.90,NULL,"brNDC");
  legend->AddEntry(DYJets,"Z(ll) + jets","f");
  legend->AddEntry(ZJets,"Z(#nu #nu) + jets","f");
  legend->AddEntry(WJets,"W(l#nu) + jets","f");
- //legend->AddEntry(TT,"top","f");
+ legend->AddEntry(TT,"top","f");
  legend->AddEntry(STop,"single t","f");
  legend->AddEntry(GJets,"G jets","f");
-
-  
 
  
 //===========================Latex=================//
@@ -453,8 +463,8 @@ DIBOSON->SetFillColor(kGray+2);
 DIBOSON->SetLineColor(1);
 
 //TT->SetFillColor(596);
-//TT->SetFillColor(kCyan+2);
-//TT->SetLineColor(1);
+TT->SetFillColor(kCyan);
+TT->SetLineColor(1);
 
 WJets->SetFillColor(kGreen);
 WJets->SetLineColor(1);
@@ -471,16 +481,16 @@ GJets->SetLineColor(1);
 float zj_i = ZJets->Integral();
 float dyj_i = DYJets->Integral();
 float wj_i = WJets->Integral();
-//float tt_i = TT->Integral();
+float tt_i = TT->Integral();
 float st_i = STop->Integral();
 float gj_i = GJets->Integral();
 
 int order_ = 0;
-if ( /*zj_i > tt_i &&*/ zj_i > st_i && zj_i > wj_i && zj_i > dyj_i ) order_ = 0;
-if ( /*dyj_i > tt_i &&*/ dyj_i > wj_i && dyj_i > zj_i && dyj_i > st_i ) order_ = 1;
-if ( /*wj_i > tt_i &&*/ wj_i > zj_i && wj_i > dyj_i && wj_i > st_i ) order_ = 2;
-//if ( tt_i > wj_i && tt_i > zj_i && tt_i > dyj_i && tt_i > st_i ) order_ = 3;
-if ( st_i > wj_i && st_i > zj_i && /*st_i > tt_i &&*/ st_i > dyj_i ) order_ = 4;
+if ( zj_i > tt_i && zj_i > st_i && zj_i > wj_i && zj_i > dyj_i ) order_ = 0;
+if ( dyj_i > tt_i && dyj_i > wj_i && dyj_i > zj_i && dyj_i > st_i ) order_ = 1;
+if ( wj_i > tt_i && wj_i > zj_i && wj_i > dyj_i && wj_i > st_i ) order_ = 2;
+if ( tt_i > wj_i && tt_i > zj_i && tt_i > dyj_i && tt_i > st_i ) order_ = 3;
+if ( st_i > wj_i && st_i > zj_i && st_i > tt_i && st_i > dyj_i ) order_ = 4;
 
 
 hs->Add(DIBOSON,"hist");
@@ -489,33 +499,31 @@ hs->Add(GJets,"hist");
 
 if (order_==1) {
 hs->Add(WJets,"hist");
-//hs->Add(TT,"hist");
+hs->Add(TT,"hist");
 hs->Add(STop,"hist");
 hs->Add(DYJets,"hist");
 }
 
 if (order_==2) {
 hs->Add(DYJets,"hist");
-//hs->Add(TT,"hist");
+hs->Add(TT,"hist");
 hs->Add(STop,"hist");
 hs->Add(WJets,"hist");
 }
-/*
+
 if (order_==3) {
 hs->Add(WJets,"hist");
 hs->Add(DYJets,"hist");
 hs->Add(STop,"hist");
 hs->Add(TT,"hist");
 }
-*/
+
 if (order_==4) {
 hs->Add(WJets,"hist");
 hs->Add(DYJets,"hist");
-//hs->Add(TT,"hist");
+hs->Add(TT,"hist");
 hs->Add(STop,"hist");
 }
-
-
 
 
 //h_data->SetMarkerColor(kBlack);
@@ -790,7 +798,7 @@ for(Int_t i = 0; i < h_err->GetNbinsX()+2; i++) {
    pow(0.20 * WJets->GetBinContent(i), 2) +
    pow(0.30 * ZJets->GetBinContent(i), 2) +
    pow(0.30 * DYJets->GetBinContent(i), 2) +
-   /*pow(0.20 * TT->GetBinContent(i), 2) +*/
+   pow(0.20 * TT->GetBinContent(i), 2) +
    pow(0.30 * GJets->GetBinContent(i), 2) +
    pow(0.30 * STop->GetBinContent(i), 2) +
    pow(0.30 * DIBOSON->GetBinContent(i), 2));
@@ -1101,6 +1109,8 @@ GJets->SetNameTitle("GJets","GJets");
 GJets->Write();
 STop->SetNameTitle("STop","STop");
 STop->Write();
+TT->SetNameTitle("TT","TT");
+TT->Write();
 WJets->SetNameTitle("WJets","WJets");
 WJets->Write();
 DYJets->SetNameTitle("DYJets","DYJets");
