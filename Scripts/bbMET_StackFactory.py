@@ -99,6 +99,7 @@ TH1F*  WJets;
 TH1F*  DYJets;
 TH1F*  ZJets;
 TH1F*  STop;
+TH1F*  GJets;
 //TH1F*  data_obs;
 TString filenamepath("/afs/cern.ch/work/s/spmondal/public/bbDM/bbMETSamples_all_full/bkg/"); 
 
@@ -145,18 +146,18 @@ filenameString.push_back(filenamepath + "Output_ST_s-channel_4f_leptonDecays_13T
 filenameString.push_back(filenamepath + "Output_ST_tW_top_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1_MC25ns_LegacyMC_20170328.root");
 filenameString.push_back(filenamepath + "Output_ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1_MC25ns_LegacyMC_20170328.root");
 
-// TTJets 3
+// TTJets 31,32
 //filenameString.push_back(filenamepath + "Output_TT_TuneCUETP8M2T4_13TeV-powheg-pythia8-runallAnalysis.root");
 //filenameString.push_back(filenamepath + "Output_TT_TuneCUETP8M2T4_13TeV-powheg-isrup-pythia8-runallAnalysis.root");
 //
 
 
-// Gamma + Jets
+// Gamma + Jets 33,34,35,36,37
 filenameString.push_back(filenamepath + "Output_GJets_HT-40To100_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_LegacyMC_20170328.root");
 filenameString.push_back(filenamepath + "Output_GJets_HT-100To200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_LegacyMC_20170328.root");
 filenameString.push_back(filenamepath + "Output_GJets_HT-200To400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_LegacyMC_20170328.root");
 filenameString.push_back(filenamepath + "Output_GJets_HT-400To600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_LegacyMC_20170328.root");
-//filenameString.push_back(filenamepath + "Output_GJets_HT-600ToInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_LegacyMC_20170328.root");
+filenameString.push_back(filenamepath + "Output_GJets_HT-600ToInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_LegacyMC_20170328.root");
 
 
 /*
@@ -242,8 +243,6 @@ Xsec[15] = 1.23 * 0.6304;          // DYJetsToLL HT 800-1200
 Xsec[16] = 1.23 * 0.1514;          // DYJetsToLL HT 1200-2500
 Xsec[17] = 1.23 * 0.003565;        // DYJetsToLL HT 2500-inf
 
-//Xsec[5] = Stt * 831.76; // ttbar
-
 Xsec[18] = 1.459 * 1343;           // WJets HT 70-100     ***not available in twiki*** https://twiki.cern.ch/twiki/bin/viewauth/CMS/SummaryTable1G25ns
 Xsec[19] = 1.21 * 1345;            // WJets HT 100-200
 Xsec[20] = 1.21 * 359.7;           // WJets HT 200-400
@@ -259,13 +258,13 @@ Xsec[28] =  3.36;                  // single top s-channel_4f_leptonDecays
 Xsec[29] =  35.85;                 // single top tW_top_5f_inclusiveDecays
 Xsec[30] =  35.85;                 // single top tW_antitop_5f_inclusiveDecays
 
-/*
-Xsec[0] = 20790;                   // GJets_HT-40To100
-Xsec[1] = 9238;                    // GJets_HT-100To200
-Xsec[0] = 2305;                    // GJets_HT-200To400
-Xsec[1] = 274.4;                   // GJets_HT-400To600
-Xsec[0] = 93.46;                   // GJets_HT-600ToInf
-*/
+Xsec[5] = 831.76;             // ttbar incorrect
+
+Xsec[33] = 20790;                   // GJets_HT-40To100
+Xsec[34] = 9238;                    // GJets_HT-100To200
+Xsec[35] = 2305;                    // GJets_HT-200To400
+Xsec[36] = 274.4;                   // GJets_HT-400To600
+Xsec[37] = 93.46;                   // GJets_HT-600ToInf
 
 double metbins[4]={200,350,500,1000};
 TH1F* h_mc[nfiles] ;
@@ -339,6 +338,10 @@ STop   = (TH1F*)h_mc[26]->Clone();
 for(int ttjets = 27; ttjets < 31; ttjets++){
 STop->Add(h_mc[ttjets]);}
 
+GJets   = (TH1F*)h_mc[33]->Clone();
+for(int gjets = 33; gjets < 38; gjets++){
+GJets->Add(h_mc[gjets]);}
+
  //Legend
  TLegend *legend;
  
@@ -365,6 +368,7 @@ legend = new TLegend(0.57, 0.7, 0.94,0.90,NULL,"brNDC");
  legend->AddEntry(WJets,"W(l#nu) + jets","f");
  //legend->AddEntry(TT,"top","f");
  legend->AddEntry(STop,"single t","f");
+ legend->AddEntry(GJets,"G jets","f");
 
   
 
@@ -459,6 +463,8 @@ WJets->SetLineColor(1);
 STop->SetFillColor(kBlue+2);
 STop->SetLineColor(1);
 
+GJets->SetFillColor(kYellow);
+GJets->SetLineColor(1);
 
 //hadd all the histos acc to their contributions
 
@@ -467,6 +473,7 @@ float dyj_i = DYJets->Integral();
 float wj_i = WJets->Integral();
 //float tt_i = TT->Integral();
 float st_i = STop->Integral();
+float gj_i = GJets->Integral();
 
 int order_ = 0;
 if ( /*zj_i > tt_i &&*/ zj_i > st_i && zj_i > wj_i && zj_i > dyj_i ) order_ = 0;
@@ -478,6 +485,7 @@ if ( st_i > wj_i && st_i > zj_i && /*st_i > tt_i &&*/ st_i > dyj_i ) order_ = 4;
 
 hs->Add(DIBOSON,"hist");
 hs->Add(ZJets,"hist"); 
+hs->Add(GJets,"hist");
 
 if (order_==1) {
 hs->Add(WJets,"hist");
@@ -783,6 +791,7 @@ for(Int_t i = 0; i < h_err->GetNbinsX()+2; i++) {
    pow(0.30 * ZJets->GetBinContent(i), 2) +
    pow(0.30 * DYJets->GetBinContent(i), 2) +
    /*pow(0.20 * TT->GetBinContent(i), 2) +*/
+   pow(0.30 * GJets->GetBinContent(i), 2) +
    pow(0.30 * STop->GetBinContent(i), 2) +
    pow(0.30 * DIBOSON->GetBinContent(i), 2));
    double binerror = sqrt(binerror2);
@@ -1088,6 +1097,8 @@ DIBOSON->SetNameTitle("DIBOSON","DIBOSON");
 DIBOSON->Write();
 ZJets->SetNameTitle("ZJets","ZJets");
 ZJets->Write();
+GJets->SetNameTitle("GJets","GJets");
+GJets->Write();
 STop->SetNameTitle("STop","STop");
 STop->Write();
 WJets->SetNameTitle("WJets","WJets");
