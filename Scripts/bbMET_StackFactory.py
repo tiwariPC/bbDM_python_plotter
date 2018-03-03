@@ -1,6 +1,7 @@
 import os
 import sys
 import datetime
+import sys, optparse
 ## Ratio is added Data/MC 
 ## Template macro is fed to a python variable
 ## 1.)  is created on DateBase 
@@ -11,13 +12,54 @@ import datetime
 ## Raman Khurana
 
 
-if len(sys.argv) < 2 : 
-    print "insufficiency inputs provided, please provide the directory with input files"
-#just for argument, the input file path is explicitly provided in line no 101
-if len(sys.argv) ==2 : 
-    print "plotting from directory ",sys.argv[1]
-    inputdirname = sys.argv[1]
+#if len(sys.argv) < 2 : 
+#    print "insufficiency inputs provided, please provide the directory with input files"
+##just for argument, the input file path is explicitly provided in line no 101
+#if len(sys.argv) ==2 : 
+#    print "plotting from directory ",sys.argv[1]
+#    inputdirname = sys.argv[1]
 
+usage = "usage: %prog [options] arg1 arg2"
+parser = optparse.OptionParser(usage)
+
+parser.add_option("-d", "--data", dest="datasetname")
+parser.add_option("-s", "--sr", action="store_true", dest="plotSRs")
+parser.add_option("-m", "--mu", action="store_true", dest="plotMuRegs")
+parser.add_option("-e", "--ele", action="store_true", dest="plotEleRegs")
+parser.add_option("-p", "--pho", action="store_true", dest="plotPhoRegs")
+
+(options, args) = parser.parse_args()
+
+if options.plotSRs==None:
+    makeSRplots = False
+else:
+    makeSRplots = options.plotSRs
+
+if options.plotMuRegs==None:
+    makeMuCRplots = False
+else:
+    makeMuCRplots = options.plotMuRegs
+    
+if options.plotEleRegs==None:
+    makeEleCRplots = False
+else:
+    makeEleCRplots = options.plotEleRegs
+    
+if options.plotPhoRegs==None:
+    makePhoCRplots = False
+else:
+    makePhoCRplots = options.plotPhoRegs
+    
+if options.datasetname.upper()=="SE":
+    dtset="SE"
+elif options.datasetname.upper()=="SP":
+    dtset="SP"
+elif options.datasetname.upper()=="SM":
+    dtset="SM"
+else:
+    dtset="MET"
+
+print "Using dataset "+dtset
 
 datestr = datetime.date.today().strftime("%d%m%Y")
 
@@ -77,7 +119,7 @@ gStyle->SetLineWidth(1);
 
 //Provide luminosity of total data
 //cout << endl << "*************** WARNING: Assuming incomplete data: full luminosity is not used. ***************" << endl << endl; //Adjust the last factor in the next line according to available data.
-float lumi = 36.773 * 1000;// * 0.96838; // from the twiki https://twiki.cern.ch/twiki/bin/view/CMS/PdmV2016Analysis
+float lumi = 35.545 * 1000; // 35.540082604 * 1000; // 3.1054555906 * 1000 ; ////11706.;// * 0.96838; // from the twiki https://twiki.cern.ch/twiki/bin/view/CMS/PdmV2016Analysis  //36.773
 float luminosity = 35.9;// It will print on your plots too
 
 std::vector<TString> filenameString;
@@ -155,59 +197,58 @@ filenameString.push_back(filenamepath + "Output_GJets_HT-400To600_TuneCUETP8M1_1
 filenameString.push_back(filenamepath + "Output_GJets_HT-600ToInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_LegacyMC_20170328.root");
 
 // TTJets 36
-filenameString.push_back(filenamepath + "Output_TT_TuneCUETP8M2T4_13TeV-powheg-pythia8_Combined.root");
+filenameString.push_back(filenamepath + "Output_TT_TuneCUETP8M2T4_13TeV-powheg-pythia8.root");
 //
 
 
-/*
 // not used so far
-TString filenamepath("/afs/cern.ch/work/s/spmondal/public/bbDM/bbMETSamples_all_full/signal/"); 
-//bbMET Signal Sample 
-filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-50_Mphi-400 signal_1.root");
-filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-50_Mphi-350 signal_2.root");
-filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-50_Mphi-300 signal_3.root");
-filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-450_Mphi-1000 signal_4.root");
-filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-350_Mphi-750 signal_5.root");
-filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-350_Mphi-1000 signal_6.root");
-filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-1_Mphi-750 signal_7.root");
-filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-1_Mphi-500 signal_8.root");
-filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-1_Mphi-400 signal_9.root");
-filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-1_Mphi-350 signal_10.root");
-filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-1_Mphi-300 signal_11.root");
-filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-10_Mphi-50 signal_12.root");
-filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-10_Mphi-10 signal_13.root");
-filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-10_Mphi-100 signal_14.root");
-filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-100_Mphi-500 signal_15.root");
-filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-100_Mphi-400 signal_16.root");
-filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-100_Mphi-350 signal_17.root");
-filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-100_Mphi-300 signal_18.root");
-filenameString.push_back(filenamepath + "Output_pseudo_NLO_Mchi-50_Mphi-50 signal_19.root");
-filenameString.push_back(filenamepath + "Output_pseudo_NLO_Mchi-50_Mphi-500 signal_20.root");
-filenameString.push_back(filenamepath + "Output_pseudo_NLO_Mchi-50_Mphi-400 signal_21.root");
-filenameString.push_back(filenamepath + "Output_pseudo_NLO_Mchi-50_Mphi-350 signal_22.root");
-filenameString.push_back(filenamepath + "Output_pseudo_NLO_Mchi-50_Mphi-300 signal_23.root");
-filenameString.push_back(filenamepath + "Output_pseudo_NLO_Mchi-50_Mphi-200 signal_24.root");
-filenameString.push_back(filenamepath + "Output_pseudo_NLO_Mchi-450_Mphi-1000 signal_25.root");
-filenameString.push_back(filenamepath + "Output_pseudo_NLO_Mchi-1_Mphi-50 signal_26.root");
-filenameString.push_back(filenamepath + "Output_pseudo_NLO_Mchi-1_Mphi-500 signal_27.root");
-filenameString.push_back(filenamepath + "Output_pseudo_NLO_Mchi-1_Mphi-400 signal_28.root");
-filenameString.push_back(filenamepath + "Output_pseudo_NLO_Mchi-1_Mphi-350 signal_29.root");
-filenameString.push_back(filenamepath + "Output_pseudo_NLO_Mchi-1_Mphi-100 signal_30.root");
-filenameString.push_back(filenamepath + "Output_pseudo_NLO_Mchi-1_Mphi-1000 signal_31.root");
-filenameString.push_back(filenamepath + "Output_pseudo_NLO_Mchi-10_Mphi-50 signal_32.root");
-filenameString.push_back(filenamepath + "Output_pseudo_NLO_Mchi-10_Mphi-10 signal_33.root");
-filenameString.push_back(filenamepath + "Output_pseudo_NLO_Mchi-10_Mphi-100 signal_34.root");
-filenameString.push_back(filenamepath + "Output_pseudo_NLO_Mchi-100_Mphi-750 signal_35.root");
-filenameString.push_back(filenamepath + "Output_pseudo_NLO_Mchi-100_Mphi-500 signal_36.root");
-filenameString.push_back(filenamepath + "Output_pseudo_NLO_Mchi-100_Mphi-400 signal_37.root");
-filenameString.push_back(filenamepath + "Output_pseudo_NLO_Mchi-100_Mphi-350 signal_38.root");
-*/
+TString filenamesigpath("/afs/cern.ch/work/s/spmondal/public/bbDM/bbMETSamples_all_full/signal/"); 
+//bbMET Signal Sample 37 - 74
+filenameString.push_back(filenamesigpath + "Output_scalar_NLO_Mchi-50_Mphi-400.root");
+filenameString.push_back(filenamesigpath + "Output_scalar_NLO_Mchi-50_Mphi-350.root");
+filenameString.push_back(filenamesigpath + "Output_scalar_NLO_Mchi-50_Mphi-300.root");
+filenameString.push_back(filenamesigpath + "Output_scalar_NLO_Mchi-450_Mphi-1000.root");
+filenameString.push_back(filenamesigpath + "Output_scalar_NLO_Mchi-350_Mphi-750.root");
+filenameString.push_back(filenamesigpath + "Output_scalar_NLO_Mchi-350_Mphi-1000.root");
+filenameString.push_back(filenamesigpath + "Output_scalar_NLO_Mchi-1_Mphi-750.root");
+filenameString.push_back(filenamesigpath + "Output_scalar_NLO_Mchi-1_Mphi-500.root");
+filenameString.push_back(filenamesigpath + "Output_scalar_NLO_Mchi-1_Mphi-400.root");
+filenameString.push_back(filenamesigpath + "Output_scalar_NLO_Mchi-1_Mphi-350.root");
+filenameString.push_back(filenamesigpath + "Output_scalar_NLO_Mchi-1_Mphi-300.root");
+filenameString.push_back(filenamesigpath + "Output_scalar_NLO_Mchi-10_Mphi-50.root");
+filenameString.push_back(filenamesigpath + "Output_scalar_NLO_Mchi-10_Mphi-10.root");
+filenameString.push_back(filenamesigpath + "Output_scalar_NLO_Mchi-10_Mphi-100.root");
+filenameString.push_back(filenamesigpath + "Output_scalar_NLO_Mchi-100_Mphi-500.root");
+filenameString.push_back(filenamesigpath + "Output_scalar_NLO_Mchi-100_Mphi-400.root");
+filenameString.push_back(filenamesigpath + "Output_scalar_NLO_Mchi-100_Mphi-350.root");
+filenameString.push_back(filenamesigpath + "Output_scalar_NLO_Mchi-100_Mphi-300.root");
+filenameString.push_back(filenamesigpath + "Output_pseudo_NLO_Mchi-50_Mphi-50.root");
+filenameString.push_back(filenamesigpath + "Output_pseudo_NLO_Mchi-50_Mphi-500.root");
+filenameString.push_back(filenamesigpath + "Output_pseudo_NLO_Mchi-50_Mphi-400.root");
+filenameString.push_back(filenamesigpath + "Output_pseudo_NLO_Mchi-50_Mphi-350.root");
+filenameString.push_back(filenamesigpath + "Output_pseudo_NLO_Mchi-50_Mphi-300.root");
+filenameString.push_back(filenamesigpath + "Output_pseudo_NLO_Mchi-50_Mphi-200.root");
+filenameString.push_back(filenamesigpath + "Output_pseudo_NLO_Mchi-450_Mphi-1000.root");
+filenameString.push_back(filenamesigpath + "Output_pseudo_NLO_Mchi-1_Mphi-50.root");
+filenameString.push_back(filenamesigpath + "Output_pseudo_NLO_Mchi-1_Mphi-500.root");
+filenameString.push_back(filenamesigpath + "Output_pseudo_NLO_Mchi-1_Mphi-400.root");
+filenameString.push_back(filenamesigpath + "Output_pseudo_NLO_Mchi-1_Mphi-350.root");
+filenameString.push_back(filenamesigpath + "Output_pseudo_NLO_Mchi-1_Mphi-100.root");
+filenameString.push_back(filenamesigpath + "Output_pseudo_NLO_Mchi-1_Mphi-1000.root");
+filenameString.push_back(filenamesigpath + "Output_pseudo_NLO_Mchi-10_Mphi-50.root");
+filenameString.push_back(filenamesigpath + "Output_pseudo_NLO_Mchi-10_Mphi-10.root");
+filenameString.push_back(filenamesigpath + "Output_pseudo_NLO_Mchi-10_Mphi-100.root");
+filenameString.push_back(filenamesigpath + "Output_pseudo_NLO_Mchi-100_Mphi-750.root");
+filenameString.push_back(filenamesigpath + "Output_pseudo_NLO_Mchi-100_Mphi-500.root");
+filenameString.push_back(filenamesigpath + "Output_pseudo_NLO_Mchi-100_Mphi-400.root");
+filenameString.push_back(filenamesigpath + "Output_pseudo_NLO_Mchi-100_Mphi-350.root");
+
 //
+
 TString filenamedatapath("/afs/cern.ch/work/s/spmondal/public/bbDM/bbMETSamples_all_full/data/");
-//Data File
-filenameString.push_back(filenamedatapath + "data_combined.root");
-//filenameString.push_back(filenamepath + "Merged_MET.root");
-//histoname
+//Data File 75
+filenameString.push_back(filenamedatapath + "data_combined_'''+dtset+'''.root");
+
 
 // dummy file
 filenameString.push_back(filenamepath + "Output_GJets_HT-600ToInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_LegacyMC_20170328_copy.root");
@@ -281,7 +322,7 @@ TH1F *h_total;
 
 cout << to_string(nfiles) << endl;
 
-for(int i =0; i<37; i++){
+for(int i =0; i<75; i++){
 //    cout << "Reading file #" << to_string(i+1) << ": " << filenameString[i] << endl;
     fIn = new TFile(filenameString[i],"READ");
 
@@ -313,7 +354,8 @@ for(int i =0; i<37; i++){
      h_mc[i]->Scale(normalization[i]);
  }
 
-fIn = new TFile(filenameString[37],"READ");
+
+fIn = new TFile(filenameString[75],"READ");
 if(VARIABLEBINS){
 h_temp =(TH1F*) fIn->Get(histnameString);
 h_temp->Rebin(3,"hnew",metbins);
@@ -323,6 +365,7 @@ h_data = (TH1F*) fIn->Get(histnameString);
 //h_data->Rebin(REBIN);
 h_data->Sumw2();
 }
+
 
 data_obs = (TH1F*) fIn->Get(histnameString);
 
@@ -362,7 +405,7 @@ TT        = (TH1F*)h_mc[36]->Clone();
 legend = new TLegend(0.58, 0.69, 0.92,0.94,NULL,"brNDC");
  legend->SetTextSize(0.020);
  }else{
-legend = new TLegend(0.57, 0.7, 0.94,0.90,NULL,"brNDC"); 
+legend = new TLegend(0.57, 0.69, 0.94,0.90,NULL,"brNDC"); 
 //legend = new TLegend(0.13, 0.85, 0.95,0.92,NULL,"brNDC");
 // legend = new TLegend(0.7, 0.68, 0.95,0.92,NULL,"brNDC");
  legend->SetTextSize(0.020); }
@@ -384,8 +427,8 @@ legend = new TLegend(0.57, 0.7, 0.94,0.90,NULL,"brNDC");
 
  
 //===========================Latex=================//
-TString latexCMSname= "CMS";// #it{#bf{Preliminary}}";
-TString latexPreCMSname= "DM + heavy flavor : Preliminary Plots '''+datestr+'''";
+TString latexCMSname= "";//"CMS";// #it{#bf{Preliminary}}";
+TString latexPreCMSname= "DM + bb : CMS Preliminary";
 TString latexnamemiddle;
 latexnamemiddle.Form("%1.1f fb^{-1}",luminosity); 
 TString latexnamepost = " (13 TeV)";
@@ -530,6 +573,8 @@ float gj_i = GJets->Integral();
 //hs->Add(STop,"hist");
 //}
 
+
+
 hs->Add(GJets,"hist");
 hs->Add(DIBOSON,"hist");
 hs->Add(STop,"hist");
@@ -622,7 +667,7 @@ c12->SetLogy(ISLOG);
 //  TPad *c1_2 = new TPad("c1_2","newpad",0,0.05,1,0.993);
 //  }
 //  else{
-  TPad *c1_2 = new TPad("c1_2","newpad",0,0.3,1,1.0);
+  TPad *c1_2 = new TPad("c1_2","newpad",0,0.28,1,1.0);
   c1_2->SetBottomMargin(0.03);
   c1_2->SetTopMargin(0.06);
 //  }
@@ -683,6 +728,7 @@ h_prefit->SetFillColor(0);
   } 
 
 
+
 //  cout <<"binofwidth = "<< binofwidth <<" binwidth_ = "<<binwidth_<<std::endl;
 
   double binofwidth = h_mc[0]->GetBinWidth(1);
@@ -700,24 +746,24 @@ if (!hasNoEvents) {
   hs->GetXaxis()->SetLabelFont(42);
   hs->GetXaxis()->SetLabelSize(.03);
   hs->GetYaxis()->SetTitle("Events");
-  hs->GetYaxis()->SetTitleSize(0.03);
+  hs->GetYaxis()->SetTitleSize(0.12);
   hs->GetYaxis()->SetTitleOffset(1.2);
   hs->GetYaxis()->SetTitleFont(42);
   hs->GetYaxis()->SetLabelFont(42);
-  hs->GetYaxis()->SetLabelSize(0.03);
-  hs->GetXaxis()->SetTitle("XAXISLABEL");}
+  hs->GetYaxis()->SetLabelSize(0.05);
+  //hs->GetXaxis()->SetTitle("XAXISLABEL");
+  }
   else{
-  hs->GetXaxis()->SetTitle("XAXISLABEL");
-  hs->GetXaxis()->SetTitleSize(0.03);
-  hs->GetXaxis()->SetTitleOffset(1.05);
+  //hs->GetXaxis()->SetTitle("XAXISLABEL");
+  hs->GetXaxis()->SetTitleSize(0.00);
+  hs->GetXaxis()->SetTitleOffset(0.00);
   hs->GetXaxis()->SetTitleFont(42);
   hs->GetXaxis()->SetLabelFont(42);
-  hs->GetXaxis()->SetLabelSize(.03);
   hs->GetXaxis()->SetLabelOffset(.01);
-  hs->GetXaxis()->SetLabelSize(0.03); 
+  hs->GetXaxis()->SetLabelSize(0.04); 
   hs->GetYaxis()->SetTitle("Events");
-  hs->GetYaxis()->SetTitleSize(0.03); 
-  hs->GetYaxis()->SetTitleOffset(1.2);
+  hs->GetYaxis()->SetTitleSize(0.05); 
+  hs->GetYaxis()->SetTitleOffset(0.7);
   hs->GetYaxis()->SetTitleFont(42);
   hs->GetYaxis()->SetLabelFont(42);
   hs->GetYaxis()->SetLabelSize(.03);
@@ -764,13 +810,19 @@ legend = new TLegend(0.58, 0.69, 0.92,0.94,NULL,"brNDC");
   t2c->Draw("same");
   t2d->Draw("same");
   
-  
 
 // Commenting out the signal for control region
 //  h_mc[9]->Draw("hist same");
 //  h_mc[10]->Draw("hist same");
 //  h_mc[11]->Draw("hist same");
-  h_data->Draw("same p e1");
+
+//*****************************************UNCOMMENT THIS PART AFTER ADDING XSECS***************
+//  for (int imc=37;imc<75;imc++){
+//    h_mc[imc]->Draw("hist same");
+//  }
+  
+  
+//  h_data->Draw("same p e1");
 // for lower band stat and sys band
 
 
@@ -840,12 +892,12 @@ ratioleg1->SetFillColor(0);
 ratioleg1->SetLineColor(0);
 ratioleg1->SetShadowColor(0);
 ratioleg1->SetTextFont(42);
-ratioleg1->SetTextSize(0.09);
+ratioleg1->SetTextSize(0.07);
 ratioleg1->SetBorderSize(1);
 ratioleg1->SetNColumns(2);
 //ratioleg->SetTextSize(0.07);
-ratioleg1->AddEntry(ratiosysterr, "Pre-fit", "f");
-ratioleg1->AddEntry(ratiostaterr, "Postfit", "f");
+//ratioleg1->AddEntry(ratiosysterr, "Pre-fit", "f");
+//ratioleg1->AddEntry(ratiostaterr, "Postfit", "f");
 
 
 //For DATA:
@@ -859,16 +911,16 @@ ratioleg1->AddEntry(ratiostaterr, "Postfit", "f");
   
 //  DataMCPre->Divide(h_prefit);
   DataMC->GetYaxis()->SetTitle("Data/Pred.");
-  DataMC->GetYaxis()->SetTitleSize(0.14);
-  DataMC->GetYaxis()->SetTitleOffset(0.38);
+  DataMC->GetYaxis()->SetTitleSize(0.12);
+  DataMC->GetYaxis()->SetTitleOffset(0.3);
   DataMC->GetYaxis()->SetTitleFont(42);
-  DataMC->GetYaxis()->SetLabelSize(0.15);
+  DataMC->GetYaxis()->SetLabelSize(0.08);
   DataMC->GetYaxis()->CenterTitle();
   DataMC->GetXaxis()->SetTitle("XAXISLABEL");
 //DataMC->GetXaxis()->SetIndiceSize(0.1);
-  DataMC->GetXaxis()->SetLabelSize(0.157);
-  DataMC->GetXaxis()->SetTitleSize(0.16);
-  DataMC->GetXaxis()->SetTitleOffset(1.02);
+  DataMC->GetXaxis()->SetLabelSize(0.1);
+  DataMC->GetXaxis()->SetTitleSize(0.12);
+  DataMC->GetXaxis()->SetTitleOffset(0.9);
   DataMC->GetXaxis()->SetTitleFont(42);
   DataMC->GetXaxis()->SetTickLength(0.07);
   DataMC->GetXaxis()->SetLabelFont(42);
@@ -883,10 +935,12 @@ ratioleg1->AddEntry(ratiostaterr, "Postfit", "f");
  c1_1->Range(-7.862408,-629.6193,53.07125,486.5489);
  c1_1->SetFillColor(0);
  c1_1->SetTicky(1);
- c1_1->SetLeftMargin(0.1290323);
- c1_1->SetRightMargin(0.05040323);
+// c1_1->SetLeftMargin(0.1290323);
+// c1_1->SetRightMargin(0.05040323);
+ c1_1->SetLeftMargin(0.1);
+ c1_1->SetRightMargin(0.1);
  c1_1->SetTopMargin(0.0);//0.0
- c1_1->SetBottomMargin(0.366666678814);
+ c1_1->SetBottomMargin(0.32);
  c1_1->SetFrameFillStyle(0);
  c1_1->SetFrameBorderMode(0);
  c1_1->SetFrameFillStyle(0);
@@ -926,7 +980,7 @@ DataMC->Draw("P e1 same");
 ratioleg->Draw("same");
 
 
-
+/*
 TLegend * ratioleg2 = new TLegend(0.35, 0.45, 0.94, 0.55);
 ratioleg2->SetFillColor(0);
 ratioleg2->SetLineColor(0);
@@ -936,10 +990,10 @@ ratioleg2->SetTextSize(0.09);
 ratioleg2->SetBorderSize(1);
 ratioleg2->SetNColumns(2);
 //ratioleg->SetTextSize(0.07);
-ratioleg2->AddEntry(DataMCPre, "Pre-fit", "PEL");                                                                                    
-ratioleg2->AddEntry(DataMC, "Post-fit", "PEL");
+//ratioleg2->AddEntry(DataMCPre, "Pre-fit", "PEL");                                                                                    
+//ratioleg2->AddEntry(DataMC, "Post-fit", "PEL");
 ratioleg2->Draw("same");                                                                                                                                                              
-
+*/
 
 
 
@@ -1204,296 +1258,140 @@ dirnames=['']
 emplist=open("Empty.txt","w")
 emplist.close()
 
+
 for dirname in dirnames:
-    makeLinearplots=True
-    if makeLinearplots :
-#      ##for Signal
-#      makeplot([dirname+"jet1_eta_sr1",'h_jet1_eta_sr1_','jet 1 #eta','-3.','3.','70','0'])
-#      makeplot([dirname+"jet2_eta_sr1",'h_jet2_eta_sr1_','jet 2 #eta','-3.','3.','70','0'])
-#      
-#      makeplot([dirname+"jet1_eta_sr2",'h_jet1_eta_sr2_','jet 1 #eta','-3.','3.','70','0'])
-#      makeplot([dirname+"jet2_eta_sr2",'h_jet2_eta_sr2_','jet 2 #eta','-3.','3.','70','0'])
-#      makeplot([dirname+"jet3_eta_sr2",'h_jet3_eta_sr2_','jet 3 #eta','-3.','3.','70','0'])
-#   
-#   
-#      makeplot([dirname+"jet1_csv_sr1",'h_jet1_csv_sr1_','jet 1 csv','0.','1.','100','0'])
-#      makeplot([dirname+"jet2_csv_sr1",'h_jet2_csv_sr1_','jet 2 csv','0.','1.','100','0'])
-#      
-#      makeplot([dirname+"presel_jet1_csv_sr1",'h_presel_jet1_csv_sr1_','jet 1 csv before selection','0.','1.','100','0'])
-#      makeplot([dirname+"presel_jet2_csv_sr1",'h_presel_jet2_csv_sr1_','jet 2 csv before selection','0.','1.','100','0'])
-#   
-#      makeplot([dirname+"jet1_csv_sr2",'h_jet1_csv_sr2_','jet 1 csv','0.','1.','100','0'])
-#      makeplot([dirname+"jet2_csv_sr2",'h_jet2_csv_sr2_','jet 2 csv','0.','1.','100','0'])
-#      makeplot([dirname+"jet3_csv_sr2",'h_jet3_csv_sr2_','jet 3 csv','0.','1.','100','0'])
-#      
-#      makeplot([dirname+"presel_jet1_csv_sr2",'h_presel_jet1_csv_sr2_','jet 1 csv before selection','0.','1.','100','0'])
-#      makeplot([dirname+"presel_jet2_csv_sr2",'h_presel_jet2_csv_sr2_','jet 2 csv before selection','0.','1.','100','0'])
-#      makeplot([dirname+"presel_jet3_csv_sr2",'h_presel_jet3_csv_sr2_','jet 3 csv before selection','0.','1.','100','0'])
-#      
-#      makeplot([dirname+"presel_jet1_chf_sr1",'h_presel_jet1_chf_sr1_','jet 1 CHadFrac before selection','0.','1.','40','0'])
-#      makeplot([dirname+"presel_jet1_chf_sr2",'h_presel_jet1_chf_sr2_','jet 1 CHadFrac before selection','0.','1.','40','0'])
-#      makeplot([dirname+"presel_jet1_nhf_sr1",'h_presel_jet1_nhf_sr1_','jet 1 NHadFrac before selection','0.','1.','40','0'])
-#      makeplot([dirname+"presel_jet1_nhf_sr2",'h_presel_jet1_nhf_sr2_','jet 1 NHadFrac before selection','0.','1.','40','0'])
-#      
-#      makeplot([dirname+"jet1_chf_sr1",'h_jet1_chf_sr1_','jet 1 CHadFrac','0.','1.','40','0'])
-#      makeplot([dirname+"jet1_chf_sr2",'h_jet1_chf_sr2_','jet 1 CHadFrac','0.','1.','40','0'])
-#      makeplot([dirname+"jet1_nhf_sr1",'h_jet1_nhf_sr1_','jet 1 NHadFrac','0.','1.','40','0'])
-#      makeplot([dirname+"jet1_nhf_sr2",'h_jet1_nhf_sr2_','jet 1 NHadFrac','0.','1.','40','0'])
-   
-       ##for CRs
-      for reg in ['2e1b','2mu1b','2e2b','2mu2b','1e1b','1mu1b','1e2b','1mu2b','1mu1e1b','1mu1e2b']:
-          makeplot([dirname+"reg_"+reg+"_Zmass",'h_reg_'+reg+'_Zmass_','m_{Z} [GeV])','70.','110.','40','0'])          
-          makeplot([dirname+"reg_"+reg+"_Wmass",'h_reg_'+reg+'_Wmass_','m_{W} [GeV])','0.','160.','110','0'])
-          makeplot([dirname+"reg_"+reg+"_jet1_eta",'h_reg_'+reg+'_jet1_eta_','Lead Jet #eta','-3.5','3.5','70','0'])
-          makeplot([dirname+"reg_"+reg+"_jet2_eta",'h_reg_'+reg+'_jet2_eta_','Second Jet #eta','-3.5','3.5','70','0'])
-          makeplot([dirname+"reg_"+reg+"_jet1_csv",'h_reg_'+reg+'_jet1_csv_','Lead Jet CSV','0.','1.','50','0'])
-          makeplot([dirname+"reg_"+reg+"_jet2_csv",'h_reg_'+reg+'_jet2_csv_','Second Jet CSV','0.','1.','50','0'])
-          
-      
-      
-#      makeplot([dirname+"Zmass1mumu",'h_Zmass1mumu_','m_{Z} [GeV]','70.','110.','100','0'])
-#      makeplot([dirname+"Zmass1ee",'h_Zmass1ee_','m_{Z} [GeV]','70.','110.','100','0'])
-#      
-#      makeplot([dirname+"Zmass2mumu",'h_Zmass2mumu_','m_{Z} [GeV]','70.','110.','100','0'])
-#      makeplot([dirname+"Zmass2ee",'h_Zmass2ee_','m_{Z} [GeV]','70.','110.','100','0'])
-#      
-#      
-#      makeplot([dirname+"jet1_eta_Zmumucr1",'h_jet1_eta_Zmumucr1_','jet 1 #eta','-3.','3.','70','0'])
-#      makeplot([dirname+"jet2_eta_Zmumucr1",'h_jet2_eta_Zmumucr1_','jet 2 #eta','-3.','3.','70','0'])
-#      
-#      makeplot([dirname+"jet1_eta_Zmumucr2",'h_jet1_eta_Zmumucr2_','jet 1 #eta','-3.','3.','70','0'])
-#      makeplot([dirname+"jet2_eta_Zmumucr2",'h_jet2_eta_Zmumucr2_','jet 2 #eta','-3.','3.','70','0'])
-#      makeplot([dirname+"jet3_eta_Zmumucr2",'h_jet3_eta_Zmumucr2_','jet 3 #eta','-3.','3.','70','0'])
-#      
-#      
-#      makeplot([dirname+"jet1_csv_Zmumucr1",'h_jet1_csv_Zmumucr1_','jet 1 csv','0.','1.','100','0'])
-#      makeplot([dirname+"jet2_csv_Zmumucr1",'h_jet2_csv_Zmumucr1_','jet 2 csv','0.','1.','100','0'])
-#      
-#      makeplot([dirname+"jet1_csv_Zmumucr2",'h_jet1_csv_Zmumucr2_','jet 1 csv','0.','1.','100','0'])
-#      makeplot([dirname+"jet2_csv_Zmumucr2",'h_jet2_csv_Zmumucr2_','jet 2 csv','0.','1.','100','0'])
-#      makeplot([dirname+"jet3_csv_Zmumucr2",'h_jet3_csv_Zmumucr2_','jet 3 csv','0.','1.','100','0'])
-#      
-#      makeplot([dirname+"jet1_eta_Zeecr1",'h_jet1_eta_Zeecr1_','jet 1 #eta','-3.','3.','70','0'])
-#      makeplot([dirname+"jet2_eta_Zeecr1",'h_jet2_eta_Zeecr1_','jet 2 #eta','-3.','3.','70','0'])
-#      
-#      makeplot([dirname+"jet1_eta_Zeecr2",'h_jet1_eta_Zeecr2_','jet 1 #eta','-3.','3.','70','0'])
-#      makeplot([dirname+"jet2_eta_Zeecr2",'h_jet2_eta_Zeecr2_','jet 2 #eta','-3.','3.','70','0'])
-#      makeplot([dirname+"jet3_eta_Zeecr2",'h_jet3_eta_Zeecr2_','jet 3 #eta','-3.','3.','70','0'])
-#      
-#      
-#      makeplot([dirname+"jet1_csv_Zeecr1",'h_jet1_csv_Zeecr1_','jet 1 csv','0.','1.','100','0'])
-#      makeplot([dirname+"jet2_csv_Zeecr1",'h_jet2_csv_Zeecr1_','jet 2 csv','0.','1.','100','0'])
-#      
-#      makeplot([dirname+"jet1_csv_Zeecr2",'h_jet1_csv_Zeecr2_','jet 1 csv','0.','1.','100','0'])
-#      makeplot([dirname+"jet2_csv_Zeecr2",'h_jet2_csv_Zeecr2_','jet 2 csv','0.','1.','100','0'])
-#      makeplot([dirname+"jet3_csv_Zeecr2",'h_jet3_csv_Zeecr2_','jet 3 csv','0.','1.','100','0'])
-#      
-#      
-#      ##for W
-#      makeplot([dirname+"Wmass1mu",'h_Wmass1mu_','m_{W} [GeV]','50.','160.','100','0'])
-#      makeplot([dirname+"Wmass1e",'h_Wmass1e_','m_{W} [GeV]','50.','160.','100','0'])
-#      
-#      makeplot([dirname+"Wmass2mu",'h_Wmass2mu_','m_{W} [GeV]','50.','160.','100','0'])
-#      makeplot([dirname+"Wmass2e",'h_Wmass2e_','m_{W} [GeV]','50.','160.','100','0'])
-#      
-#      
-#      makeplot([dirname+"jet1_eta_Wmucr1",'h_jet1_eta_Wmucr1_','jet 1 #eta','-3.','3.','70','0'])
-#      makeplot([dirname+"jet2_eta_Wmucr1",'h_jet2_eta_Wmucr1_','jet 2 #eta','-3.','3.','70','0'])
-#      
-#      makeplot([dirname+"jet1_eta_Wmucr2",'h_jet1_eta_Wmucr2_','jet 1 #eta','-3.','3.','70','0'])
-#      makeplot([dirname+"jet2_eta_Wmucr2",'h_jet2_eta_Wmucr2_','jet 2 #eta','-3.','3.','70','0'])
-#      makeplot([dirname+"jet3_eta_Wmucr2",'h_jet3_eta_Wmucr2_','jet 3 #eta','-3.','3.','70','0'])
-#      
-#      
-#      makeplot([dirname+"jet1_csv_Wmucr1",'h_jet1_csv_Wmucr1_','jet 1 csv','0.','1.','100','0'])
-#      makeplot([dirname+"jet2_csv_Wmucr1",'h_jet2_csv_Wmucr1_','jet 2 csv','0.','1.','100','0'])
-#      
-#      makeplot([dirname+"jet1_csv_Wmucr2",'h_jet1_csv_Wmucr2_','jet 1 csv','0.','1.','100','0'])
-#      makeplot([dirname+"jet2_csv_Wmucr2",'h_jet2_csv_Wmucr2_','jet 2 csv','0.','1.','100','0'])
-#      makeplot([dirname+"jet3_csv_Wmucr2",'h_jet3_csv_Wmucr2_','jet 3 csv','0.','1.','100','0'])
-#      
-#      makeplot([dirname+"jet1_eta_Wecr1",'h_jet1_eta_Wecr1_','jet 1 #eta','-3.','3.','70','0'])
-#      makeplot([dirname+"jet2_eta_Wecr1",'h_jet2_eta_Wecr1_','jet 2 #eta','-3.','3.','70','0'])
-#      
-#      makeplot([dirname+"jet1_eta_Wecr2",'h_jet1_eta_Wecr2_','jet 1 #eta','-3.','3.','70','0'])
-#      makeplot([dirname+"jet2_eta_Wecr2",'h_jet2_eta_Wecr2_','jet 2 #eta','-3.','3.','70','0'])
-#      makeplot([dirname+"jet3_eta_Wecr2",'h_jet3_eta_Wecr2_','jet 3 #eta','-3.','3.','70','0'])
-#      
-#      
-#      makeplot([dirname+"jet1_csv_Wecr1",'h_jet1_csv_Wecr1_','jet 1 csv','0.','1.','100','0'])
-#      makeplot([dirname+"jet2_csv_Wecr1",'h_jet2_csv_Wecr1_','jet 2 csv','0.','1.','100','0'])
-#      
-#      makeplot([dirname+"jet1_csv_Wecr2",'h_jet1_csv_Wecr2_','jet 1 csv','0.','1.','100','0'])
-#      makeplot([dirname+"jet2_csv_Wecr2",'h_jet2_csv_Wecr2_','jet 2 csv','0.','1.','100','0'])
-#      makeplot([dirname+"jet3_csv_Wecr2",'h_jet3_csv_Wecr2_','jet 3 csv','0.','1.','100','0'])
-#      
-#      ##for TOP
-#      makeplot([dirname+"jet1_eta_TOPcr1",'h_jet1_eta_TOPcr1_','jet 1 #eta','-3.','3.','70','0'])
-#      makeplot([dirname+"jet2_eta_TOPcr1",'h_jet2_eta_TOPcr1_','jet 2 #eta','-3.','3.','70','0'])
-#      
-#      makeplot([dirname+"jet1_eta_TOPcr2",'h_jet1_eta_TOPcr2_','jet 1 #eta','-3.','3.','70','0'])
-#      makeplot([dirname+"jet2_eta_TOPcr2",'h_jet2_eta_TOPcr2_','jet 2 #eta','-3.','3.','70','0'])
-#      makeplot([dirname+"jet3_eta_TOPcr2",'h_jet3_eta_TOPcr2_','jet 3 #eta','-3.','3.','70','0'])
-#      
-#      
-#      makeplot([dirname+"jet1_csv_TOPcr1",'h_jet1_csv_TOPcr1_','jet 1 csv','0.','1.','100','0'])
-#      makeplot([dirname+"jet2_csv_TOPcr1",'h_jet2_csv_TOPcr1_','jet 2 csv','0.','1.','100','0'])
-#      
-#      makeplot([dirname+"jet1_csv_TOPcr2",'h_jet1_csv_TOPcr2_','jet 1 csv','0.','1.','100','0'])
-#      makeplot([dirname+"jet2_csv_TOPcr2",'h_jet2_csv_TOPcr2_','jet 2 csv','0.','1.','100','0'])
-#      makeplot([dirname+"jet3_csv_TOPcr2",'h_jet3_csv_TOPcr2_','jet 3 csv','0.','1.','100','0'])
-        
-    makelogplots=True
     
-    if makelogplots : 
-#        ##For Signal
-#        makeplot([dirname+"jet1_pT_sr1",'h_jet1_pT_sr1_','jet 1 p_{T} (GeV)','0.','800.','100','1'])
-#        makeplot([dirname+"jet2_pT_sr1",'h_jet2_pT_sr1_','jet 2 p_{T} (GeV)','0.','400.','100','1'])
-#        
-#        
-#        makeplot([dirname+"jet1_pT_sr2",'h_jet1_pT_sr2_','jet 1 p_{T} (GeV)','0.','800.','100','1'])
-#        makeplot([dirname+"jet2_pT_sr2",'h_jet2_pT_sr2_','jet 2 p_{T} (GeV)','0.','400.','100','1'])
-#        makeplot([dirname+"jet3_pT_sr2",'h_jet3_pT_sr2_','jet 3 p_{T} (GeV)','0.','400.','100','1'])
-#        
-#        makeplot([dirname+"min_dPhi_sr1",'h_min_dPhi_sr1_','min #Delta #phi','0.','3.2','32','1'])
-#        makeplot([dirname+"min_dPhi_sr2",'h_min_dPhi_sr2_','min #Delta #phi','0.','3.2','32','1'])
-#        
-#        makeplot([dirname+"met_sr1",'h_met_sr1_','Missing Transverse Energy','0.','1000','10','1'])
-#        makeplot([dirname+"met_sr2",'h_met_sr2_','Missing Transverse Energy','0.','1000','10','1'])
-#        
-#        
-#        ##for Z
-#        makeplot([dirname+"jet1_pT_Zmumucr1",'h_jet1_pT_Zmumucr1_','jet 1 p_{T} (GeV)','0.','800.','100','1'])
-#        makeplot([dirname+"jet2_pT_Zmumucr1",'h_jet2_pT_Zmumucr1_','jet 2 p_{T} (GeV)','0.','400.','100','1'])
-#        
-#        makeplot([dirname+"jet1_pT_Zeecr1",'h_jet1_pT_Zeecr1_','jet 1 p_{T} (GeV)','0.','800.','100','1'])
-#        makeplot([dirname+"jet2_pT_Zeecr1",'h_jet2_pT_Zeecr1_','jet 2 p_{T} (GeV)','0.','800.','100','1'])
-#        
-#        makeplot([dirname+"mu1_pT_Zmumucr1",'h_mu1_pT_Zmumucr1_','muon 1 p_{T} (GeV)','0.','800.','100','1'])
-#        makeplot([dirname+"mu2_pT_Zmumucr1",'h_mu2_pT_Zmumucr1_','muon 2 p_{T} (GeV)','0.','400.','50','1'])
-#        
-#        makeplot([dirname+"el1_pT_Zeecr1",'h_el1_pT_Zeecr1_','electron 1 p_{T} (GeV)','0.','800.','100','1'])
-#        makeplot([dirname+"el2_pT_Zeecr1",'h_el2_pT_Zeecr1_','electron 2 p_{T} (GeV)','0.','400.','50','1'])
-#        
-#        makeplot([dirname+"jet1_pT_Zmumucr2",'h_jet1_pT_Zmumucr2_','jet 1 p_{T} (GeV)','0.','800.','100','1'])
-#        makeplot([dirname+"jet2_pT_Zmumucr2",'h_jet2_pT_Zmumucr2_','jet 2 p_{T} (GeV)','0.','800.','100','1'])
-#        makeplot([dirname+"jet3_pT_Zmumucr2",'h_jet3_pT_Zmumucr2_','jet 3 p_{T} (GeV)','0.','400.','100','1'])
-#        
-#        makeplot([dirname+"jet1_pT_Zeecr2",'h_jet1_pT_Zeecr2_','jet 1 p_{T} (GeV)','0.','800.','100','1'])
-#        makeplot([dirname+"jet2_pT_Zeecr2",'h_jet2_pT_Zeecr2_','jet 2 p_{T} (GeV)','0.','800.','100','1'])
-#        makeplot([dirname+"jet3_pT_Zeecr2",'h_jet3_pT_Zeecr2_','jet 3 p_{T} (GeV)','0.','400.','100','1'])
-#        
-#        makeplot([dirname+"mu1_pT_Zmumucr2",'h_mu1_pT_Zmumucr2_','muon 1 p_{T} (GeV)','0.','800.','100','1'])
-#        makeplot([dirname+"mu2_pT_Zmumucr2",'h_mu2_pT_Zmumucr2_','muon 2 p_{T} (GeV)','0.','400.','50','1'])
-#        
-#        makeplot([dirname+"el1_pT_Zeecr2",'h_el1_pT_Zeecr2_','electron 1 p_{T} (GeV)','0.','800.','100','1'])
-#        makeplot([dirname+"el2_pT_Zeecr2",'h_el2_pT_Zeecr2_','electron 2 p_{T} (GeV)','0.','400.','50','1'])
-#        
-#        
-#        makeplot([dirname+"ZpT1mumu",'h_ZpT1mumu_','Z candidate p_{T} (GeV)','0.','400.','100','1'])
-#        makeplot([dirname+"ZpT1ee",'h_ZpT1ee_','Z candidate p_{T} (GeV)','0.','400.','100','1'])
-#        
-#        makeplot([dirname+"ZpT2mumu",'h_ZpT2mumu_','Z candidate p_{T} (GeV)','0.','400.','100','1'])
-#        makeplot([dirname+"ZpT2ee",'h_ZpT2ee_','Z candidate p_{T} (GeV)','0.','400.','100','1'])
-#        
-#        
-#        makeplot([dirname+"mu1_iso_Zmumucr1",'h_mu1_iso_Zmumucr1_','lepton 1 PFIso','0.','0.25','100','1'])
-#        makeplot([dirname+"mu2_iso_Zmumucr1",'h_mu2_iso_Zmumucr1_','lepton 2 PFIso','0.','0.25','100','1'])
-#        
-#        makeplot([dirname+"mu1_iso_Zmumucr2",'h_mu1_iso_Zmumucr2_','lepton 1 PFIso','0.','0.25','100','1'])
-#        makeplot([dirname+"mu2_iso_Zmumucr2",'h_mu2_iso_Zmumucr2_','lepton 2 PFIso','0.','0.25','100','1'])
-#        
-#        
-#        makeplot([dirname+"ZhadronRecoil1mumu",'h_ZhadronRecoil1mumu_','hadronic recoil ','0.','800.','100','1'])
-#        makeplot([dirname+"ZhadronRecoil1ee",'h_ZhadronRecoil1ee_','hadronic recoil','0.','800.','100','1'])
-#        
-#        makeplot([dirname+"ZhadronRecoil2mumu",'h_ZhadronRecoil2mumu_','hadronic recoil','200.','800.','100','1'])
-#        makeplot([dirname+"ZhadronRecoil2ee",'h_ZhadronRecoil2ee_','hadronic recoil','200.','800.','100','1'])
+    
+    
+#    if makeMuCRplots and makeEleCRplots:
+#        regions=['2e1b','2mu1b','2e2b','2mu2b','1e1b','1mu1b','1e2b','1mu2b','1mu1e1b','1mu1e2b']
+    if makeMuCRplots:
+        regions=['2mu1b','2mu2b','1mu1b','1mu2b','1mu1e1b','1mu1e2b']
+        PUreg=['','mu_']
+    elif makeEleCRplots:
+        regions=['2e1b','2e2b','1e1b','1e2b']
+        PUreg=['','ele_']
+    elif makePhoCRplots:
+        regions=['1gamma1b','1gamma2b']
+        PUreg=['','pho_']
+    else:
+        regions=[]
+        PUreg=[]
+    
+    for dt in PUreg:
+        makeplot([dirname+dt+"PuReweightPV",'h_'+dt+'PuReweightPV_','nPV after PU reweighting: '+dt,'0.','100.','100','0'])
+        makeplot([dirname+dt+"noPuReweightPV",'h_'+dt+'noPuReweightPV_','nPV before PU reweighting: '+dt,'0.','100.','100','0'])
+#        makeplot([dirname+dt+"PuReweightnPVert",'h_'+dt+'PuReweightnPVert_','nPV after PU reweighting (nPVert): '+dt,'0.','100.','100','0'])
+#        makeplot([dirname+dt+"noPuReweightnPVert",'h_'+dt+'noPuReweightnPVert_','nPV before PU reweighting (nPVert): '+dt,'0.','100.','100','0'])
+
+# Cutflow plots:
+    if makeSRplots:
+        makeplot([dirname+"cutflow",'h_cutflow_','Cutflow','0.','10','10','1'])
+        makeplot([dirname+"cutflow_SR1",'h_cutflow_SR1_','SR1 Cutflow','0.','10','10','1'])
+        makeplot([dirname+"cutflow_SR2",'h_cutflow_SR2_','SR2 Cutflow','0.','10','10','1'])
+    
+    for reg in regions:
+        makeplot([dirname+"cutflow_"+reg,'h_cutflow_'+reg+'_',reg+' Cutflow','0.','13','13','1'])
+#Linear plots:
+    if makeSRplots:
+        makeplot([dirname+"jet1_eta_sr1",'h_jet1_eta_sr1_','jet 1 #eta','-3.','3.','70','0'])
+        makeplot([dirname+"jet2_eta_sr1",'h_jet2_eta_sr1_','jet 2 #eta','-3.','3.','70','0'])
+
+        makeplot([dirname+"jet1_eta_sr2",'h_jet1_eta_sr2_','jet 1 #eta','-3.','3.','70','0'])
+        makeplot([dirname+"jet2_eta_sr2",'h_jet2_eta_sr2_','jet 2 #eta','-3.','3.','70','0'])
+        makeplot([dirname+"jet3_eta_sr2",'h_jet3_eta_sr2_','jet 3 #eta','-3.','3.','70','0'])
+
+
+        makeplot([dirname+"jet1_csv_sr1",'h_jet1_csv_sr1_','jet 1 csv','0.','1.','100','0'])
+        makeplot([dirname+"jet2_csv_sr1",'h_jet2_csv_sr1_','jet 2 csv','0.','1.','100','0'])
+
+        makeplot([dirname+"presel_jet1_csv_sr1",'h_presel_jet1_csv_sr1_','jet 1 csv before selection','0.','1.','100','0'])
+        makeplot([dirname+"presel_jet2_csv_sr1",'h_presel_jet2_csv_sr1_','jet 2 csv before selection','0.','1.','100','0'])
+
+        makeplot([dirname+"jet1_csv_sr2",'h_jet1_csv_sr2_','jet 1 csv','0.','1.','100','0'])
+        makeplot([dirname+"jet2_csv_sr2",'h_jet2_csv_sr2_','jet 2 csv','0.','1.','100','0'])
+        makeplot([dirname+"jet3_csv_sr2",'h_jet3_csv_sr2_','jet 3 csv','0.','1.','100','0'])
+
+        makeplot([dirname+"presel_jet1_csv_sr2",'h_presel_jet1_csv_sr2_','jet 1 csv before selection','0.','1.','100','0'])
+        makeplot([dirname+"presel_jet2_csv_sr2",'h_presel_jet2_csv_sr2_','jet 2 csv before selection','0.','1.','100','0'])
+        makeplot([dirname+"presel_jet3_csv_sr2",'h_presel_jet3_csv_sr2_','jet 3 csv before selection','0.','1.','100','0'])
+
+        makeplot([dirname+"presel_jet1_chf_sr1",'h_presel_jet1_chf_sr1_','jet 1 CHadFrac before selection','0.','1.','40','0'])
+        makeplot([dirname+"presel_jet1_chf_sr2",'h_presel_jet1_chf_sr2_','jet 1 CHadFrac before selection','0.','1.','40','0'])
+        makeplot([dirname+"presel_jet1_nhf_sr1",'h_presel_jet1_nhf_sr1_','jet 1 NHadFrac before selection','0.','1.','40','0'])
+        makeplot([dirname+"presel_jet1_nhf_sr2",'h_presel_jet1_nhf_sr2_','jet 1 NHadFrac before selection','0.','1.','40','0'])
+
+        makeplot([dirname+"jet1_chf_sr1",'h_jet1_chf_sr1_','jet 1 CHadFrac','0.','1.','40','0'])
+        makeplot([dirname+"jet1_chf_sr2",'h_jet1_chf_sr2_','jet 1 CHadFrac','0.','1.','40','0'])
+        makeplot([dirname+"jet1_nhf_sr1",'h_jet1_nhf_sr1_','jet 1 NHadFrac','0.','1.','40','0'])
+        makeplot([dirname+"jet1_nhf_sr2",'h_jet1_nhf_sr2_','jet 1 NHadFrac','0.','1.','40','0'])
+
+    ##for CRs
+    for reg in regions:
+        if reg[0]=='2': makeplot([dirname+"reg_"+reg+"_Zmass",'h_reg_'+reg+'_Zmass_','Z candidate mass (GeV)','70.','110.','40','0'])          
+        if reg[0]=='1': makeplot([dirname+"reg_"+reg+"_Wmass",'h_reg_'+reg+'_Wmass_','W candidate m_{T} (GeV)','0.','400.','80','0'])
+        makeplot([dirname+"reg_"+reg+"_jet1_eta",'h_reg_'+reg+'_jet1_eta_','Lead Jet #eta','-3.5','3.5','70','0'])
+        makeplot([dirname+"reg_"+reg+"_jet2_eta",'h_reg_'+reg+'_jet2_eta_','Second Jet #eta','-3.5','3.5','70','0'])
+        makeplot([dirname+"reg_"+reg+"_jet1_csv",'h_reg_'+reg+'_jet1_csv_','Lead Jet CSV','0.','1.','50','0'])
+        makeplot([dirname+"reg_"+reg+"_jet2_csv",'h_reg_'+reg+'_jet2_csv_','Second Jet CSV','0.','1.','50','0'])
+          
         
-        # Region based
-        for reg in ['2e1b','2mu1b','2e2b','2mu2b','1e1b','1mu1b','1e2b','1mu2b','1mu1e1b','1mu1e2b']:
-            makeplot([dirname+"reg_"+reg+"_ZpT",'h_reg_'+reg+'_ZpT_','Z candidate p_{T} (GeV)','0.','800.','100','1'])
-            makeplot([dirname+"reg_"+reg+"_WpT",'h_reg_'+reg+'_WpT_','W candidate p_{T} (GeV)','0.','800.','100','1'])
-            makeplot([dirname+"reg_"+reg+"_hadrecoil",'h_reg_'+reg+'_hadrecoil_','Hadronic Recoil (GeV)','0.','1000.','100','1'])
-            makeplot([dirname+"reg_"+reg+"_MET",'h_reg_'+reg+'_MET_','Real MET (GeV)','0.','400.','100','1'])
-            makeplot([dirname+"reg_"+reg+"_njet",'h_reg_'+reg+'_njet_','Number of Jets','-1','12','13','1'])
-            makeplot([dirname+"reg_"+reg+"_ntau",'h_reg_'+reg+'_ntau_','Number of Taus','-1','4','5','1'])
-            makeplot([dirname+"reg_"+reg+"_nUncleanTau",'h_reg_'+reg+'_nUncleanTau_','Number of Taus (before cleaning)','-1','6','7','1'])
+#Log plots:
+    
+###For Signal
+    if makeSRplots:
+        makeplot([dirname+"jet1_pT_sr1",'h_jet1_pT_sr1_','jet 1 p_{T} (GeV)','0.','800.','100','1'])
+        makeplot([dirname+"jet2_pT_sr1",'h_jet2_pT_sr1_','jet 2 p_{T} (GeV)','0.','400.','100','1'])
+        
+        
+        makeplot([dirname+"jet1_pT_sr2",'h_jet1_pT_sr2_','jet 1 p_{T} (GeV)','0.','800.','100','1'])
+        makeplot([dirname+"jet2_pT_sr2",'h_jet2_pT_sr2_','jet 2 p_{T} (GeV)','0.','400.','100','1'])
+        makeplot([dirname+"jet3_pT_sr2",'h_jet3_pT_sr2_','jet 3 p_{T} (GeV)','0.','400.','100','1'])
+        
+        makeplot([dirname+"min_dPhi_sr1",'h_min_dPhi_sr1_','min #Delta #phi','0.','3.2','32','1'])
+        makeplot([dirname+"min_dPhi_sr2",'h_min_dPhi_sr2_','min #Delta #phi','0.','3.2','32','1'])
+        
+        makeplot([dirname+"met_sr1",'h_met_sr1_','Missing Transverse Energy','200.','1000','10','1'])
+        makeplot([dirname+"met_sr2",'h_met_sr2_','Missing Transverse Energy','200.','1000','10','1'])
+    
+    # Region based
+    for reg in regions:
+        if reg[0]=='2': makeplot([dirname+"reg_"+reg+"_ZpT",'h_reg_'+reg+'_ZpT_','Z candidate p_{T} (GeV)','0.','800.','100','1'])
+        if reg[0]=='1': makeplot([dirname+"reg_"+reg+"_WpT",'h_reg_'+reg+'_WpT_','W candidate p_{T} (GeV)','0.','800.','100','1'])
+        makeplot([dirname+"reg_"+reg+"_hadrecoil",'h_reg_'+reg+'_hadrecoil_','Hadronic Recoil (GeV)','200.','1000.','100','1'])
+        makeplot([dirname+"reg_"+reg+"_MET",'h_reg_'+reg+'_MET_','Real MET (GeV)','0.','400.','100','1'])
+        makeplot([dirname+"reg_"+reg+"_njet",'h_reg_'+reg+'_njet_','Number of Jets','-1','5','6','1'])
+        
+        if reg[:2]=='1e':
+            makeplot([dirname+"reg_"+reg+"_njet_n_minus_1",'h_reg_'+reg+'_njet_n_minus_1_','Number of Jets (n-1 cuts plot)','-1','12','13','1'])
+            makeplot([dirname+"reg_"+reg+"_unclean_njet_n_minus_1",'h_reg_'+reg+'_unclean_njet_n_minus_1_','Number of Jets without cleaning (n-1 cuts plot)','-1','12','13','1'])
+        
+            makeplot([dirname+"reg_"+reg+"_min_dR_jet_ele_preclean",'h_reg_'+reg+'_min_dR_jet_ele_preclean_','min dR between jets and electron before jet cleaning','0.','6.','60','1'])
+            makeplot([dirname+"reg_"+reg+"_min_dR_jet_ele_postclean",'h_reg_'+reg+'_min_dR_jet_ele_postclean_','min dR between jets and electron after jet cleaning','0.','6.','60','1'])
+        makeplot([dirname+"reg_"+reg+"_min_dPhi_jet_Recoil",'h_reg_'+reg+'_min_dPhi_jet_Recoil_','min d #phi between jets and recoil','0.','6.','60','1'])
+        makeplot([dirname+"reg_"+reg+"_min_dPhi_jet_MET",'h_reg_'+reg+'_min_dPhi_jet_MET_','min d #phi between jets and real MET','0.','6.','60','1'])
+        
+        makeplot([dirname+"reg_"+reg+"_min_dPhi_jet_Recoil_n_minus_1",'h_reg_'+reg+'_min_dPhi_jet_Recoil_n_minus_1_','min d #phi between jets and recoil before d#phi cut','0.','6.','60','1'])
+        
+        makeplot([dirname+"reg_"+reg+"_ntau",'h_reg_'+reg+'_ntau_','Number of Taus','-1','4','5','1'])
+        makeplot([dirname+"reg_"+reg+"_nUncleanTau",'h_reg_'+reg+'_nUncleanTau_','Number of Taus (before cleaning)','-1','6','7','1'])
 #            makeplot([dirname+"reg_"+reg+"_ntaucleaned",'h_reg_'+reg+'_ntaucleaned_','Number of Taus (after Tau cleaning)','-1','4','5','1'])
-            makeplot([dirname+"reg_"+reg+"_nele",'h_reg_'+reg+'_nele_','Number of Electrons','-1','5','6','1'])
-            makeplot([dirname+"reg_"+reg+"_nUncleanEle",'h_reg_'+reg+'_nUncleanEle_','Number of Eles (before cleaning)','-1','6','7','1'])
-            makeplot([dirname+"reg_"+reg+"_nmu",'h_reg_'+reg+'_nmu_','Number of Muons','-1','5','6','1'])
-            makeplot([dirname+"reg_"+reg+"_nUncleanMu",'h_reg_'+reg+'_nUncleanMu_','Number of Muons (before cleaning)','-1','6','7','1'])
-            makeplot([dirname+"reg_"+reg+"_lep1_pT",'h_reg_'+reg+'_lep1_pT_','Lead Lepton p_{T} (GeV)','0.','500.','100','1'])
-            makeplot([dirname+"reg_"+reg+"_lep2_pT",'h_reg_'+reg+'_lep2_pT_','Second Lepton p_{T} (GeV)','0.','250.','100','1'])
-            makeplot([dirname+"reg_"+reg+"_e_pT",'h_reg_'+reg+'_e_pT_','Electron p_{T} (GeV)','0.','500.','100','1'])         #Top
-            makeplot([dirname+"reg_"+reg+"_mu_pT",'h_reg_'+reg+'_mu_pT_','Muon p_{T} (GeV)','0.','500.','100','1'])           #Top
-            makeplot([dirname+"reg_"+reg+"_lep1_iso",'h_reg_'+reg+'_lep1_iso_','Lead Lepton isolation','0.','800.','100','1'])
-            makeplot([dirname+"reg_"+reg+"_lep2_iso",'h_reg_'+reg+'_lep2_iso_','Second Lepton isolation','0.','800.','100','1'])
-            makeplot([dirname+"reg_"+reg+"_mu_iso",'h_reg_'+reg+'_mu_iso_','Muon isolation','0.','800.','100','1'])            #Top
-            makeplot([dirname+"reg_"+reg+"_jet1_pT",'h_reg_'+reg+'_jet1_pT_','Lead Jet p_{T} (GeV)','0.','800.','100','1'])
-            makeplot([dirname+"reg_"+reg+"_jet2_pT",'h_reg_'+reg+'_jet2_pT_','Second Jet p_{T} (GeV)','0.','400.','100','1'])
+        makeplot([dirname+"reg_"+reg+"_nele",'h_reg_'+reg+'_nele_','Number of Electrons','-1','5','6','1'])
+        if reg[0]=='2': makeplot([dirname+"reg_"+reg+"_npho",'h_reg_'+reg+'_npho_','Number of Photons','-1','5','6','1'])
+#            makeplot([dirname+"reg_"+reg+"_nUncleanEle",'h_reg_'+reg+'_nUncleanEle_','Number of Eles (before cleaning)','-1','6','7','1'])
+        makeplot([dirname+"reg_"+reg+"_nmu",'h_reg_'+reg+'_nmu_','Number of Muons','-1','5','6','1'])
+#            makeplot([dirname+"reg_"+reg+"_nUncleanMu",'h_reg_'+reg+'_nUncleanMu_','Number of Muons (before cleaning)','-1','6','7','1'])
+        makeplot([dirname+"reg_"+reg+"_lep1_pT",'h_reg_'+reg+'_lep1_pT_','Lead Lepton p_{T} (GeV)','0.','500.','100','1'])
+        makeplot([dirname+"reg_"+reg+"_lep2_pT",'h_reg_'+reg+'_lep2_pT_','Second Lepton p_{T} (GeV)','0.','250.','100','1'])
+        if reg.startswith('1mu1e'): makeplot([dirname+"reg_"+reg+"_e_pT",'h_reg_'+reg+'_e_pT_','Electron p_{T} (GeV)','0.','500.','100','1'])         #Top
+        if reg.startswith('1mu1e'): makeplot([dirname+"reg_"+reg+"_mu_pT",'h_reg_'+reg+'_mu_pT_','Muon p_{T} (GeV)','0.','500.','100','1'])           #Top
+        makeplot([dirname+"reg_"+reg+"_pho_pT",'h_reg_'+reg+'_pho_pT_','Photon p_{T} (GeV)','0.','500.','100','1'])
+        if reg[1]=='m': makeplot([dirname+"reg_"+reg+"_lep1_iso",'h_reg_'+reg+'_lep1_iso_','Lead Lepton isolation','0.','800.','100','1'])
+        if reg[1]=='m': makeplot([dirname+"reg_"+reg+"_lep2_iso",'h_reg_'+reg+'_lep2_iso_','Second Lepton isolation','0.','800.','100','1'])
+        if reg.startswith('1mu1e'): makeplot([dirname+"reg_"+reg+"_mu_iso",'h_reg_'+reg+'_mu_iso_','Muon isolation','0.','800.','100','1'])            #Top
+        makeplot([dirname+"reg_"+reg+"_jet1_pT",'h_reg_'+reg+'_jet1_pT_','Lead Jet p_{T} (GeV)','0.','800.','100','1'])
+        makeplot([dirname+"reg_"+reg+"_jet2_pT",'h_reg_'+reg+'_jet2_pT_','Second Jet p_{T} (GeV)','0.','400.','100','1'])
 #            makeplot([dirname+"reg_"+reg+"_lep1_dR_tau",'h_reg_'+reg+'_lep1_dR_tau_','dR b/w tau and lead lepton','0.','6.','120','1'])
 #            makeplot([dirname+"reg_"+reg+"_lep2_dR_tau",'h_reg_'+reg+'_lep2_dR_tau_','dR b/w tau and second lepton','0.','6.','120','1'])
 #            makeplot([dirname+"reg_"+reg+"_min_lep_dR_tau",'h_reg_'+reg+'_min_lep_dR_tau_','minimum dR b/w tau and leptons','0.','6.','120','1'])
-            
-        
-#        ##for W
-#        makeplot([dirname+"jet1_pT_Wmucr1",'h_jet1_pT_Wmucr1_','jet 1 p_{T} (GeV)','0.','800.','100','1'])
-#        makeplot([dirname+"jet2_pT_Wmucr1",'h_jet2_pT_Wmucr1_','jet 2 p_{T} (GeV)','0.','800.','100','1'])
-#        
-#        makeplot([dirname+"jet1_pT_Wecr1",'h_jet1_pT_Wecr1_','jet 1 p_{T} (GeV)','0.','800.','100','1'])
-#        makeplot([dirname+"jet2_pT_Wecr1",'h_jet2_pT_Wecr1_','jet 2 p_{T} (GeV)','0.','800.','100','1'])
-#        
-#        makeplot([dirname+"el1_pT_Wecr1",'h_el1_pT_Wecr1_','electron p_{T} (GeV)','0.','800.','100','1'])
-#        makeplot([dirname+"mu1_pT_Wecr1",'h_mu1_pT_Wecr1_','muon p_{T} (GeV)','0.','800.','100','1'])
-#        
-#        makeplot([dirname+"jet1_pT_Wmucr2",'h_jet1_pT_Wmucr2_','jet 1 p_{T} (GeV)','0.','800.','100','1'])
-#        makeplot([dirname+"jet2_pT_Wmucr2",'h_jet2_pT_Wmucr2_','jet 2 p_{T} (GeV)','0.','800.','100','1'])
-#        makeplot([dirname+"jet3_pT_Wmucr2",'h_jet3_pT_Wmucr2_','jet 3 p_{T} (GeV)','0.','400.','100','1'])
-#        
-#        makeplot([dirname+"jet1_pT_Wecr2",'h_jet1_pT_Wecr2_','jet 1 p_{T} (GeV)','0.','800.','100','1'])
-#        makeplot([dirname+"jet2_pT_Wecr2",'h_jet2_pT_Wecr2_','jet 2 p_{T} (GeV)','0.','800.','100','1'])
-#        makeplot([dirname+"jet3_pT_Wecr2",'h_jet3_pT_Wecr2_','jet 3 p_{T} (GeV)','0.','400.','100','1'])
-#        
-#        makeplot([dirname+"el1_pT_Wecr2",'h_el1_pT_Wecr2_','electron p_{T} (GeV)','0.','800.','100','1'])
-#        makeplot([dirname+"mu1_pT_Wecr2",'h_mu1_pT_Wecr2_','muon p_{T} (GeV)','0.','800.','100','1'])
-#        
-#        makeplot([dirname+"WpT1mu",'h_WpT1mu_','W candidate p_{T} (GeV)','0.','800.','100','1'])
-#        makeplot([dirname+"WpT1e",'h_WpT1e_','W candidate p_{T} (GeV)','0.','800.','100','1'])
-#        
-#        makeplot([dirname+"WpT2mu",'h_WpT2mu_','W candidate p_{T} (GeV)','0.','800.','100','1'])
-#        makeplot([dirname+"WpT2e",'h_WpT2e_','W candidate p_{T} (GeV)','0.','800.','100','1'])
-#        
-#        
-#        makeplot([dirname+"mu1_iso_Wmucr1",'h_mu1_iso_Wmucr1_','lepton 1 PFIso','0.','0.25','100','1'])
-#        
-#        makeplot([dirname+"mu1_iso_Wmucr2",'h_mu1_iso_Wmucr2_','lepton 1 PFIso','0.','0.25','100','1'])
-#        
-#        
-#        makeplot([dirname+"WhadronRecoil1mu",'h_WhadronRecoil1mu_','hadronic recoil ','200.','800.','100','1'])
-#        makeplot([dirname+"WhadronRecoil1e",'h_WhadronRecoil1e_','hadronic recoil','200.','800.','100','1'])
-#        
-#        makeplot([dirname+"WhadronRecoil2mu",'h_WhadronRecoil2mu_','hadronic recoil','200.','800.','100','1'])
-#        makeplot([dirname+"WhadronRecoil2e",'h_WhadronRecoil2e_','hadronic recoil','200.','800.','100','1'])
-#        
-#        ##For TOP
-#        makeplot([dirname+"jet1_pT_TOPcr1",'h_jet1_pT_TOPcr1_','jet 1 p_{T} (GeV)','0.','800.','100','1'])
-#        makeplot([dirname+"jet2_pT_TOPcr1",'h_jet2_pT_TOPcr1_','jet 2 p_{T} (GeV)','0.','400.','100','1'])
-#        
-#        makeplot([dirname+"el1_pT_TOPcr1",'h_el1_pT_TOPcr1_','electron p_{T} (GeV)','0.','800.','100','1'])
-#        makeplot([dirname+"mu1_pT_TOPcr1",'h_mu1_pT_TOPcr1_','muon p_{T} (GeV)','0.','800.','100','1'])
-#        
-#        makeplot([dirname+"jet1_pT_TOPcr2",'h_jet1_pT_TOPcr2_','jet 1 p_{T} (GeV)','0.','800.','100','1'])
-#        makeplot([dirname+"jet2_pT_TOPcr2",'h_jet2_pT_TOPcr2_','jet 2 p_{T} (GeV)','0.','800.','100','1'])
-#        makeplot([dirname+"jet3_pT_TOPcr2",'h_jet3_pT_TOPcr2_','jet 3 p_{T} (GeV)','0.','400.','100','1'])
-#        
-#        makeplot([dirname+"el1_pT_TOPcr2",'h_el1_pT_TOPcr1_','electron p_{T} (GeV)','0.','800.','100','1'])
-#        makeplot([dirname+"mu1_pT_TOPcr2",'h_mu1_pT_TOPcr1_','muon p_{T} (GeV)','0.','800.','100','1'])
-#        
-#        makeplot([dirname+"mu1_iso_TOPcr1",'h_mu1_iso_TOPcr1_','lepton 1 PFIso','0.','0.25','100','1'])
-#        
-#        makeplot([dirname+"mu1_iso_TOPcr2",'h_mu1_iso_TOPcr2_','lepton 1 PFIso','0.','0.25','100','1'])
-#        
-#        makeplot([dirname+"TOPRecoil1",'h_TOPRecoil1_','hadronic recoil ','200.','800.','100','1'])
-#        makeplot([dirname+"TOPRecoil2",'h_TOPRecoil2_','hadronic recoil','200.','800.','100','1'])
+ 
