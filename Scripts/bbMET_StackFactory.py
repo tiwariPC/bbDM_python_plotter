@@ -425,67 +425,6 @@ legend = new TLegend(0.57, 0.69, 0.94,0.90,NULL,"brNDC");
  legend->AddEntry(STop,"single t","f");
  legend->AddEntry(GJets,"G jets","f");
 
- 
-//===========================Latex=================//
-TString latexCMSname= "";//"CMS";// #it{#bf{Preliminary}}";
-TString latexPreCMSname= "DM + bb : CMS Preliminary";
-TString latexnamemiddle;
-latexnamemiddle.Form("%1.1f fb^{-1}",luminosity); 
-TString latexnamepost = " (13 TeV)";
-//TString latexname = latexnamepre+latexnamemiddle+latexnamepost;
-TString latexname = latexnamemiddle+latexnamepost;
-TString histolabel;
-
-//histolabel = "bbMET";
-
-TLatex *t2a;
-TLatex *t2b;
-TLatex *t2c;
-TLatex *t2d;
-
-if(NORATIOPLOT){
- t2b = new TLatex(0.15,0.85,latexCMSname);
- t2b->SetTextSize(0.036);
-
- t2a = new TLatex(0.70,0.92,latexname);
- t2a->SetTextSize(0.025);
-
- t2c = new TLatex(0.10,0.92,latexPreCMSname);
- t2c->SetTextSize(0.030);
-
- t2d = new TLatex(0.15,0.79,histolabel);
- t2d->SetTextSize(0.036);
-
- }else{
- t2b = new TLatex(0.180,0.88,latexCMSname);
- t2b->SetTextSize(0.03);
-
- t2a = new TLatex(0.70,0.92,latexname);
- t2a->SetTextSize(0.030); 
-
- t2c = new TLatex(0.10,0.92,latexPreCMSname);
- t2c->SetTextSize(0.030);
-
- t2d = new TLatex(0.180,0.785,histolabel);
- t2d->SetTextSize(0.05);
-
- }
- t2a->SetTextAlign(12);
- t2a->SetNDC(kTRUE);
- t2a->SetTextFont(42);
-
- t2b->SetTextAlign(12);
- t2b->SetNDC(kTRUE);
- t2b->SetTextFont(61);
-
- t2c->SetTextAlign(12);
- t2c->SetNDC(kTRUE);
- t2c->SetTextFont(42);
-
- t2d->SetTextAlign(12);
- t2d->SetNDC(kTRUE);
- t2d->SetTextFont(42);
-
 
 //============== CANVAS DECLARATION ===================
 TCanvas *c12 = new TCanvas("Hist", "Hist", 0,0,1000,1000);
@@ -805,10 +744,91 @@ legend = new TLegend(0.58, 0.69, 0.92,0.94,NULL,"brNDC");
  legendsig->Draw("same");
 
 
+//===========================Latex=================//
+
+TH1F *h_MC_all = new TH1F(*((TH1F *)(hs->GetStack()->Last())));  // To get all MC event count
+
+TString latexCMSname= "";//"CMS";// #it{#bf{Preliminary}}";
+//TString latexPreCMSname= "DM + bb : CMS Preliminary";
+
+TString MC_count;
+TString data_count;
+
+if (ISCUTFLOW) {
+    MC_count="Sel. MC="+std::to_string(int(h_MC_all->GetBinContent(h_MC_all->GetNbinsX())));
+    data_count="; Sel. Data="+std::to_string(int(h_data->GetBinContent(h_data->GetNbinsX())));
+}
+else {
+    MC_count="MC="+std::to_string(int(h_MC_all->Integral()));
+    data_count="; Data="+std::to_string(int(h_data->Integral()));
+}
+
+TString latexPreCMSname= "DM + bb : CMS Preliminary : "+MC_count+data_count;
+
+
+TString latexnamemiddle;
+latexnamemiddle.Form("%1.1f fb^{-1}",luminosity); 
+TString latexnamepost = " (13 TeV)";
+//TString latexname = latexnamepre+latexnamemiddle+latexnamepost;
+TString latexname = latexnamemiddle+latexnamepost;
+TString histolabel;
+
+//histolabel = "bbMET";
+
+TLatex *t2a;
+TLatex *t2b;
+TLatex *t2c;
+TLatex *t2d;
+
+if(NORATIOPLOT){
+ t2b = new TLatex(0.15,0.85,latexCMSname);
+ t2b->SetTextSize(0.036);
+
+ t2a = new TLatex(0.70,0.92,latexname);
+ t2a->SetTextSize(0.025);
+
+ t2c = new TLatex(0.10,0.92,latexPreCMSname);
+ t2c->SetTextSize(0.030);
+
+ t2d = new TLatex(0.15,0.79,histolabel);
+ t2d->SetTextSize(0.036);
+
+ }else{
+ t2b = new TLatex(0.180,0.88,latexCMSname);
+ t2b->SetTextSize(0.03);
+
+ t2a = new TLatex(0.70,0.92,latexname);
+ t2a->SetTextSize(0.030); 
+
+ t2c = new TLatex(0.10,0.92,latexPreCMSname);
+ t2c->SetTextSize(0.030);
+
+ t2d = new TLatex(0.180,0.785,histolabel);
+ t2d->SetTextSize(0.05);
+
+ }
+ t2a->SetTextAlign(12);
+ t2a->SetNDC(kTRUE);
+ t2a->SetTextFont(42);
+
+ t2b->SetTextAlign(12);
+ t2b->SetNDC(kTRUE);
+ t2b->SetTextFont(61);
+
+ t2c->SetTextAlign(12);
+ t2c->SetNDC(kTRUE);
+ t2c->SetTextFont(42);
+
+ t2d->SetTextAlign(12);
+ t2d->SetNDC(kTRUE);
+ t2d->SetTextFont(42);
+
   t2a->Draw("same");
   t2b->Draw("same");
   t2c->Draw("same");
   t2d->Draw("same");
+
+//====
   
 
 // Commenting out the signal for control region
@@ -995,9 +1015,7 @@ ratioleg2->SetNColumns(2);
 ratioleg2->Draw("same");                                                                                                                                                              
 */
 
-
-
-//====
+ 
 
 if(TEXTINFILE){ 
    
@@ -1224,23 +1242,28 @@ def makeplot(inputs):
         line = line.replace("XMAX",inputs[4])
         line = line.replace("REBIN",inputs[5]) 
         line = line.replace("ISLOG",inputs[6])
+        
         if len(inputs) > 7 : 
-            line = line.replace("TEXTINFILE", inputs[7])
+            line = line.replace("ISCUTFLOW", inputs[7])
+        else : 
+            line = line.replace("ISCUTFLOW", "0")  
+        if len(inputs) > 8 : 
+            line = line.replace("TEXTINFILE", inputs[8])
         else : 
             line = line.replace("TEXTINFILE", "0")     
-        if len(inputs) > 8 :
-            line = line.replace(".pdf",str(inputs[8]+".pdf"))
-            line = line.replace(".png",str(inputs[8]+".png"))
         if len(inputs) > 9 :
-            line = line.replace("NORATIOPLOT", inputs[9])
+            line = line.replace(".pdf",str(inputs[9]+".pdf"))
+            line = line.replace(".png",str(inputs[9]+".png"))
+        if len(inputs) > 10 :
+            line = line.replace("NORATIOPLOT", inputs[10])
         else :
             line = line.replace("NORATIOPLOT", "0")
-        if len(inputs) >10 :
-            line = line.replace("VARIABLEBINS", inputs[10])
+        if len(inputs) >11 :
+            line = line.replace("VARIABLEBINS", inputs[11])
         else:
             line = line.replace("VARIABLEBINS", "0")
-        if len(inputs) > 11:
-            line = line.replace("PREFITDIR",inputs[11]) ## PreFitMET or PreFitMass
+        if len(inputs) > 12:
+            line = line.replace("PREFITDIR",inputs[12]) ## PreFitMET or PreFitMass
             line = line.replace("DRAWPREFIT","1") ## 0 or 1
         else:
             line = line.replace("DRAWPREFIT","0")
@@ -1286,12 +1309,13 @@ for dirname in dirnames:
 
 # Cutflow plots:
     if makeSRplots:
-        makeplot([dirname+"cutflow",'h_cutflow_','Cutflow','0.','10','10','1'])
-        makeplot([dirname+"cutflow_SR1",'h_cutflow_SR1_','SR1 Cutflow','0.','10','10','1'])
-        makeplot([dirname+"cutflow_SR2",'h_cutflow_SR2_','SR2 Cutflow','0.','10','10','1'])
+        makeplot([dirname+"cutflow",'h_cutflow_','Cutflow','0.','10','10','1','1'])
+        makeplot([dirname+"cutflow_SR1",'h_cutflow_SR1_','SR1 Cutflow','0.','10','10','1','1'])
+        makeplot([dirname+"cutflow_SR2",'h_cutflow_SR2_','SR2 Cutflow','0.','10','10','1','1'])
     
     for reg in regions:
-        makeplot([dirname+"cutflow_"+reg,'h_cutflow_'+reg+'_',reg+' Cutflow','0.','13','13','1'])
+        makeplot([dirname+"cutflow_"+reg,'h_cutflow_'+reg+'_',reg+' Cutflow','0.','13','13','1','1'])
+        
 #Linear plots:
     if makeSRplots:
         makeplot([dirname+"jet1_eta_sr1",'h_jet1_eta_sr1_','jet 1 #eta','-3.','3.','70','0'])
