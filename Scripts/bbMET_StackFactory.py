@@ -24,6 +24,8 @@ datestr = datetime.date.today().strftime("%d%m%Y")
 macro='''
 #include <ctime>
 #include <stdlib.h>
+#include <iostream>
+#include <fstream>
 #include "TStyle.h"
 #include "TString.h"
 #include "TRegexp.h"
@@ -33,7 +35,7 @@ time_t now = time(0);
 tm *ltm = localtime(&now);
 TString dirpathname;
 
- TString DirPreName = "/afs/cern.ch/work/p/ptiwari/bb+DM_analysis/DMAnaRun2/CMSSW_8_0_26_patch1/src/plotting_code/bbMETplot/Scripts/test";
+ TString DirPreName = "/afs/cern.ch/work/s/spmondal/private/bbDM/CMSSW_8_0_26_patch1/src/Scripts/test/";
  dirpathname = "'''+datestr+'''"; //.Form("%d%1.2d%d",ltm->tm_mday,1 + ltm->tm_mon,1900 + ltm->tm_year);
  
  system("mkdir -p  " + DirPreName+dirpathname +"/bbMETROOT");
@@ -98,7 +100,7 @@ TH1F*  DYJets;
 TH1F*  ZJets;
 TH1F*  STop;
 //TH1F*  data_obs;
-TString filenamepath("/eos/user/p/ptiwari/bbMETSamples/ForPlotting/bkg/"); 
+TString filenamepath("/afs/cern.ch/work/s/spmondal/public/bbDM/bbMETSamples_all_full/bkg/"); 
 
 // Diboson WW WZ ZZ 0 1 2
 filenameString.push_back(filenamepath + "Output_WW_TuneCUETP8M1_13TeV-pythia8_MC25ns_LegacyMC_20170328.root");
@@ -113,7 +115,7 @@ filenameString.push_back(filenamepath + "Output_ZJetsToNuNu_HT-400To600_13TeV-ma
 filenameString.push_back(filenamepath + "Output_ZJetsToNuNu_HT-600To800_13TeV-madgraph_MC25ns_LegacyMC_20170328.root");
 filenameString.push_back(filenamepath + "Output_ZJetsToNuNu_HT-800To1200_13TeV-madgraph_MC25ns_LegacyMC_20170328.root");
 filenameString.push_back(filenamepath + "Output_ZJetsToNuNu_HT-1200To2500_13TeV-madgraph_MC25ns_LegacyMC_20170328.root");
-filenameString.push_back(filenamepath + "Output_ZJetsToNuNu_HT-2500ToInf_13TeV-madgraph-runallAnalysis.root");
+filenameString.push_back(filenamepath + "Output_ZJetsToNuNu_HT-2500ToInf_13TeV-madgraph_MC25ns_LegacyMC_20170328.root");
 
 
 //DYJets High pt DYSample 10,11,12,13,14,15,16,17
@@ -159,7 +161,7 @@ filenameString.push_back(filenamepath + "Output_GJets_HT-400To600_TuneCUETP8M1_1
 
 /*
 // not used so far
-TString filenamepath("/eos/user/p/ptiwari/bbMETSamples/ForPlotting/signal/"); 
+TString filenamepath("/afs/cern.ch/work/s/spmondal/public/bbDM/bbMETSamples_all_full/signal/"); 
 //bbMET Signal Sample 
 filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-50_Mphi-400 signal_1.root");
 filenameString.push_back(filenamepath + "Output_scalar_NLO_Mchi-50_Mphi-350 signal_2.root");
@@ -273,31 +275,33 @@ TH1F *h_temp;
 TH1F *hnew;
 TH1F *h_total;
 for(int i =0; i<(int)filenameString.size()-1; i++){
-fIn = new TFile(filenameString[i],"READ");
-//if(VARIABLEBINS){
-//h_temp = (TH1F*) fIn->Get(histnameString);
-//h_temp->Sumw2();
-//h_temp->Rebin(3,"hnew",metbins);
-//h_mc[i]= (TH1F*)hnew->Clone();
-//}else{
-h_mc[i] = (TH1F*) fIn->Get(histnameString);
-h_mc[i]->Rebin(REBIN); 
-h_mc[i]->Sumw2();
-//}
-//h_total      = (TH1F*) fIn->Get("nEvents_weight");
- h_total      = (TH1F*) fIn->Get("h_total");
- 
-//std::cout<<" normalization for = "<<i<<"  "<<filenameString[i]<<"   "<<h_mc[i]->Integral()
-//<<std::endl;
+    fIn = new TFile(filenameString[i],"READ");
+    //if(VARIABLEBINS){
+    //h_temp = (TH1F*) fIn->Get(histnameString);
 
-if(h_total->Integral()>0) normalization[i]     = (lumi* Xsec[i])/(h_total->Integral());
-   else normalization[i]      = 0;
- //cout<<"normalization :" << normalization[i] << std::endl;
+    //h_temp->Rebin(REBIN);
+    //h_temp->Rebin(3,"hnew",metbins);
+    //h_temp->Sumw2();
+    //h_mc[i]= (TH1F*)hnew->Clone();
+    //}else{
+    h_mc[i] = (TH1F*) fIn->Get(histnameString);
+    //h_mc[i]->Rebin(REBIN);
+    h_mc[i]->Sumw2();
+    //}
+    //h_total      = (TH1F*) fIn->Get("nEvents_weight");
+     h_total      = (TH1F*) fIn->Get("h_total");
+     
+    //std::cout<<" normalization for = "<<i<<"  "<<filenameString[i]<<"   "<<h_mc[i]->Integral()
+    //<<std::endl;
 
- Integral[i] = h_mc[i]->Integral();
- if(Integral[i]<=0) Integral_Error[i] = 0.0;
- if(Integral[i]>0) Integral_Error[i] = TMath::Sqrt(Integral[i]) * normalization[i];
- h_mc[i]->Scale(normalization[i]);
+    if(h_total->Integral()>0) normalization[i]     = (lumi* Xsec[i])/(h_total->Integral());
+       else normalization[i]      = 0;
+     //cout<<"normalization :" << normalization[i] << std::endl;
+
+     Integral[i] = h_mc[i]->Integral();
+     if(Integral[i]<=0) Integral_Error[i] = 0.0;
+     if(Integral[i]>0) Integral_Error[i] = TMath::Sqrt(Integral[i]) * normalization[i];
+     h_mc[i]->Scale(normalization[i]);
  }
 /* 
 fIn = new TFile(filenameString[nfiles-1],"READ");
@@ -305,7 +309,7 @@ if(VARIABLEBINS){
 h_temp =(TH1F*) fIn->Get(histnameString);
 h_temp->Rebin(3,"hnew",metbins);
 h_data= (TH1F*)hnew->Clone();
-}else{
+//}else{
 h_data = (TH1F*) fIn->Get(histnameString);
 h_data->Rebin(REBIN);
 h_data->Sumw2();
@@ -428,7 +432,7 @@ if(NORATIOPLOT){
 
 //============== CANVAS DECLARATION ===================
 TCanvas *c12 = new TCanvas("Hist", "Hist", 0,0,1000,1000);
- 
+
 //==================Stack==============================
 THStack *hs = new THStack("hs"," ");
 
@@ -503,11 +507,25 @@ hs->Add(DYJets,"hist");
 hs->Add(STop,"hist");
 }
 
+
+
+
 //h_data->SetMarkerColor(kBlack);
 //h_data->SetMarkerStyle(20);
 //float maxi = h_data->GetMaximum();
 
  TH1F *Stackhist = (TH1F*)hs->GetStack()->Last(); 
+ 
+hasNoEvents=false;
+float maxi = Stackhist->GetMaximum();
+if (Stackhist->GetEntries()==0){
+    hasNoEvents=true;
+    cout << "=============================" << endl << "No events found!" << endl << "=============================" << endl;
+    fstream empfile ("Empty.txt", ios::app);
+    empfile << "HISTNAME" <<endl;
+    empfile.close();
+}
+ 
  TH1F* h_err;
  //h_err = (TH1F*) h_data->Clone("h_err");
  h_err = (TH1F*) h_mc[0]->Clone("h_err");
@@ -551,7 +569,6 @@ Stackhist->SetLineWidth(2);
   // std::cout<<" stack err = "<<h_err->GetBinError(ibin)<<std::endl;
 // }
 
-
 //Setting canvas without log axis if it has zero entries
 int b1 = 1;
 for(int i =0; i<(int)filenameString.size()-1; i++){
@@ -566,7 +583,7 @@ if (b1 == 0){
    c12->SetLogy(b1);}
 else{
    c12->SetLogy(ISLOG);}
-
+   
 // Upper canvas declaration
  /*
   if(NORATIOPLOT){
@@ -618,19 +635,21 @@ h_prefit->SetFillColor(0);
  // h_data->SetLineColor(1);
   if(!NORATIOPLOT){
  // h_data->Draw("same p e1");
+  } 
+  if(!NORATIOPLOT)
+  {
+      if(ISLOG)    hs->SetMinimum(0.01);
+      if(!ISLOG)   hs->SetMinimum(0);
+      //if(!ISLOG)   hs->SetMaximum(maxi *1.8);
+      //if(ISLOG)    hs->SetMaximum(maxi *10);
+      if(!ISLOG) hs->SetMaximum(maxi *1.8);
   }
-  if(!NORATIOPLOT){
-  if(ISLOG)    hs->SetMinimum(0.01);
-  if(!ISLOG)   hs->SetMinimum(1);
-  //if(!ISLOG)   hs->SetMaximum(maxi *1.8);
-  //if(ISLOG)    hs->SetMaximum(maxi *10);
-  if(!ISLOG) hs->SetMaximum(0.4);
-  }else{
-  if(ISLOG)    hs->SetMinimum(0.01);
-  if(!ISLOG)   hs->SetMinimum(1);
-  //if(!ISLOG)   hs->SetMaximum(maxi *1.70);
-  //if(ISLOG)    hs->SetMaximum(maxi *100);
-} 
+  else   {
+      if(ISLOG)    hs->SetMinimum(0.01);
+      if(!ISLOG)   hs->SetMinimum(1);
+      //if(!ISLOG)   hs->SetMaximum(maxi *1.70);
+      //if(ISLOG)    hs->SetMaximum(maxi *100);
+  } 
 
 
 //  cout <<"binofwidth = "<< binofwidth <<" binwidth_ = "<<binwidth_<<std::endl;
@@ -639,9 +658,10 @@ h_prefit->SetFillColor(0);
   TString binwidth_;
   binwidth_.Form("%1.1f",binofwidth);
   
+if (!hasNoEvents) {  
 //hs->GetXaxis()->SetTickLength(0.07);
-  hs->GetXaxis()->SetNdivisions(508);
-  
+    hs->GetXaxis();
+   hs->GetXaxis()->SetNdivisions(508);        
   if(NORATIOPLOT){
   hs->GetXaxis()->SetTitleSize(0.03);
   hs->GetXaxis()->SetTitleOffset(1.05);
@@ -671,10 +691,9 @@ h_prefit->SetFillColor(0);
   hs->GetYaxis()->SetLabelFont(42);
   hs->GetYaxis()->SetLabelSize(.03);
   }
-
-
-  hs->GetXaxis()->SetRangeUser(XMIN,XMAX);  
-  hs->GetXaxis()->SetNdivisions(508); 
+  hs->GetXaxis()->SetRangeUser(XMIN,XMAX); 
+  hs->GetXaxis()->SetNdivisions(508);        
+  
  // if(VARIABLEBINS){ hs->GetXaxis()->SetNdivisions(310);}
 
 
@@ -722,6 +741,7 @@ legend = new TLegend(0.58, 0.69, 0.92,0.94,NULL,"brNDC");
 //  h_mc[11]->Draw("hist same");
 //  h_data->Draw("same p e1");
 // for lower band stat and sys band
+
 
 
 TH1F * ratiostaterr = (TH1F *) h_err->Clone("ratiostaterr");
@@ -887,7 +907,6 @@ ratioleg1->Draw("same");
  }
 */
 
-
 if(TEXTINFILE){ 
    
 //=======================================================================
@@ -1024,8 +1043,9 @@ tableout << a <<"  "<< b <<"  " << diboson_ <<"  " << zjets <<"  "<< dyjets<<std
 tableout<<" total_bkg "<<a + b + diboson_ + zjets + dyjets<<std::endl;
 tableout<< " "<<std::endl;
 }
- 
+
  c12->Draw();
+ 
 if(!ISLOG){
  c12->SaveAs(DirPreName+dirpathname +"/bbMETPdf/HISTPATH_HISTNAME.pdf");
  c12->SaveAs(DirPreName+dirpathname +"/bbMETPng/HISTPATH_HISTNAME.png");
@@ -1041,11 +1061,11 @@ if(ISLOG){
  c12->SaveAs(DirPreName+dirpathname +"/bbMETROOT/HISTPATH_HISTNAME_log.root");                                                                        
 }
 
-
 fshape->cd();
 //Save root files for datacards
 Stackhist->SetNameTitle("bkgSum","bkgSum");
 Stackhist->Write();
+
 /*
 monoHbbM600->SetNameTitle("monoHbbM600","monoHbbM600"); 
 monoHbbM600->Write();
@@ -1078,6 +1098,7 @@ DYJets->Write();
 //data_obs->Write();
 fshape->Write();
 fshape->Close();
+
 if (VARIABLEBINS)
 {
 system("cp "+outputshapefilename+" "+DirPreName+"METBIN_1");
@@ -1085,7 +1106,7 @@ system("cp "+outputshapefilename+" "+DirPreName+"METBIN_2");
 system("cp "+outputshapefilename+" "+DirPreName+"METBIN_3");
 }
 }
-
+}
 '''
 ## template macro ends here
 
@@ -1133,9 +1154,10 @@ def makeplot(inputs):
 ##########Start Adding your plots here
 
 
-dirnames=['bbMETbackground_']
+dirnames=['']
 
-
+emplist=open("Empty.txt","w")
+emplist.close()
 
 for dirname in dirnames:
     makeLinearplots=True;
