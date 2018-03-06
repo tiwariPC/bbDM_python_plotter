@@ -395,6 +395,35 @@ GJets->Add(h_mc[gjets]);}
 
 TT        = (TH1F*)h_mc[36]->Clone();
 
+
+float ZJetsCount    =   ZJets->Integral();
+float DYJetsCount   =   DYJets->Integral();
+float WJetsCount    =   WJets->Integral();
+float STopCount     =   STop->Integral();
+float GJetsCount    =   GJets->Integral();
+float TTCount       =   TT->Integral();
+float VVCount       =   DIBOSON->Integral();
+
+TString DYLegend, WLegend, GLegend, ZLegend, STLegend, TTLegend, VVLegend;
+
+if (ISCUTFLOW) {
+    DYLegend    =   "Z(ll) + jets";
+    WLegend     =   "W(l#nu) + jets";
+    GLegend     =   "G jets";
+    ZLegend     =   "Z(#nu#nu) + jets";
+    STLegend    =   "Single t";
+    TTLegend    =   "Top";
+    VVLegend    =   "VV";
+} else {
+    DYLegend    =   "Z(ll) + jets: "+std::to_string(int(DYJetsCount));
+    WLegend     =   "W(l#nu) + jets: "+std::to_string(int(WJetsCount));
+    GLegend     =   "G jets: "+std::to_string(int(GJetsCount));
+    ZLegend     =   "Z(#nu#nu) + jets: "+std::to_string(int(ZJetsCount));
+    STLegend    =   "Single t: "+std::to_string(int(STopCount));
+    TTLegend    =   "Top: "+std::to_string(int(TTCount));
+    VVLegend    =   "VV: "+std::to_string(int(VVCount));
+}
+
 //NORATIOPLOT=0;
 
  //Legend
@@ -418,12 +447,14 @@ legend = new TLegend(0.57, 0.69, 0.94,0.90,NULL,"brNDC");
  legend->SetTextFont(42);
  legend->SetNColumns(2);
  legend->AddEntry(h_data,"Data","PEL");
- legend->AddEntry(DYJets,"Z(ll) + jets","f");
- legend->AddEntry(ZJets,"Z(#nu #nu) + jets","f");
- legend->AddEntry(WJets,"W(l#nu) + jets","f");
- legend->AddEntry(TT,"top","f");
- legend->AddEntry(STop,"single t","f");
- legend->AddEntry(GJets,"G jets","f");
+ 
+ legend->AddEntry(DYJets,DYLegend,"f");
+ legend->AddEntry(ZJets,ZLegend,"f");
+ legend->AddEntry(WJets,WLegend,"f");
+ legend->AddEntry(TT,TTLegend,"f");
+ legend->AddEntry(STop,STLegend,"f");
+ legend->AddEntry(GJets,GLegend,"f");
+ legend->AddEntry(DIBOSON,VVLegend,"f");
 
 
 //============== CANVAS DECLARATION ===================
@@ -714,7 +745,7 @@ if (!hasNoEvents) {
 
 
   //legend->AddEntry(h_prefit,"Pre-fit","l");
-  legend->AddEntry(DIBOSON,"VV","f");
+
   legend->AddEntry(Stackhist,"Post-fit","l");
   //legend->AddEntry(ZJets,"Vh","f");
   legend->AddEntry(h_err,"Stat. Unc.","f");
@@ -775,6 +806,10 @@ TString histolabel;
 
 //histolabel = "bbMET";
 
+histolabel = "HISTOLABEL";
+
+//std::cout <<"HISTOLABEL"<<std::endl;
+
 TLatex *t2a;
 TLatex *t2b;
 TLatex *t2c;
@@ -803,8 +838,8 @@ if(NORATIOPLOT){
  t2c = new TLatex(0.10,0.92,latexPreCMSname);
  t2c->SetTextSize(0.030);
 
- t2d = new TLatex(0.180,0.785,histolabel);
- t2d->SetTextSize(0.05);
+ t2d = new TLatex(0.47,0.87,histolabel);
+ t2d->SetTextSize(0.045);
 
  }
  t2a->SetTextAlign(12);
@@ -1242,6 +1277,19 @@ def makeplot(inputs):
         line = line.replace("XMAX",inputs[4])
         line = line.replace("REBIN",inputs[5]) 
         line = line.replace("ISLOG",inputs[6])
+        
+        HistName=inputs[1]
+        if 'h_reg_' in HistName:
+            histolabel=HistName.split('_')[2]
+        elif '_sr1' in HistName:
+            histolabel="SR1"
+        elif '_sr2' in HistName:
+            histolabel="SR2"
+        else:
+            histolabel=""
+            
+        line = line.replace("HISTOLABEL",histolabel)
+            
         
         if len(inputs) > 7 : 
             line = line.replace("ISCUTFLOW", inputs[7])
