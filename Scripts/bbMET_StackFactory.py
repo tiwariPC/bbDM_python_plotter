@@ -1520,7 +1520,7 @@ for dirname in dirnames:
         makeplot([dirname+"reg_sr2_btag_syst_up",'h_btag_syst_sr2_up_','Missing Transverse Energy','200.','1000','10','1','0','20'])
         makeplot([dirname+"reg_sr2_btag_syst_down",'h_btag_syst_sr2_down_','Missing Transverse Energy','200.','1000','10','1','0','20'])
 
-        makeplot([dirname+"reg_sr2_lep_syst_up_met_sr2",'h_lep_syst_sr2_up_','Missing Transverse Energy','200.','1000','10','1','0','20'])
+        makeplot([dirname+"reg_sr2_lep_syst_up",'h_lep_syst_sr2_up_','Missing Transverse Energy','200.','1000','10','1','0','20'])
         makeplot([dirname+"reg_sr2_lep_syst_down",'h_lep_syst_sr2_down_','Missing Transverse Energy','200.','1000','10','1','0','20'])
 
         makeplot([dirname+"reg_sr2_met_syst_second",'h_metTrig_syst_sr2_second_','Missing Transverse Energy','200.','1000','10','1','0','20'])
