@@ -1501,18 +1501,18 @@ for dirname in dirnames:
 
         makeplot([dirname+"met_sr1",'h_met_sr1_','Missing Transverse Energy','200.','1000','10','1','0','20'])
 
-        makeplot([dirname+"btag_systUp_met_sr1",'h_btag_syst_sr1_up_','Missing Transverse Energy','200.','1000','10','1','0','20'])
-        makeplot([dirname+"btag_systDown_met_sr1",'h_btag_syst_sr1_down_','Missing Transverse Energy','200.','1000','10','1','0','20'])
-        makeplot([dirname+"lep_systUp_met_sr1",'h_lep_syst_sr1_up_','Missing Transverse Energy','200.','1000','10','1','0','20'])
-        makeplot([dirname+"lep_systDown_met_sr1",'h_lep_syst_sr1_down_','Missing Transverse Energy','200.','1000','10','1','0','20'])
+        makeplot([dirname+"reg_sr1_btag_syst_up",'h_btag_syst_sr1_up_','Missing Transverse Energy','200.','1000','10','1','0','20'])
+        makeplot([dirname+"reg_sr1_btag_syst_down",'h_btag_syst_sr1_down_','Missing Transverse Energy','200.','1000','10','1','0','20'])
+        makeplot([dirname+"reg_sr1_lep_syst_up",'h_lep_syst_sr1_up_','Missing Transverse Energy','200.','1000','10','1','0','20'])
+        makeplot([dirname+"reg_sr1_lep_syst_down",'h_lep_syst_sr1_down_','Missing Transverse Energy','200.','1000','10','1','0','20'])
 
         makeplot([dirname+"met_sr2",'h_met_sr2_','Missing Transverse Energy','200.','1000','10','1','0','20'])
 
-        makeplot([dirname+"btag_systUp_met_sr2",'h_btag_syst_sr2_up_','Missing Transverse Energy','200.','1000','10','1','0','20'])
-        makeplot([dirname+"btag_systDown_met_sr2",'h_btag_syst_sr2_down_','Missing Transverse Energy','200.','1000','10','1','0','20'])
+        makeplot([dirname+"reg_sr2_btag_syst_up",'h_btag_syst_sr2_up_','Missing Transverse Energy','200.','1000','10','1','0','20'])
+        makeplot([dirname+"reg_sr2_btag_syst_down",'h_btag_syst_sr2_down_','Missing Transverse Energy','200.','1000','10','1','0','20'])
 
-        makeplot([dirname+"lep_systUp_met_sr2",'h_lep_syst_sr2_up_','Missing Transverse Energy','200.','1000','10','1','0','20'])
-        makeplot([dirname+"lep_systDown_met_sr2",'h_lep_syst_sr2_down_','Missing Transverse Energy','200.','1000','10','1','0','20'])
+        makeplot([dirname+"reg_sr2_lep_syst_up_met_sr2",'h_lep_syst_sr2_up_','Missing Transverse Energy','200.','1000','10','1','0','20'])
+        makeplot([dirname+"reg_sr2_lep_syst_down",'h_lep_syst_sr2_down_','Missing Transverse Energy','200.','1000','10','1','0','20'])
 
     # Region based
     for reg in regions:
