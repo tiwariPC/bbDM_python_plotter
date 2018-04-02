@@ -1508,12 +1508,12 @@ for dirname in dirnames:
 
         makeplot([dirname+"reg_sr1_met_syst_second",'h_metTrig_syst_sr1_second_','Missing Transverse Energy','200.','1000','10','1','0','20'])
 
-        makeplot([dirname+"reg_sr1_ewkZ_syst_up",'h_ewkZ_syst_sr1_up','Missing Transverse Energy','200.','1000','10','1','0','20'])
+        makeplot([dirname+"reg_sr1_ewkZ_syst_up",'h_ewkZ_syst_sr1_up_','Missing Transverse Energy','200.','1000','10','1','0','20'])
         makeplot([dirname+"reg_sr1_ewkZ_syst_down",'h_ewkZ_syst_sr1_down_','Missing Transverse Energy','200.','1000','10','1','0','20'])
-        makeplot([dirname+"reg_sr1_ewkW_syst_up",'h_ewkW_syst_sr1_up','Missing Transverse Energy','200.','1000','10','1','0','20'])
-        makeplot([dirname+"reg_sr1_ewkW_syst_down",'h_ewkW_syst_sr1_down','Missing Transverse Energy','200.','1000','10','1','0','20'])
-        makeplot([dirname+"reg_sr1_ewkTop_syst_up",'h_ewkTop_syst_sr1_up','Missing Transverse Energy','200.','1000','10','1','0','20'])
-        makeplot([dirname+"reg_sr1_ewkTop_syst_down",'h_ewkTop_syst_sr1_down','Missing Transverse Energy','200.','1000','10','1','0','20'])
+        makeplot([dirname+"reg_sr1_ewkW_syst_up",'h_ewkW_syst_sr1_up_','Missing Transverse Energy','200.','1000','10','1','0','20'])
+        makeplot([dirname+"reg_sr1_ewkW_syst_down",'h_ewkW_syst_sr1_down_','Missing Transverse Energy','200.','1000','10','1','0','20'])
+        makeplot([dirname+"reg_sr1_ewkTop_syst_up",'h_ewkTop_syst_sr1_up_','Missing Transverse Energy','200.','1000','10','1','0','20'])
+        makeplot([dirname+"reg_sr1_ewkTop_syst_down",'h_ewkTop_syst_sr1_down_','Missing Transverse Energy','200.','1000','10','1','0','20'])
 
         makeplot([dirname+"reg_sr2_hadrecoil",'h_met_sr2_','Missing Transverse Energy','200.','1000','10','1','0','20'])
 
