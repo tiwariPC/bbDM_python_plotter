@@ -84,7 +84,7 @@ time_t now = time(0);
 tm *ltm = localtime(&now);
 TString dirpathname;
 
- TString DirPreName = "/afs/cern.ch/work/s/spmondal/private/bbDM/CMSSW_8_0_26_patch1/src/Scripts/test/";
+ TString DirPreName = "/afs/cern.ch/work/p/ptiwari/bb+DM_analysis/ntuple_analysis/CMSSW_8_0_26_patch1/src/mybranch_bbMetPlot/bbMETplot/Scripts/test/";
  dirpathname = "'''+datestr+'''"; //.Form("%d%1.2d%d",ltm->tm_mday,1 + ltm->tm_mon,1900 + ltm->tm_year);
 
  system("mkdir -p  " + DirPreName+dirpathname +"/bbMETROOT");
@@ -152,7 +152,7 @@ TH1F*  STop;
 TH1F*  GJets;
 TH1F*  QCD;
 //TH1F*  data_obs;
-TString filenamepath("/afs/cern.ch/work/s/spmondal/public/bbDM/bbMETSamples_all_full/bkg/");
+TString filenamepath("/afs/cern.ch/work/p/ptiwari/public/bbDM/all_bkg/");
 
 // Diboson WW WZ ZZ 0 1 2
 filenameString.push_back(filenamepath + "Output_WW_TuneCUETP8M1_13TeV-pythia8_MC25ns_LegacyMC_20170328.root");
@@ -221,7 +221,7 @@ filenameString.push_back(filenamepath + "Output_QCD_HT2000toInf_TuneCUETP8M1_13T
 //
 
 // not used so far
-TString filenamesigpath("/afs/cern.ch/work/s/spmondal/public/bbDM/bbMETSamples_all_full/signal/");
+TString filenamesigpath("/afs/cern.ch/work/p/ptiwari/public/bbDM/signal/");
 //bbMET Signal Sample 46 - 83
 filenameString.push_back(filenamesigpath + "Output_scalar_NLO_Mchi-50_Mphi-400.root");
 filenameString.push_back(filenamesigpath + "Output_scalar_NLO_Mchi-50_Mphi-350.root");
@@ -264,7 +264,7 @@ filenameString.push_back(filenamesigpath + "Output_pseudo_NLO_Mchi-100_Mphi-350.
 
 //
 
-TString filenamedatapath("/afs/cern.ch/work/s/spmondal/public/bbDM/bbMETSamples_all_full/data/");
+TString filenamedatapath("/afs/cern.ch/work/p/ptiwari/bb+DM_analysis/ntuple_analysis/CMSSW_8_0_26_patch1/src/mybranch_bbMetPlot/bbMETplot/Scripts/data_180320/");
 //Data File 84
 filenameString.push_back(filenamedatapath + "data_combined_'''+dtset+'''.root");
 
