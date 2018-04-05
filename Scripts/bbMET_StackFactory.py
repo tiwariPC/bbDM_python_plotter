@@ -1506,7 +1506,8 @@ for dirname in dirnames:
         makeplot([dirname+"reg_sr1_lep_syst_up",'h_lep_syst_sr1_up_','Missing Transverse Energy','200.','1000','10','1','0','20'])
         makeplot([dirname+"reg_sr1_lep_syst_down",'h_lep_syst_sr1_down_','Missing Transverse Energy','200.','1000','10','1','0','20'])
 
-        makeplot([dirname+"reg_sr1_met_syst_second",'h_metTrig_syst_sr1_second_','Missing Transverse Energy','200.','1000','10','1','0','20'])
+        makeplot([dirname+"reg_sr1_met_syst_up",'h_metTrig_syst_sr1_up_','Missing Transverse Energy','200.','1000','10','1','0','20'])
+        makeplot([dirname+"reg_sr1_met_syst_up",'h_metTrig_syst_sr1_down_','Missing Transverse Energy','200.','1000','10','1','0','20'])
 
         makeplot([dirname+"reg_sr1_ewkZ_syst_up",'h_ewkZ_syst_sr1_up_','Missing Transverse Energy','200.','1000','10','1','0','20'])
         makeplot([dirname+"reg_sr1_ewkZ_syst_down",'h_ewkZ_syst_sr1_down_','Missing Transverse Energy','200.','1000','10','1','0','20'])
@@ -1523,7 +1524,8 @@ for dirname in dirnames:
         makeplot([dirname+"reg_sr2_lep_syst_up",'h_lep_syst_sr2_up_','Missing Transverse Energy','200.','1000','10','1','0','20'])
         makeplot([dirname+"reg_sr2_lep_syst_down",'h_lep_syst_sr2_down_','Missing Transverse Energy','200.','1000','10','1','0','20'])
 
-        makeplot([dirname+"reg_sr2_met_syst_second",'h_metTrig_syst_sr2_second_','Missing Transverse Energy','200.','1000','10','1','0','20'])
+        makeplot([dirname+"reg_sr2_met_syst_up",'h_metTrig_syst_sr2_up_','Missing Transverse Energy','200.','1000','10','1','0','20'])
+        makeplot([dirname+"reg_sr2_met_syst_down",'h_metTrig_syst_sr2_down_','Missing Transverse Energy','200.','1000','10','1','0','20'])
 
         makeplot([dirname+"reg_sr2_ewkZ_syst_up",'h_ewkZ_syst_sr2_up_','Missing Transverse Energy','200.','1000','10','1','0','20'])
         makeplot([dirname+"reg_sr2_ewkZ_syst_down",'h_ewkZ_syst_sr2_down_','Missing Transverse Energy','200.','1000','10','1','0','20'])
@@ -1542,7 +1544,8 @@ for dirname in dirnames:
         makeplot([dirname+"reg_"+reg+"_lep_syst_up",'h_lep_syst_'+reg+'_up_','Hadronic Recoil (GeV)','200.','1000.','100','1'])
         makeplot([dirname+"reg_"+reg+"_lep_syst_down",'h_lep_syst_'+reg+'_down_','Hadronic Recoil (GeV)','200.','1000.','100','1'])
 
-        makeplot([dirname+"reg_"+reg+"_met_syst_second",'h_metTrig_syst_'+reg+'_second_','Hadronic Recoil (GeV)','200.','1000.','100','1'])
+        makeplot([dirname+"reg_"+reg+"_met_syst_up",'h_metTrig_syst_'+reg+'_up_','Hadronic Recoil (GeV)','200.','1000.','100','1'])
+        makeplot([dirname+"reg_"+reg+"_met_syst_down",'h_metTrig_syst_'+reg+'_down_','Hadronic Recoil (GeV)','200.','1000.','100','1'])
 
         makeplot([dirname+"reg_"+reg+"_ewkZ_syst_up",'h_ewkZ_syst_'+reg+'_up_','Hadronic Recoil (GeV)','200.','1000.','100','1'])
         makeplot([dirname+"reg_"+reg+"_ewkZ_syst_down",'h_ewkZ_syst_'+reg+'_down_','Hadronic Recoil (GeV)','200.','1000.','100','1'])
