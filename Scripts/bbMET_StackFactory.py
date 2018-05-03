@@ -127,7 +127,7 @@ gStyle->SetLineWidth(1);
 //Provide luminosity of total data
 //cout << endl << "*************** WARNING: Assuming incomplete data: full luminosity is not used. ***************" << endl << endl; //Adjust the last factor in the next line according to available data.
 float lumi = 35.545 * 1000; // 35.540082604 * 1000; // 3.1054555906 * 1000 ; ////11706.;// * 0.96838; // from the twiki https://twiki.cern.ch/twiki/bin/view/CMS/PdmV2016Analysis  //36.773
-float luminosity = 35.9;// It will print on your plots too
+float luminosity = 35.5;// It will print on your plots too
 
 std::vector<TString> filenameString;
 //Change here Directories of the file
@@ -352,7 +352,7 @@ TH1F *h_temp;
 TH1F *hnew;
 TH1F *h_total;
 
-cout << to_string(nfiles) << endl;
+//cout << to_string(nfiles) << endl;
 
 for(int i =0; i<84; i++){
 //    cout << "Reading file #" << to_string(i+1) << ": " << filenameString[i] << endl;
@@ -367,7 +367,7 @@ for(int i =0; i<84; i++){
     //h_mc[i]= (TH1F*)hnew->Clone();
     //}else{
     h_mc[i] = (TH1F*) fIn->Get(histnameString);
-    //h_mc[i]->Rebin(REBIN);
+    h_mc[i]->Rebin(REBIN);
     h_mc[i]->Sumw2();
     //}
     //h_total      = (TH1F*) fIn->Get("nEvents_weight");
@@ -394,7 +394,7 @@ h_temp->Rebin(3,"hnew",metbins);
 h_data= (TH1F*)hnew->Clone();
 }else{
 h_data = (TH1F*) fIn->Get(histnameString);
-//h_data->Rebin(REBIN);
+h_data->Rebin(REBIN);
 h_data->Sumw2();
 }
 
@@ -442,7 +442,8 @@ float QCDCount      =   QCD->Integral();
 
 TString DYLegend, WLegend, GLegend, ZLegend, STLegend, TTLegend, VVLegend, QCDLegend;
 
-if (ISCUTFLOW) {
+//if (ISCUTFLOW) {
+if (1) {
     DYLegend    =   "Z(ll) + jets";
     WLegend     =   "W(l#nu) + jets";
     GLegend     =   "G jets";
@@ -466,16 +467,15 @@ if (ISCUTFLOW) {
 
  //Legend
  TLegend *legend;
-
- if(NORATIOPLOT){
- //legend = new TLegend(0.73, 0.62, 0.95,0.92,NULL,"brNDC");
-legend = new TLegend(0.58, 0.69, 0.92,0.94,NULL,"brNDC");
- legend->SetTextSize(0.020);
- }else{
-legend = new TLegend(0.57, 0.69, 0.94,0.90,NULL,"brNDC");
-//legend = new TLegend(0.13, 0.85, 0.95,0.92,NULL,"brNDC");
-// legend = new TLegend(0.7, 0.68, 0.95,0.92,NULL,"brNDC");
- legend->SetTextSize(0.020); }
+ 
+/* if(NORATIOPLOT){
+    legend = new TLegend(0.57, 0.69, 0.94,0.90,NULL,"brNDC");
+    legend->SetTextSize(0.020);
+ }else{ */
+ 
+ 
+legend = new TLegend(0.60, 0.70, 0.94,0.94,NULL,"brNDC"); 
+legend->SetTextSize(0.020);
  legend->SetBorderSize(0);
  legend->SetLineColor(1);
  legend->SetLineStyle(1);
@@ -484,10 +484,18 @@ legend = new TLegend(0.57, 0.69, 0.94,0.90,NULL,"brNDC");
  legend->SetFillStyle(0);
  legend->SetTextFont(42);
  legend->SetNColumns(2);
- legend->AddEntry(h_data,"Data","PEL");
+ 
+ if (QCDSF==1) {
+    legend->AddEntry(h_data,"Data","PEL");
+ } 
+ 
+ if (!NORATIOPLOT && QCDSF!=1) {
+     legend->AddEntry(h_data,"Data","PEL");
+     legend->AddEntry(DYJets,DYLegend,"f");
+ } else {
+     legend->AddEntry(ZJets,ZLegend,"f");
+ }
 
- legend->AddEntry(DYJets,DYLegend,"f");
- legend->AddEntry(ZJets,ZLegend,"f");
  legend->AddEntry(WJets,WLegend,"f");
  legend->AddEntry(TT,TTLegend,"f");
  legend->AddEntry(STop,STLegend,"f");
@@ -606,6 +614,7 @@ h_data->SetMarkerStyle(20);
 
 hasNoEvents=false;
 float maxi = Stackhist->GetMaximum();
+cout << to_string(maxi) << endl;
 if (Stackhist->GetEntries()==0){
     hasNoEvents=true;
     cout << "=============================" << endl << "No events found!" << endl << "=============================" << endl;
@@ -677,15 +686,17 @@ Stackhist->SetLineWidth(2);
 c12->SetLogy(ISLOG);
 
 // Upper canvas declaration
-
-//  if(NORATIOPLOT){
-//  TPad *c1_2 = new TPad("c1_2","newpad",0,0.05,1,0.993);
-//  }
-//  else{
-  TPad *c1_2 = new TPad("c1_2","newpad",0,0.28,1,1.0);
+TPad *c1_2 = NULL;
+ if(NORATIOPLOT){
+    c1_2 = new TPad("c1_2","newpad",0,0.05,1,1);   //0.993);
+    c1_2->SetRightMargin(0.04);
+ }
+  else{
+    c1_2 = new TPad("c1_2","newpad",0,0.28,1,1);
+    }
+    
   c1_2->SetBottomMargin(0.03);
-  c1_2->SetTopMargin(0.06);
-//  }
+  c1_2->SetTopMargin(0.06);  
   c1_2->SetLogy(ISLOG);
   if(VARIABLEBINS){ c1_2->SetLogx(0);}
   c1_2->Draw();
@@ -715,6 +726,7 @@ h_prefit->SetFillColor(0);
 
 }
 
+gStyle->SetHistTopMargin(0.);
 
   TH1F *Stackhist1 = (TH1F*)hs->GetStack()->Last();
   h_err->Draw("E2 SAME");
@@ -725,22 +737,27 @@ h_prefit->SetFillColor(0);
   h_err->SetFillStyle(3013);
 
   h_data->SetLineColor(1);
- h_data->Draw("same p e1");
+ 
 //  if(!NORATIOPLOT){
 //  h_data->Draw("same p e1");
 //  }
   if(!NORATIOPLOT)
   {
-      if(ISLOG==1)    hs->SetMinimum(0.68);
-      if(ISLOG==0)   hs->SetMinimum(0);
-      if(ISLOG==0) hs->SetMaximum(maxi *1.4);
+      h_data->Draw("same p e1");
+      //if(ISLOG==1)    hs->SetMinimum(0.68);
+  //    if(ISLOG==0)   hs->SetMinimum(0);
+ //     if(ISLOG==0) hs->SetMaximum(maxi *1.4);
   }
-  else   {
+ // else   {
+ 
       if(ISLOG==1)    hs->SetMinimum(0.68);
-      if(ISLOG==0)   hs->SetMinimum(0);
+      if(ISLOG==0)   hs->SetMaximum(maxi*1.35);
+      if(ISLOG==0)   hs->SetMinimum(0.0001);
+      
       //if(!ISLOG)   hs->SetMaximum(maxi *1.70);
-      //if(ISLOG)    hs->SetMaximum(maxi *100);
-  }
+      //if(ISLOG)    hs->SetMaximum(maxi *5);
+ // } 
+
 
 
 
@@ -755,33 +772,48 @@ if (!hasNoEvents) {
     hs->GetXaxis();
    hs->GetXaxis()->SetNdivisions(508);
   if(NORATIOPLOT){
-  hs->GetXaxis()->SetTitleSize(0.03);
-  hs->GetXaxis()->SetTitleOffset(1.05);
-  hs->GetXaxis()->SetTitleFont(42);
-  hs->GetXaxis()->SetLabelFont(42);
-  hs->GetXaxis()->SetLabelSize(.03);
-  hs->GetYaxis()->SetTitle("Events");
-  hs->GetYaxis()->SetTitleSize(0.12);
-  hs->GetYaxis()->SetTitleOffset(1.2);
-  hs->GetYaxis()->SetTitleFont(42);
-  hs->GetYaxis()->SetLabelFont(42);
-  hs->GetYaxis()->SetLabelSize(0.05);
-  //hs->GetXaxis()->SetTitle("XAXISLABEL");
+    /*hs->GetXaxis()->SetTitleSize(0.03);
+    hs->GetXaxis()->SetTitleOffset(1.05);
+    hs->GetXaxis()->SetTitleFont(42);
+    hs->GetXaxis()->SetLabelFont(42);
+    hs->GetXaxis()->SetLabelSize(.03);
+    hs->GetYaxis()->SetTitle("Events");
+    hs->GetYaxis()->SetTitleSize(0.12);
+    hs->GetYaxis()->SetTitleOffset(1.5);
+    hs->GetYaxis()->SetTitleFont(42);
+    hs->GetYaxis()->SetLabelFont(42);
+    hs->GetYaxis()->SetLabelSize(0.05);
+    //hs->GetXaxis()->SetTitle("XAXISLABEL");*/
+    
+    hs->GetXaxis()->SetTitle("XAXISLABEL");
+  //  hs->GetXaxis()->SetTitleSize(0.8);
+ //   hs->GetXaxis()->SetTitleOffset(0.9);
+    hs->GetXaxis()->SetTitleFont(42);
+    hs->GetXaxis()->SetLabelFont(42);
+    hs->GetXaxis()->SetLabelOffset(.01);
+    hs->GetXaxis()->SetLabelSize(0.03); 
+    hs->GetYaxis()->SetTitle("Events");
+    hs->GetYaxis()->SetTitleSize(0.05); 
+  //  hs->GetYaxis()->SetTitleOffset(1);
+    hs->GetYaxis()->SetTitleFont(42);
+    hs->GetYaxis()->SetLabelFont(42);
+    hs->GetYaxis()->SetLabelSize(.03);
   }
   else{
-  //hs->GetXaxis()->SetTitle("XAXISLABEL");
-  hs->GetXaxis()->SetTitleSize(0.00);
-  hs->GetXaxis()->SetTitleOffset(0.00);
-  hs->GetXaxis()->SetTitleFont(42);
-  hs->GetXaxis()->SetLabelFont(42);
-  hs->GetXaxis()->SetLabelOffset(.01);
-  hs->GetXaxis()->SetLabelSize(0.04);
-  hs->GetYaxis()->SetTitle("Events");
-  hs->GetYaxis()->SetTitleSize(0.05);
-  hs->GetYaxis()->SetTitleOffset(0.7);
-  hs->GetYaxis()->SetTitleFont(42);
-  hs->GetYaxis()->SetLabelFont(42);
-  hs->GetYaxis()->SetLabelSize(.03);
+    //hs->GetXaxis()->SetTitle("XAXISLABEL");
+    hs->GetXaxis()->SetTitleSize(0.00);
+    hs->GetXaxis()->SetTitleOffset(0.00);
+    hs->GetXaxis()->SetTitleFont(42);
+    hs->GetXaxis()->SetLabelFont(42);
+    hs->GetXaxis()->SetLabelOffset(.01);
+    hs->GetXaxis()->SetLabelSize(0.04); 
+    hs->GetYaxis()->SetTitle("Events");
+    hs->GetYaxis()->SetTitleSize(0.045); 
+    hs->GetYaxis()->SetTitleOffset(1);
+    hs->GetYaxis()->SetTitleFont(42);
+    hs->GetYaxis()->SetLabelFont(42);
+    hs->GetYaxis()->SetLabelSize(.03);
+
   }
   hs->GetXaxis()->SetRangeUser(XMIN,XMAX);
   hs->GetXaxis()->SetNdivisions(508);
@@ -791,23 +823,26 @@ if (!hasNoEvents) {
 
   //legend->AddEntry(h_prefit,"Pre-fit","l");
 
-  legend->AddEntry(Stackhist,"Post-fit","l");
+//  legend->AddEntry(Stackhist,"Post-fit","l");
   //legend->AddEntry(ZJets,"Vh","f");
   legend->AddEntry(h_err,"Stat. Unc.","f");
 
 
-
-
  //Legend
  TLegend *legendsig;
-
+ 
+ /*
  if(NORATIOPLOT){
  //legend = new TLegend(0.73, 0.62, 0.95,0.92,NULL,"brNDC");
-legend = new TLegend(0.58, 0.69, 0.92,0.94,NULL,"brNDC");
- legend->SetTextSize(0.020);
+    legendsig = new TLegend(0.58, 0.69, 0.92,0.94,NULL,"brNDC");
+    legendsig->SetTextSize(0.020);
  }else{
+    legendsig = new TLegend(0.57, 0.5, 0.94,0.65,NULL,"brNDC");
+    legendsig->SetTextSize(0.030);
+ } */
+ 
  legendsig = new TLegend(0.57, 0.5, 0.94,0.65,NULL,"brNDC");
- legendsig->SetTextSize(0.030); }
+    legendsig->SetTextSize(0.030);
  legendsig->SetBorderSize(0);
  legendsig->SetLineColor(1);
  legendsig->SetLineStyle(1);
@@ -819,13 +854,13 @@ legend = new TLegend(0.58, 0.69, 0.92,0.94,NULL,"brNDC");
  legend->Draw("same");
  legendsig->Draw("same");
 
-
 //===========================Latex=================//
 
 TH1F *h_MC_all = new TH1F(*((TH1F *)(hs->GetStack()->Last())));  // To get all MC event count
 
-TString latexCMSname= "";//"CMS";// #it{#bf{Preliminary}}";
-//TString latexPreCMSname= "DM + bb : CMS Preliminary";
+//TString latexCMSname= "CMS #it{#bf{Preliminary}}";//"CMS";// #it{#bf{Preliminary}}";
+TString latexCMSname= "";
+TString latexPreCMSname= "#bf{CMS} #it{Preliminary}";
 
 TString MC_count;
 TString data_count;
@@ -847,7 +882,7 @@ if (QCDSF==1) {
     hasQSF="; w/QCD-SF";
 }
 
-TString latexPreCMSname= "DM+bb: CMS Preliminary: "+MC_count+data_count+hasQSF;
+//TString latexPreCMSname= ""; // "DM+bb: CMS Preliminary: "+MC_count+data_count+hasQSF;
 
 
 TString latexnamemiddle;
@@ -856,7 +891,6 @@ TString latexnamepost = " (13 TeV)";
 //TString latexname = latexnamepre+latexnamemiddle+latexnamepost;
 TString latexname = latexnamemiddle+latexnamepost;
 TString histolabel;
-
 //histolabel = "bbMET";
 
 histolabel = "HISTOLABEL";
@@ -868,33 +902,28 @@ TLatex *t2b;
 TLatex *t2c;
 TLatex *t2d;
 
-if(NORATIOPLOT){
- t2b = new TLatex(0.15,0.85,latexCMSname);
+t2c = new TLatex(0.10,0.97,latexPreCMSname);
+t2c->SetTextSize(0.045);
+
+t2a = new TLatex(0.7,0.97,latexname);
+t2a->SetTextSize(0.040);
+
+/*if(NORATIOPLOT){
+ t2b = new TLatex(0.22,0.85,latexCMSname);
  t2b->SetTextSize(0.036);
-
- t2a = new TLatex(0.70,0.92,latexname);
- t2a->SetTextSize(0.025);
-
- t2c = new TLatex(0.10,0.92,latexPreCMSname);
- t2c->SetTextSize(0.030);
 
  t2d = new TLatex(0.15,0.79,histolabel);
  t2d->SetTextSize(0.036);
 
- }else{
- t2b = new TLatex(0.180,0.88,latexCMSname);
- t2b->SetTextSize(0.03);
+ }else{ */
+ 
+ t2b = new TLatex(0.22,0.88,latexCMSname);
+ t2b->SetTextSize(0.03); 
 
- t2a = new TLatex(0.70,0.92,latexname);
- t2a->SetTextSize(0.030);
-
- t2c = new TLatex(0.10,0.92,latexPreCMSname);
- t2c->SetTextSize(0.030);
-
- t2d = new TLatex(0.47,0.87,histolabel);
+ t2d = new TLatex(0.46,0.9,histolabel);
  t2d->SetTextSize(0.045);
 
- }
+// }
  t2a->SetTextAlign(12);
  t2a->SetNDC(kTRUE);
  t2a->SetTextFont(42);
@@ -969,22 +998,22 @@ ratiosysterr->SetFillStyle(1001);
 for(Int_t i = 0; i < h_err->GetNbinsX()+2; i++) {
    if (h_err->GetBinContent(i) > 1e-6) {  //< not empty
    double binerror2 = (pow(h_err->GetBinError(i), 2) +
-   pow(0.30 * WJets->GetBinContent(i), 2) +
+   pow(0.25 * WJets->GetBinContent(i), 2) +
 //   pow(0.20 * WJets->GetBinContent(i), 2) +
-   pow(0.30 * ZJets->GetBinContent(i), 2) +
-   pow(0.30 * DYJets->GetBinContent(i), 2) +
-   pow(0.20 * TT->GetBinContent(i), 2) +
-   pow(0.30 * GJets->GetBinContent(i), 2) +
-   pow(0.30 * QCD->GetBinContent(i), 2) +
-   pow(0.30 * STop->GetBinContent(i), 2) +
-   pow(0.30 * DIBOSON->GetBinContent(i), 2));
+   pow(0.25 * ZJets->GetBinContent(i), 2) +
+   pow(0.20 * DYJets->GetBinContent(i), 2) +
+   pow(0.25 * TT->GetBinContent(i), 2) +
+   pow(0.20 * GJets->GetBinContent(i), 2) +
+   pow(0.20 * QCD->GetBinContent(i), 2) +
+   pow(0.25 * STop->GetBinContent(i), 2) +
+   pow(0.20 * DIBOSON->GetBinContent(i), 2));
    double binerror = sqrt(binerror2);
    ratiosysterr->SetBinError(i, binerror / h_err->GetBinContent(i));
    }
 }
 
-TLegend * ratioleg = new TLegend(0.32, 0.85, 0.94, 0.94);
-ratioleg->SetFillColor(0);
+TLegend * ratioleg = new TLegend(0.6, 0.88, 0.89, 0.98);
+//ratioleg->SetFillColor(0);
 ratioleg->SetLineColor(0);
 ratioleg->SetShadowColor(0);
 ratioleg->SetTextFont(42);
@@ -992,8 +1021,8 @@ ratioleg->SetTextSize(0.09);
 ratioleg->SetBorderSize(1);
 ratioleg->SetNColumns(2);
 //ratioleg->SetTextSize(0.07);
-ratioleg->AddEntry(ratiosysterr, "Pred. uncert. (stat + syst)", "f");
-ratioleg->AddEntry(ratiostaterr, "Pred. uncert. (stat)", "f");
+ratioleg->AddEntry(ratiosysterr, "stat + syst", "f");  //Pred. uncert. (stat + syst)
+ratioleg->AddEntry(ratiostaterr, "stat", "f");  //Pred. uncert. (stat)
 
 
 TLegend * ratioleg1 = new TLegend(0.35, 0.35, 0.94, 0.94);
@@ -1010,36 +1039,37 @@ ratioleg1->SetNColumns(2);
 
 
 //For DATA:
+TH1F *DataMC;
+TH1F *DataMCPre;
 
  // Lower Tpad Decalaration
-//  if(! NORATIOPLOT){
+ if(! NORATIOPLOT){
   c12->cd();
-  TH1F *DataMC    = (TH1F*) h_data->Clone();
-  TH1F *DataMCPre = (TH1F*) h_data->Clone();
+  DataMC    = (TH1F*) h_data->Clone();
+  DataMCPre = (TH1F*) h_data->Clone();
   DataMC->Divide(Stackhist);
 
 //  DataMCPre->Divide(h_prefit);
   DataMC->GetYaxis()->SetTitle("Data/Pred.");
-  DataMC->GetYaxis()->SetTitleSize(0.12);
-  DataMC->GetYaxis()->SetTitleOffset(0.3);
+  DataMC->GetYaxis()->SetTitleSize(0.1);
+  DataMC->GetYaxis()->SetTitleOffset(0.42);
   DataMC->GetYaxis()->SetTitleFont(42);
   DataMC->GetYaxis()->SetLabelSize(0.08);
   DataMC->GetYaxis()->CenterTitle();
   DataMC->GetXaxis()->SetTitle("XAXISLABEL");
 //DataMC->GetXaxis()->SetIndiceSize(0.1);
   DataMC->GetXaxis()->SetLabelSize(0.1);
-  DataMC->GetXaxis()->SetTitleSize(0.12);
-  DataMC->GetXaxis()->SetTitleOffset(0.9);
+  DataMC->GetXaxis()->SetTitleSize(0.1);
+  DataMC->GetXaxis()->SetTitleOffset(1);
   DataMC->GetXaxis()->SetTitleFont(42);
   DataMC->GetXaxis()->SetTickLength(0.07);
   DataMC->GetXaxis()->SetLabelFont(42);
-  DataMC->GetYaxis()->SetLabelFont(42);
 
-
-//}
+  DataMC->GetYaxis()->SetLabelFont(42);     
+}
 
  TPad *c1_1 = new TPad("c1_1", "newpad",0,0.00,1,0.3);
- c1_1->Draw();
+ if (!NORATIOPLOT) c1_1->Draw();
  c1_1->cd();
  c1_1->Range(-7.862408,-629.6193,53.07125,486.5489);
  c1_1->SetFillColor(0);
@@ -1055,38 +1085,43 @@ ratioleg1->SetNColumns(2);
  c1_1->SetFrameFillStyle(0);
  c1_1->SetFrameBorderMode(0);
  c1_1->SetLogy(0);
-if(VARIABLEBINS){ c1_1->SetLogx(0);
- DataMC->GetXaxis()->SetMoreLogLabels();
- DataMC->GetXaxis()->SetNoExponent();
- DataMC->GetXaxis()->SetNdivisions(508);
- }
- DataMC->GetXaxis()->SetRangeUser(XMIN,XMAX);
- DataMC->SetMarkerSize(0.7);
- DataMC->SetMarkerStyle(20);
- DataMC->SetMarkerColor(1);
- DataMCPre->SetMarkerSize(0.7);
- DataMCPre->SetMarkerStyle(20);
- DataMCPre->SetMarkerColor(kRed);
- DataMCPre->SetLineColor(kRed);
+
+if(!NORATIOPLOT) {
+    if(VARIABLEBINS){
+        c1_1->SetLogx(0);
+        DataMC->GetXaxis()->SetMoreLogLabels();
+        DataMC->GetXaxis()->SetNoExponent();
+        DataMC->GetXaxis()->SetNdivisions(508);
+    }     
+    DataMC->GetXaxis()->SetRangeUser(XMIN,XMAX);
+    DataMC->SetMarkerSize(0.7);
+    DataMC->SetMarkerStyle(20);
+    DataMC->SetMarkerColor(1);
+    DataMCPre->SetMarkerSize(0.7);
+    DataMCPre->SetMarkerStyle(20);
+    DataMCPre->SetMarkerColor(kRed);
+    DataMCPre->SetLineColor(kRed);
 
 
- DataMC->Draw("P e1");
- DataMCPre->Draw("P e1 same");
-ratiosysterr->Draw("e2 same");
-ratiostaterr->Draw("e2 same");
- DataMC->Draw("P e1 same");
- DataMCPre->Draw("P e1 same");
+    DataMC->Draw("P e1");
+    //DataMCPre->Draw("P e1 same");
+    ratiosysterr->Draw("e2 same");
+    ratiostaterr->Draw("e2 same");
+    DataMC->Draw("P e1 same");
+    //DataMCPre->Draw("P e1 same");
 
-DataMC->Draw("P e1 same");
- DataMC->SetMinimum(-0.2);
- DataMC->SetMaximum(2.2);
- DataMC->GetXaxis()->SetNdivisions(508);
- DataMC->GetYaxis()->SetNdivisions(505);
- TLine* line0= new TLine(XMIN,1,XMAX,1);
- line0->SetLineStyle(2);
-     line0->Draw("same");
-     c1_1->SetGridy();
-ratioleg->Draw("same");
+    DataMC->Draw("P e1 same");
+    DataMC->SetMinimum(-0.2);
+    DataMC->SetMaximum(2.2);
+    DataMC->GetXaxis()->SetNdivisions(508);
+    DataMC->GetYaxis()->SetNdivisions(505);
+    TLine* line0= new TLine(XMIN,1,XMAX,1);
+    line0->SetLineStyle(2);
+        line0->Draw("same");
+        c1_1->SetGridy();
+    ratioleg->Draw("same");
+}
+
 
 
 /*
@@ -1365,24 +1400,26 @@ def makeplot(inputs):
 
         if len(inputs) > 8 :
             line = line.replace("BLINDFACTOR", inputs[8])
-        else :
-            line = line.replace("BLINDFACTOR", "1")
 
+        else : 
+            line = line.replace("BLINDFACTOR", "1")  
+            
+        
         if len(inputs) > 9 :
-            line = line.replace("TEXTINFILE", inputs[9])
-        else :
-            line = line.replace("TEXTINFILE", "0")
-        if len(inputs) > 10 :
-            line = line.replace(".pdf",str(inputs[10]+".pdf"))
-            line = line.replace(".png",str(inputs[10]+".png"))
-        if len(inputs) > 11 :
-            line = line.replace("NORATIOPLOT", inputs[11])
+            line = line.replace("NORATIOPLOT", inputs[9])
         else :
             line = line.replace("NORATIOPLOT", "0")
-        if len(inputs) >12 :
-            line = line.replace("VARIABLEBINS", inputs[12])
+        if len(inputs) >10 :
+            line = line.replace("VARIABLEBINS", inputs[10])
         else:
             line = line.replace("VARIABLEBINS", "0")
+        if len(inputs) > 11 : 
+            line = line.replace("TEXTINFILE", inputs[11])
+        else : 
+            line = line.replace("TEXTINFILE", "0")     
+        if len(inputs) > 12 :
+            line = line.replace(".pdf",str(inputs[12]+".pdf"))
+            line = line.replace(".png",str(inputs[12]+".png"))
         if len(inputs) > 13:
             line = line.replace("PREFITDIR",inputs[13]) ## PreFitMET or PreFitMass
             line = line.replace("DRAWPREFIT","1") ## 0 or 1
@@ -1402,104 +1439,109 @@ dirnames=['']
 emplist=open("Empty.txt","w")
 emplist.close()
 
+srblindfactor='1'
+srnodata='1'
 
 for dirname in dirnames:
-
-
-
+    regions=[]
+    PUreg=[]
+    
 #    if makeMuCRplots and makeEleCRplots:
 #        regions=['2e1b','2mu1b','2e2b','2mu2b','1e1b','1mu1b','1e2b','1mu2b','1mu1e1b','1mu1e2b']
     if makeMuCRplots:
-        regions=['2mu1b','2mu2b','1mu1b','1mu2b','1mu1e1b','1mu1e2b']
-        PUreg=['mu_']
-    elif makeEleCRplots:
-        regions=['2e1b','2e2b','1e1b','1e2b']
-        PUreg=['ele_']
-    elif makePhoCRplots:
-        regions=['1gamma1b','1gamma2b']
-        PUreg=['pho_']
-    elif makeQCDCRplots:
-        regions=['QCD1b','QCD2b']
-        PUreg=[]
-    else:
-        regions=[]
-        PUreg=[]
+        regions+=['2mu1b','2mu2b','1mu1b','1mu2b','1mu1e1b','1mu1e2b']
+        PUreg+=['mu_']
+    if makeEleCRplots:
+        regions+=['2e1b','2e2b','1e1b','1e2b']
+        PUreg+=['ele_']
+    if makePhoCRplots:
+        regions+=['1gamma1b','1gamma2b']
+        PUreg+=['pho_']
+    if makeQCDCRplots:
+        regions+=['QCD1b','QCD2b']
+        PUreg+=[]
+#    else:
+#        regions=[]
+#        PUreg=[]
 
     for dt in PUreg:
-        makeplot([dirname+dt+"PuReweightPV",'h_'+dt+'PuReweightPV_','nPV after PU reweighting: '+dt,'0.','100.','100','0'])
-        makeplot([dirname+dt+"noPuReweightPV",'h_'+dt+'noPuReweightPV_','nPV before PU reweighting: '+dt,'0.','100.','100','0'])
+        makeplot([dirname+dt+"PuReweightPV",'h_'+dt+'PuReweightPV_','nPV after PU reweighting','0.','50.','1','0'])
+        makeplot([dirname+dt+"noPuReweightPV",'h_'+dt+'noPuReweightPV_','nPV before PU reweighting','0.','50.','1','0'])
 #        makeplot([dirname+dt+"PuReweightnPVert",'h_'+dt+'PuReweightnPVert_','nPV after PU reweighting (nPVert): '+dt,'0.','100.','100','0'])
 #        makeplot([dirname+dt+"noPuReweightnPVert",'h_'+dt+'noPuReweightnPVert_','nPV before PU reweighting (nPVert): '+dt,'0.','100.','100','0'])
 
 # Cutflow plots:
     if makeSRplots:
-        makeplot([dirname+"cutflow",'h_cutflow_','Cutflow','0.','10','10','1','1','20'])
-        makeplot([dirname+"cutflow_SR1",'h_cutflow_SR1_','SR1 Cutflow','0.','10','10','1','1','20'])
-        makeplot([dirname+"cutflow_SR2",'h_cutflow_SR2_','SR2 Cutflow','0.','10','10','1','1','20'])
-
+        makeplot([dirname+"cutflow",'h_cutflow_','Cutflow','0.','10','1','1','1',srblindfactor,srnodata])
+        makeplot([dirname+"cutflow_SR1",'h_cutflow_SR1_','SR1 Cutflow','0.','10','1','1','1',srblindfactor,srnodata])
+        makeplot([dirname+"cutflow_SR2",'h_cutflow_SR2_','SR2 Cutflow','0.','10','1','1','1',srblindfactor,srnodata])
+    
     for reg in regions:
-        makeplot([dirname+"cutflow_"+reg,'h_cutflow_'+reg+'_',reg+' Cutflow','0.','13','13','1','1'])
+        makeplot([dirname+"cutflow_"+reg,'h_cutflow_'+reg+'_',reg+' Cutflow','0.','13','1','1','1'])
 
 #Linear plots:
     if makeSRplots:
-        makeplot([dirname+"jet1_eta_sr1",'h_jet1_eta_sr1_','jet 1 #eta','-3.','3.','70','0','0','20'])
-        makeplot([dirname+"jet2_eta_sr1",'h_jet2_eta_sr1_','jet 2 #eta','-3.','3.','70','0','0','20'])
+        makeplot([dirname+"jet1_eta_sr1",'h_jet1_eta_sr1_','jet 1 #eta','-3.','3.','1','0','0',srblindfactor,srnodata])
+        makeplot([dirname+"jet2_eta_sr1",'h_jet2_eta_sr1_','jet 2 #eta','-3.','3.','1','0','0',srblindfactor,srnodata])
 
-        makeplot([dirname+"jet1_eta_sr2",'h_jet1_eta_sr2_','jet 1 #eta','-3.','3.','70','0','0','20'])
-        makeplot([dirname+"jet2_eta_sr2",'h_jet2_eta_sr2_','jet 2 #eta','-3.','3.','70','0','0','20'])
-        makeplot([dirname+"jet3_eta_sr2",'h_jet3_eta_sr2_','jet 3 #eta','-3.','3.','70','0','0','20'])
+        makeplot([dirname+"jet1_eta_sr2",'h_jet1_eta_sr2_','jet 1 #eta','-3.','3.','1','0','0',srblindfactor,srnodata])
+        makeplot([dirname+"jet2_eta_sr2",'h_jet2_eta_sr2_','jet 2 #eta','-3.','3.','1','0','0',srblindfactor,srnodata])
+        makeplot([dirname+"jet3_eta_sr2",'h_jet3_eta_sr2_','jet 3 #eta','-3.','3.','1','0','0',srblindfactor,srnodata])
 
 
-        makeplot([dirname+"jet1_csv_sr1",'h_jet1_csv_sr1_','jet 1 csv','0.','1.','100','0','0','20'])
-        makeplot([dirname+"jet2_csv_sr1",'h_jet2_csv_sr1_','jet 2 csv','0.','1.','100','0','0','20'])
+        makeplot([dirname+"jet1_csv_sr1",'h_jet1_csv_sr1_','jet 1 csv','0.','1.','1','0','0',srblindfactor,srnodata])
+        makeplot([dirname+"jet2_csv_sr1",'h_jet2_csv_sr1_','jet 2 csv','0.','1.','1','0','0',srblindfactor,srnodata])
 
-        makeplot([dirname+"presel_jet1_csv_sr1",'h_presel_jet1_csv_sr1_','jet 1 csv before selection','0.','1.','100','0','0','20'])
-        makeplot([dirname+"presel_jet2_csv_sr1",'h_presel_jet2_csv_sr1_','jet 2 csv before selection','0.','1.','100','0','0','20'])
+        #makeplot([dirname+"presel_jet1_csv_sr1",'h_presel_jet1_csv_sr1_','jet 1 csv before selection','0.','1.','1','0','0',srblindfactor,srnodata])
+        #makeplot([dirname+"presel_jet2_csv_sr1",'h_presel_jet2_csv_sr1_','jet 2 csv before selection','0.','1.','1','0','0',srblindfactor,srnodata])
 
-        makeplot([dirname+"jet1_csv_sr2",'h_jet1_csv_sr2_','jet 1 csv','0.','1.','100','0','0','20'])
-        makeplot([dirname+"jet2_csv_sr2",'h_jet2_csv_sr2_','jet 2 csv','0.','1.','100','0','0','20'])
-        makeplot([dirname+"jet3_csv_sr2",'h_jet3_csv_sr2_','jet 3 csv','0.','1.','100','0','0','20'])
+        makeplot([dirname+"jet1_csv_sr2",'h_jet1_csv_sr2_','jet 1 csv','0.','1.','1','0','0',srblindfactor,srnodata])
+        makeplot([dirname+"jet2_csv_sr2",'h_jet2_csv_sr2_','jet 2 csv','0.','1.','1','0','0',srblindfactor,srnodata])
+        makeplot([dirname+"jet3_csv_sr2",'h_jet3_csv_sr2_','jet 3 csv','0.','1.','1','0','0',srblindfactor,srnodata])
 
-        makeplot([dirname+"presel_jet1_csv_sr2",'h_presel_jet1_csv_sr2_','jet 1 csv before selection','0.','1.','100','0','0','20'])
-        makeplot([dirname+"presel_jet2_csv_sr2",'h_presel_jet2_csv_sr2_','jet 2 csv before selection','0.','1.','100','0','0','20'])
-        makeplot([dirname+"presel_jet3_csv_sr2",'h_presel_jet3_csv_sr2_','jet 3 csv before selection','0.','1.','100','0','0','20'])
+        #makeplot([dirname+"presel_jet1_csv_sr2",'h_presel_jet1_csv_sr2_','jet 1 csv before selection','0.','1.','1','0','0',srblindfactor,srnodata])
+        #makeplot([dirname+"presel_jet2_csv_sr2",'h_presel_jet2_csv_sr2_','jet 2 csv before selection','0.','1.','1','0','0',srblindfactor,srnodata])
+        #makeplot([dirname+"presel_jet3_csv_sr2",'h_presel_jet3_csv_sr2_','jet 3 csv before selection','0.','1.','1','0','0',srblindfactor,srnodata])
 
-        makeplot([dirname+"presel_jet1_chf_sr1",'h_presel_jet1_chf_sr1_','jet 1 CHadFrac before selection','0.','1.','40','0','0','20'])
-        makeplot([dirname+"presel_jet1_chf_sr2",'h_presel_jet1_chf_sr2_','jet 1 CHadFrac before selection','0.','1.','40','0','0','20'])
-        makeplot([dirname+"presel_jet1_nhf_sr1",'h_presel_jet1_nhf_sr1_','jet 1 NHadFrac before selection','0.','1.','40','0','0','20'])
-        makeplot([dirname+"presel_jet1_nhf_sr2",'h_presel_jet1_nhf_sr2_','jet 1 NHadFrac before selection','0.','1.','40','0','0','20'])
+        #makeplot([dirname+"presel_jet1_chf_sr1",'h_presel_jet1_chf_sr1_','jet 1 CHadFrac before selection','0.','1.','1','0','0',srblindfactor,srnodata])
+        #makeplot([dirname+"presel_jet1_chf_sr2",'h_presel_jet1_chf_sr2_','jet 1 CHadFrac before selection','0.','1.','1','0','0',srblindfactor,srnodata])
+        #makeplot([dirname+"presel_jet1_nhf_sr1",'h_presel_jet1_nhf_sr1_','jet 1 NHadFrac before selection','0.','1.','1','0','0',srblindfactor,srnodata])
+        #makeplot([dirname+"presel_jet1_nhf_sr2",'h_presel_jet1_nhf_sr2_','jet 1 NHadFrac before selection','0.','1.','1','0','0',srblindfactor,srnodata])
 
-        makeplot([dirname+"jet1_chf_sr1",'h_jet1_chf_sr1_','jet 1 CHadFrac','0.','1.','40','0','0','20'])
-        makeplot([dirname+"jet1_chf_sr2",'h_jet1_chf_sr2_','jet 1 CHadFrac','0.','1.','40','0','0','20'])
-        makeplot([dirname+"jet1_nhf_sr1",'h_jet1_nhf_sr1_','jet 1 NHadFrac','0.','1.','40','0','0','20'])
-        makeplot([dirname+"jet1_nhf_sr2",'h_jet1_nhf_sr2_','jet 1 NHadFrac','0.','1.','40','0','0','20'])
+        makeplot([dirname+"jet1_chf_sr1",'h_jet1_chf_sr1_','jet 1 CHadFrac','0.','1.','1','0','0',srblindfactor,srnodata])
+        makeplot([dirname+"jet1_chf_sr2",'h_jet1_chf_sr2_','jet 1 CHadFrac','0.','1.','1','0','0',srblindfactor,srnodata])
+        makeplot([dirname+"jet1_nhf_sr1",'h_jet1_nhf_sr1_','jet 1 NHadFrac','0.','1.','1','0','0',srblindfactor,srnodata])
+        makeplot([dirname+"jet1_nhf_sr2",'h_jet1_nhf_sr2_','jet 1 NHadFrac','0.','1.','1','0','0',srblindfactor,srnodata])
 
     ##for CRs
     for reg in regions:
-        if reg[0]=='2': makeplot([dirname+"reg_"+reg+"_Zmass",'h_reg_'+reg+'_Zmass_','Z candidate mass (GeV)','70.','110.','40','0'])
-        if reg[0]=='1': makeplot([dirname+"reg_"+reg+"_Wmass",'h_reg_'+reg+'_Wmass_','W candidate m_{T} (GeV)','40.','170.','40','0'])
-        makeplot([dirname+"reg_"+reg+"_jet1_eta",'h_reg_'+reg+'_jet1_eta_','Lead Jet #eta','-3.5','3.5','70','0'])
-        makeplot([dirname+"reg_"+reg+"_jet2_eta",'h_reg_'+reg+'_jet2_eta_','Second Jet #eta','-3.5','3.5','70','0'])
-        makeplot([dirname+"reg_"+reg+"_jet1_csv",'h_reg_'+reg+'_jet1_csv_','Lead Jet CSV','0.','1.','50','0'])
-        makeplot([dirname+"reg_"+reg+"_jet2_csv",'h_reg_'+reg+'_jet2_csv_','Second Jet CSV','0.','1.','50','0'])
-
+        if reg[0]=='2': makeplot([dirname+"reg_"+reg+"_Zmass",'h_reg_'+reg+'_Zmass_','Z candidate mass (GeV)','70.','110.',reg[-2],'0'])          
+        if reg[0]=='1': makeplot([dirname+"reg_"+reg+"_Wmass",'h_reg_'+reg+'_Wmass_','W candidate m_{T} (GeV)','40.','170.','1','0'])
+        makeplot([dirname+"reg_"+reg+"_jet1_eta",'h_reg_'+reg+'_jet1_eta_','Lead Jet #eta','-3.5','3.5','1','0'])
+        makeplot([dirname+"reg_"+reg+"_jet2_eta",'h_reg_'+reg+'_jet2_eta_','Second Jet #eta','-3.5','3.5','1','0'])
+        makeplot([dirname+"reg_"+reg+"_jet1_csv",'h_reg_'+reg+'_jet1_csv_','Lead Jet CSV','0.','1.','1','0'])
+#        makeplot([dirname+"reg_"+reg+"_jet2_csv",'h_reg_'+reg+'_jet2_csv_','Second Jet CSV','0.','1.','1','0'])
+          
 
 #Log plots:
 
 ###For SR
     if makeSRplots:
-        makeplot([dirname+"jet1_pT_sr1",'h_jet1_pT_sr1_','jet 1 p_{T} (GeV)','0.','800.','100','1','0','20'])
-        makeplot([dirname+"jet2_pT_sr1",'h_jet2_pT_sr1_','jet 2 p_{T} (GeV)','0.','400.','100','1','0','20'])
+        makeplot([dirname+"jet1_pT_sr1",'h_jet1_pT_sr1_','jet 1 p_{T} (GeV)','0.','800.','1','1','0',srblindfactor,srnodata])
+        makeplot([dirname+"jet2_pT_sr1",'h_jet2_pT_sr1_','jet 2 p_{T} (GeV)','0.','400.','1','1','0',srblindfactor,srnodata])
+        
+        
+        makeplot([dirname+"jet1_pT_sr2",'h_jet1_pT_sr2_','jet 1 p_{T} (GeV)','0.','800.','1','1','0',srblindfactor,srnodata])
+        makeplot([dirname+"jet2_pT_sr2",'h_jet2_pT_sr2_','jet 2 p_{T} (GeV)','0.','400.','1','1','0',srblindfactor,srnodata])
+        makeplot([dirname+"jet3_pT_sr2",'h_jet3_pT_sr2_','jet 3 p_{T} (GeV)','0.','400.','1','1','0',srblindfactor,srnodata])
+        
+        makeplot([dirname+"min_dPhi_sr1",'h_min_dPhi_sr1_','min #Delta #phi','0.','3.2','1','1','0',srblindfactor,srnodata])
+        makeplot([dirname+"min_dPhi_sr2",'h_min_dPhi_sr2_','min #Delta #phi','0.','3.2','1','1','0',srblindfactor,srnodata])
+        
+        makeplot([dirname+"met_sr1",'h_met_sr1_','Missing Transverse Energy (GeV)','200.','1000','2','1','0',srblindfactor,srnodata])
+        makeplot([dirname+"met_sr2",'h_met_sr2_','Missing Transverse Energy (GeV)','200.','1000','2','1','0',srblindfactor,srnodata])
 
-
-        makeplot([dirname+"jet1_pT_sr2",'h_jet1_pT_sr2_','jet 1 p_{T} (GeV)','0.','800.','100','1','0','20'])
-        makeplot([dirname+"jet2_pT_sr2",'h_jet2_pT_sr2_','jet 2 p_{T} (GeV)','0.','400.','100','1','0','20'])
-        makeplot([dirname+"jet3_pT_sr2",'h_jet3_pT_sr2_','jet 3 p_{T} (GeV)','0.','400.','100','1','0','20'])
-
-        makeplot([dirname+"min_dPhi_sr1",'h_min_dPhi_sr1_','min #Delta #phi','0.','3.2','32','1','0','20'])
-        makeplot([dirname+"min_dPhi_sr2",'h_min_dPhi_sr2_','min #Delta #phi','0.','3.2','32','1','0','20'])
-
-        makeplot([dirname+"reg_sr1_hadrecoil",'h_met_sr1_','Missing Transverse Energy','200.','1000','10','1','0','20'])
+        makeplot([dirname+"reg_sr1_hadrecoil",'h_met_sr1_','Missing Transverse Energy','200.','1000','10','1','0',srblindfactor,srnodata])
 
         makeplot([dirname+"reg_sr1_btag_syst_up",'h_btag_syst_sr1_up_','Missing Transverse Energy','200.','1000','10','1','0','20'])
         makeplot([dirname+"reg_sr1_btag_syst_down",'h_btag_syst_sr1_down_','Missing Transverse Energy','200.','1000','10','1','0','20'])
@@ -1536,9 +1578,10 @@ for dirname in dirnames:
 
     # Region based
     for reg in regions:
-        if reg[0]=='2': makeplot([dirname+"reg_"+reg+"_ZpT",'h_reg_'+reg+'_ZpT_','Z candidate p_{T} (GeV)','0.','800.','100','1'])
-        if reg[0]=='1': makeplot([dirname+"reg_"+reg+"_WpT",'h_reg_'+reg+'_WpT_','W candidate p_{T} (GeV)','0.','800.','100','1'])
-        makeplot([dirname+"reg_"+reg+"_hadrecoil",'h_reg_'+reg+'_hadrecoil_','Hadronic Recoil (GeV)','200.','1000.','100','1'])
+        if reg[0]=='2': makeplot([dirname+"reg_"+reg+"_ZpT",'h_reg_'+reg+'_ZpT_','Z candidate p_{T} (GeV)','0.','800.',reg[-2],'1'])
+        if reg[0]=='1': makeplot([dirname+"reg_"+reg+"_WpT",'h_reg_'+reg+'_WpT_','W candidate p_{T} (GeV)','0.','800.','1','1'])
+        makeplot([dirname+"reg_"+reg+"_hadrecoil",'h_reg_'+reg+'_hadrecoil_','Hadronic Recoil (GeV)','200.','1000.','2','1'])
+       
         makeplot([dirname+"reg_"+reg+"_btag_syst_up",'h_btag_syst_'+reg+'_up_','Hadronic Recoil (GeV)','200.','1000.','100','1'])
         makeplot([dirname+"reg_"+reg+"_btag_syst_down",'h_btag_syst_'+reg+'_down_','Hadronic Recoil (GeV)','200.','1000.','100','1'])
         makeplot([dirname+"reg_"+reg+"_lep_syst_up",'h_lep_syst_'+reg+'_up_','Hadronic Recoil (GeV)','200.','1000.','100','1'])
@@ -1554,42 +1597,42 @@ for dirname in dirnames:
         makeplot([dirname+"reg_"+reg+"_ewkTop_syst_up",'h_ewkTop_syst_'+reg+'_up_','Hadronic Recoil (GeV)','200.','1000.','100','1'])
         makeplot([dirname+"reg_"+reg+"_ewkTop_syst_down",'h_ewkTop_syst_'+reg+'_down_','Hadronic Recoil (GeV)','200.','1000.','100','1'])
 
-
         if not 'QCD' in reg:
-            makeplot([dirname+"reg_"+reg+"_MET",'h_reg_'+reg+'_MET_','Real MET (GeV)','0.','400.','100','1'])
+            makeplot([dirname+"reg_"+reg+"_MET",'h_reg_'+reg+'_MET_','Real MET (GeV)','0.','400.','1','1'])
         else:
-            makeplot([dirname+"reg_"+reg+"_MET",'h_reg_'+reg+'_MET_','Real MET (GeV)','200.','800.','100','1'])
-        makeplot([dirname+"reg_"+reg+"_njet",'h_reg_'+reg+'_njet_','Number of Jets','-1','5','6','1'])
-
+            makeplot([dirname+"reg_"+reg+"_MET",'h_reg_'+reg+'_MET_','Real MET (GeV)','200.','800.','1','1'])
+        makeplot([dirname+"reg_"+reg+"_njet",'h_reg_'+reg+'_njet_','Number of Jets','-1','5','1','1'])
+       
         if reg[:2]=='1e':
-            makeplot([dirname+"reg_"+reg+"_njet_n_minus_1",'h_reg_'+reg+'_njet_n_minus_1_','Number of Jets (n-1 cuts plot)','-1','12','13','1'])
-            makeplot([dirname+"reg_"+reg+"_unclean_njet_n_minus_1",'h_reg_'+reg+'_unclean_njet_n_minus_1_','Number of Jets without cleaning (n-1 cuts plot)','-1','12','13','1'])
+            makeplot([dirname+"reg_"+reg+"_njet_n_minus_1",'h_reg_'+reg+'_njet_n_minus_1_','Number of Jets (n-1 cuts plot)','-1','12','1','1'])
+            makeplot([dirname+"reg_"+reg+"_unclean_njet_n_minus_1",'h_reg_'+reg+'_unclean_njet_n_minus_1_','Number of Jets without cleaning (n-1 cuts plot)','-1','12','1','1'])
+    
+            makeplot([dirname+"reg_"+reg+"_min_dR_jet_ele_preclean",'h_reg_'+reg+'_min_dR_jet_ele_preclean_','min dR between jets and electron before jet cleaning','0.','6.','1','1'])
+            makeplot([dirname+"reg_"+reg+"_min_dR_jet_ele_postclean",'h_reg_'+reg+'_min_dR_jet_ele_postclean_','min dR between jets and electron after jet cleaning','0.','6.','1','1'])
+        makeplot([dirname+"reg_"+reg+"_min_dPhi_jet_Recoil",'h_reg_'+reg+'_min_dPhi_jet_Recoil_','min d #phi between jets and recoil','0.','6.','1','1'])
+        makeplot([dirname+"reg_"+reg+"_min_dPhi_jet_MET",'h_reg_'+reg+'_min_dPhi_jet_MET_','min d #phi between jets and real MET','0.','6.','1','1'])
+       
+        makeplot([dirname+"reg_"+reg+"_min_dPhi_jet_Recoil_n_minus_1",'h_reg_'+reg+'_min_dPhi_jet_Recoil_n_minus_1_','min d #phi between jets and recoil before d#phi cut','0.','6.','1','1'])
+       
+        makeplot([dirname+"reg_"+reg+"_ntau",'h_reg_'+reg+'_ntau_','Number of Taus','-1','4','1','1'])
+        makeplot([dirname+"reg_"+reg+"_nUncleanTau",'h_reg_'+reg+'_nUncleanTau_','Number of Taus (before cleaning)','-1','6','1','1'])
 
-            makeplot([dirname+"reg_"+reg+"_min_dR_jet_ele_preclean",'h_reg_'+reg+'_min_dR_jet_ele_preclean_','min dR between jets and electron before jet cleaning','0.','6.','60','1'])
-            makeplot([dirname+"reg_"+reg+"_min_dR_jet_ele_postclean",'h_reg_'+reg+'_min_dR_jet_ele_postclean_','min dR between jets and electron after jet cleaning','0.','6.','60','1'])
-        makeplot([dirname+"reg_"+reg+"_min_dPhi_jet_Recoil",'h_reg_'+reg+'_min_dPhi_jet_Recoil_','min d #phi between jets and recoil','0.','6.','60','1'])
-        makeplot([dirname+"reg_"+reg+"_min_dPhi_jet_MET",'h_reg_'+reg+'_min_dPhi_jet_MET_','min d #phi between jets and real MET','0.','6.','60','1'])
-
-        makeplot([dirname+"reg_"+reg+"_min_dPhi_jet_Recoil_n_minus_1",'h_reg_'+reg+'_min_dPhi_jet_Recoil_n_minus_1_','min d #phi between jets and recoil before d#phi cut','0.','6.','60','1'])
-
-        makeplot([dirname+"reg_"+reg+"_ntau",'h_reg_'+reg+'_ntau_','Number of Taus','-1','4','5','1'])
-        makeplot([dirname+"reg_"+reg+"_nUncleanTau",'h_reg_'+reg+'_nUncleanTau_','Number of Taus (before cleaning)','-1','6','7','1'])
 #            makeplot([dirname+"reg_"+reg+"_ntaucleaned",'h_reg_'+reg+'_ntaucleaned_','Number of Taus (after Tau cleaning)','-1','4','5','1'])
-        makeplot([dirname+"reg_"+reg+"_nele",'h_reg_'+reg+'_nele_','Number of Electrons','-1','5','6','1'])
-        if reg[0]=='2': makeplot([dirname+"reg_"+reg+"_npho",'h_reg_'+reg+'_npho_','Number of Photons','-1','5','6','1'])
+        makeplot([dirname+"reg_"+reg+"_nele",'h_reg_'+reg+'_nele_','Number of Electrons','-1','5','1','1'])
+        if reg[0]=='2': makeplot([dirname+"reg_"+reg+"_npho",'h_reg_'+reg+'_npho_','Number of Photons','-1','5','1','1'])
 #            makeplot([dirname+"reg_"+reg+"_nUncleanEle",'h_reg_'+reg+'_nUncleanEle_','Number of Eles (before cleaning)','-1','6','7','1'])
-        makeplot([dirname+"reg_"+reg+"_nmu",'h_reg_'+reg+'_nmu_','Number of Muons','-1','5','6','1'])
+        makeplot([dirname+"reg_"+reg+"_nmu",'h_reg_'+reg+'_nmu_','Number of Muons','-1','5','1','1'])
 #            makeplot([dirname+"reg_"+reg+"_nUncleanMu",'h_reg_'+reg+'_nUncleanMu_','Number of Muons (before cleaning)','-1','6','7','1'])
-        makeplot([dirname+"reg_"+reg+"_lep1_pT",'h_reg_'+reg+'_lep1_pT_','Lead Lepton p_{T} (GeV)','0.','500.','100','1'])
-        makeplot([dirname+"reg_"+reg+"_lep2_pT",'h_reg_'+reg+'_lep2_pT_','Second Lepton p_{T} (GeV)','0.','250.','100','1'])
-        if reg.startswith('1mu1e'): makeplot([dirname+"reg_"+reg+"_e_pT",'h_reg_'+reg+'_e_pT_','Electron p_{T} (GeV)','0.','500.','100','1'])         #Top
-        if reg.startswith('1mu1e'): makeplot([dirname+"reg_"+reg+"_mu_pT",'h_reg_'+reg+'_mu_pT_','Muon p_{T} (GeV)','0.','500.','100','1'])           #Top
-        makeplot([dirname+"reg_"+reg+"_pho_pT",'h_reg_'+reg+'_pho_pT_','Photon p_{T} (GeV)','0.','500.','100','1'])
-        if reg[1]=='m': makeplot([dirname+"reg_"+reg+"_lep1_iso",'h_reg_'+reg+'_lep1_iso_','Lead Lepton isolation','0.','800.','100','1'])
-        if reg[1]=='m': makeplot([dirname+"reg_"+reg+"_lep2_iso",'h_reg_'+reg+'_lep2_iso_','Second Lepton isolation','0.','800.','100','1'])
-        if reg.startswith('1mu1e'): makeplot([dirname+"reg_"+reg+"_mu_iso",'h_reg_'+reg+'_mu_iso_','Muon isolation','0.','800.','100','1'])            #Top
-        makeplot([dirname+"reg_"+reg+"_jet1_pT",'h_reg_'+reg+'_jet1_pT_','Lead Jet p_{T} (GeV)','0.','800.','100','1'])
-        makeplot([dirname+"reg_"+reg+"_jet2_pT",'h_reg_'+reg+'_jet2_pT_','Second Jet p_{T} (GeV)','0.','400.','100','1'])
+        makeplot([dirname+"reg_"+reg+"_lep1_pT",'h_reg_'+reg+'_lep1_pT_','Lead Lepton p_{T} (GeV)','0.','500.','1','1'])
+        makeplot([dirname+"reg_"+reg+"_lep2_pT",'h_reg_'+reg+'_lep2_pT_','Second Lepton p_{T} (GeV)','0.','250.','1','1'])
+        if reg.startswith('1mu1e'): makeplot([dirname+"reg_"+reg+"_e_pT",'h_reg_'+reg+'_e_pT_','Electron p_{T} (GeV)','0.','500.','1','1'])         #Top
+        if reg.startswith('1mu1e'): makeplot([dirname+"reg_"+reg+"_mu_pT",'h_reg_'+reg+'_mu_pT_','Muon p_{T} (GeV)','0.','500.','1','1'])           #Top
+        makeplot([dirname+"reg_"+reg+"_pho_pT",'h_reg_'+reg+'_pho_pT_','Photon p_{T} (GeV)','0.','500.','1','1'])
+        if reg[1]=='m': makeplot([dirname+"reg_"+reg+"_lep1_iso",'h_reg_'+reg+'_lep1_iso_','Lead Lepton isolation','0.','800.','1','1'])
+        if reg[1]=='m': makeplot([dirname+"reg_"+reg+"_lep2_iso",'h_reg_'+reg+'_lep2_iso_','Second Lepton isolation','0.','800.','1','1'])
+        if reg.startswith('1mu1e'): makeplot([dirname+"reg_"+reg+"_mu_iso",'h_reg_'+reg+'_mu_iso_','Muon isolation','0.','800.','1','1'])            #Top
+        makeplot([dirname+"reg_"+reg+"_jet1_pT",'h_reg_'+reg+'_jet1_pT_','Lead Jet p_{T} (GeV)','0.','800.','1','1'])
+        makeplot([dirname+"reg_"+reg+"_jet2_pT",'h_reg_'+reg+'_jet2_pT_','Second Jet p_{T} (GeV)','0.','400.','1','1'])
 #            makeplot([dirname+"reg_"+reg+"_lep1_dR_tau",'h_reg_'+reg+'_lep1_dR_tau_','dR b/w tau and lead lepton','0.','6.','120','1'])
 #            makeplot([dirname+"reg_"+reg+"_lep2_dR_tau",'h_reg_'+reg+'_lep2_dR_tau_','dR b/w tau and second lepton','0.','6.','120','1'])
 #            makeplot([dirname+"reg_"+reg+"_min_lep_dR_tau",'h_reg_'+reg+'_min_lep_dR_tau_','minimum dR b/w tau and leptons','0.','6.','120','1'])
