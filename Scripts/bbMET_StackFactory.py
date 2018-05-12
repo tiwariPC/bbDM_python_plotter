@@ -209,10 +209,10 @@ filenameString.push_back(filenamepath + "Output_TT_TuneCUETP8M2T4_13TeV-powheg-p
 //
 
 // QCD 37,38,39,40,41,42,43,44,45 
-filenameString.push_back(filenamepath + "Output_QCD_HT50to100_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root");
-filenameString.push_back(filenamepath + "Output_QCD_HT100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root");
-filenameString.push_back(filenamepath + "Output_QCD_HT200to300_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root");
-filenameString.push_back(filenamepath + "Output_QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root");
+filenameString.push_back(filenamepath + "Output_QCD_HT2000toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root");  //dummy
+filenameString.push_back(filenamepath + "Output_QCD_HT2000toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root");  //dummy
+filenameString.push_back(filenamepath + "Output_QCD_HT2000toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root");  //dummy
+filenameString.push_back(filenamepath + "Output_QCD_HT2000toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root");  //dummy
 filenameString.push_back(filenamepath + "Output_QCD_HT500to700_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root");
 filenameString.push_back(filenamepath + "Output_QCD_HT700to1000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root");
 filenameString.push_back(filenamepath + "Output_QCD_HT1000to1500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root");
@@ -355,7 +355,7 @@ TH1F *h_total;
 //cout << to_string(nfiles) << endl;
 
 for(int i =0; i<84; i++){
-//    cout << "Reading file #" << to_string(i+1) << ": " << filenameString[i] << endl;
+    cout << "Reading file #" << to_string(i+1) << ": " << filenameString[i] << endl;
     fIn = new TFile(filenameString[i],"READ");
 
     //if(VARIABLEBINS){
@@ -1282,7 +1282,7 @@ tableout<< " "<<std::endl;
  c12->Draw();
  
 if(ISLOG==0){
-// c12->SaveAs(DirPreName+dirpathname +"/bbMETPdf/HISTPATH.pdf");
+ c12->SaveAs(DirPreName+dirpathname +"/bbMETPdf/HISTPATH.pdf");
  c12->SaveAs(DirPreName+dirpathname +"/bbMETPng/HISTPATH.png");
 // cout << "Saved." << endl;
 // c12->SaveAs(DirPreName+dirpathname +"/bbMETROOT/HISTPATH.root");                                                                         
@@ -1292,7 +1292,7 @@ if(ISLOG==0){
 }
  
 if(ISLOG==1){
-// c12->SaveAs(DirPreName+dirpathname +"/bbMETPdf/HISTPATH_log.pdf");
+ c12->SaveAs(DirPreName+dirpathname +"/bbMETPdf/HISTPATH_log.pdf");
  c12->SaveAs(DirPreName+dirpathname +"/bbMETPng/HISTPATH_log.png");
  cout << "Saved." << endl;
 // c12->SaveAs(DirPreName+dirpathname +"/bbMETROOT/HISTPATH_log.root");                                                                        
@@ -1489,9 +1489,11 @@ for dirname in dirnames:
         makeplot([dirname+"jet2_eta_sr2",'h_jet2_eta_sr2_','jet 2 #eta','-3.','3.','1','0','0',srblindfactor,srnodata])
         makeplot([dirname+"jet3_eta_sr2",'h_jet3_eta_sr2_','jet 3 #eta','-3.','3.','1','0','0',srblindfactor,srnodata])
 
-
         makeplot([dirname+"jet1_csv_sr1",'h_jet1_csv_sr1_','jet 1 csv','0.','1.','1','0','0',srblindfactor,srnodata])
         makeplot([dirname+"jet2_csv_sr1",'h_jet2_csv_sr1_','jet 2 csv','0.','1.','1','0','0',srblindfactor,srnodata])
+        
+        makeplot([dirname+"jet1_deepcsv_sr1",'h_jet1_deepcsv_sr1_','jet 1 deepcsv','0.','1.','1','0','0',srblindfactor,srnodata])
+        makeplot([dirname+"jet2_deepcsv_sr1",'h_jet2_deepcsv_sr1_','jet 2 deepcsv','0.','1.','1','0','0',srblindfactor,srnodata])
 
         #makeplot([dirname+"presel_jet1_csv_sr1",'h_presel_jet1_csv_sr1_','jet 1 csv before selection','0.','1.','1','0','0',srblindfactor,srnodata])
         #makeplot([dirname+"presel_jet2_csv_sr1",'h_presel_jet2_csv_sr1_','jet 2 csv before selection','0.','1.','1','0','0',srblindfactor,srnodata])
@@ -1499,6 +1501,10 @@ for dirname in dirnames:
         makeplot([dirname+"jet1_csv_sr2",'h_jet1_csv_sr2_','jet 1 csv','0.','1.','1','0','0',srblindfactor,srnodata])
         makeplot([dirname+"jet2_csv_sr2",'h_jet2_csv_sr2_','jet 2 csv','0.','1.','1','0','0',srblindfactor,srnodata])
         makeplot([dirname+"jet3_csv_sr2",'h_jet3_csv_sr2_','jet 3 csv','0.','1.','1','0','0',srblindfactor,srnodata])
+        
+        makeplot([dirname+"jet1_deepcsv_sr2",'h_jet1_deepcsv_sr2_','jet 1 deepcsv','0.','1.','1','0','0',srblindfactor,srnodata])
+        makeplot([dirname+"jet2_deepcsv_sr2",'h_jet2_deepcsv_sr2_','jet 2 deepcsv','0.','1.','1','0','0',srblindfactor,srnodata])
+        makeplot([dirname+"jet3_deepcsv_sr2",'h_jet3_deepcsv_sr2_','jet 3 deepcsv','0.','1.','1','0','0',srblindfactor,srnodata])
 
         #makeplot([dirname+"presel_jet1_csv_sr2",'h_presel_jet1_csv_sr2_','jet 1 csv before selection','0.','1.','1','0','0',srblindfactor,srnodata])
         #makeplot([dirname+"presel_jet2_csv_sr2",'h_presel_jet2_csv_sr2_','jet 2 csv before selection','0.','1.','1','0','0',srblindfactor,srnodata])
@@ -1520,6 +1526,8 @@ for dirname in dirnames:
         if reg[0]=='1': makeplot([dirname+"reg_"+reg+"_Wmass",'h_reg_'+reg+'_Wmass_','W candidate m_{T} (GeV)','40.','170.','1','0'])
         makeplot([dirname+"reg_"+reg+"_jet1_eta",'h_reg_'+reg+'_jet1_eta_','Lead Jet #eta','-3.5','3.5','1','0'])
         makeplot([dirname+"reg_"+reg+"_jet2_eta",'h_reg_'+reg+'_jet2_eta_','Second Jet #eta','-3.5','3.5','1','0'])
+        
+        makeplot([dirname+"reg_"+reg+"_jet1_deepcsv",'h_reg_'+reg+'_jet1_deepcsv_','Lead Jet deepCSV','0.','1.','1','0'])
         makeplot([dirname+"reg_"+reg+"_jet1_csv",'h_reg_'+reg+'_jet1_csv_','Lead Jet CSV','0.','1.','1','0'])
 #        makeplot([dirname+"reg_"+reg+"_jet2_csv",'h_reg_'+reg+'_jet2_csv_','Second Jet CSV','0.','1.','1','0'])
           
@@ -1547,6 +1555,13 @@ for dirname in dirnames:
         if reg[0]=='2': makeplot([dirname+"reg_"+reg+"_ZpT",'h_reg_'+reg+'_ZpT_','Z candidate p_{T} (GeV)','0.','800.',reg[-2],'1'])
         if reg[0]=='1': makeplot([dirname+"reg_"+reg+"_WpT",'h_reg_'+reg+'_WpT_','W candidate p_{T} (GeV)','0.','800.','1','1'])
         makeplot([dirname+"reg_"+reg+"_hadrecoil",'h_reg_'+reg+'_hadrecoil_','Hadronic Recoil (GeV)','200.','1000.','2','1'])
+        
+        makeplot([dirname+"reg_"+reg+"_jet1_NHadEF",'h_reg_'+reg+'_jet1_NHadEF_','Lead jet neutral hadronic fraction','0.','1.','1','1'])
+        makeplot([dirname+"reg_"+reg+"_jet1_CHadEF",'h_reg_'+reg+'_jet1_CHadEF_','Lead jet charged hadronic fraction','0.','1.','1','1'])
+        makeplot([dirname+"reg_"+reg+"_jet1_CEmEF",'h_reg_'+reg+'_jet1_CEmEF_','Lead jet charged EM fraction','0.','1.','1','1'])
+        makeplot([dirname+"reg_"+reg+"_jet1_PhoEF",'h_reg_'+reg+'_jet1_PhoEF_','Lead jet Photon fraction','0.','1.','1','1'])
+        makeplot([dirname+"reg_"+reg+"_jet1_EleEF",'h_reg_'+reg+'_jet1_EleEF_','Lead jet Electron fraction','0.','1.','1','1'])
+        makeplot([dirname+"reg_"+reg+"_jet1_MuoEF",'h_reg_'+reg+'_jet1_MuoEF_','Lead jet Muon fraction','0.','1.','1','1'])
        
         if not 'QCD' in reg:
             makeplot([dirname+"reg_"+reg+"_MET",'h_reg_'+reg+'_MET_','Real MET (GeV)','0.','400.','1','1'])
