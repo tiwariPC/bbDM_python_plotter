@@ -359,8 +359,11 @@ def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg):
         data_obs = data_file_MET[0].Get(str(plot))
     elif makeEleCRplots:
         data_obs = data_file_SE[0].Get(str(plot))
+    if plot_recoil:
+        data_obs=data_obs.Rebin(len(bins)-1,"data_obs",array.array('d',bins))
+        data_obs.SetBinContent(len(bins)-1,data_obs.GetBinContent(len(bins)-1)+data_obs.GetBinContent(len(bins)))
+        data_obs.SetBinContent(len(bins),0.)
     data_obs.SetMarkerColor(rt.kBlack)
-    if plot_recoil: data_obs=data_obs.Rebin(len(bins)-1,"data_obs",array.array('d',bins))
     data_obs.SetMarkerStyle(20)
 
     Stackhist = hs.GetStack().Last()
