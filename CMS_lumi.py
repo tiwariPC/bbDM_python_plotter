@@ -10,7 +10,7 @@ cmsText     = "CMS";
 cmsTextFont   = 61
 
 writeExtraText = True
-extraText   = "Preliminary"
+extraText   = " Preliminary"
 extraTextFont = 52
 
 lumiTextSize     = 0.6
@@ -87,8 +87,6 @@ def CMS_lumi(pad,  iPeriod,  iPosX ):
         lumiText += "8 TeV"
     elif ( iPeriod==0 ):
         lumiText += lumi_sqrtS
-
-    print (lumiText)
 
     latex = rt.TLatex()
     latex.SetNDC()
