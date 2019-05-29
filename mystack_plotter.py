@@ -74,8 +74,8 @@ CMS_lumi.lumi_sqrtS = "13 TeV" # used with iPeriod = 0, e.g. for simulation-only
 iPos = 0
 if( iPos==0 ): CMS_lumi.relPosX = 0.12
 
-H_ref = 2400
-W_ref = 1800
+H_ref = 1800
+W_ref = 2100
 W = W_ref
 H = H_ref
 
@@ -666,24 +666,24 @@ for dirname in dirnames:
         regions+=['QCD1b','QCD2b']
         PUreg
 
-        makeplot(dirname+"CRSum",'h_CRSum_','',0.,10.,1,1,0,'cutflow')
-        if makeMuCRplots: makeplot(dirname+"CRSumMu",'h_CRSumMu_','',0.,6.,1,1,0,'cutflow')
-        if makeEleCRplots: makeplot(dirname+"CRSumEle",'h_CRSumEle_','',0.,4.,1,1,0,'cutflow')
+    makeplot(dirname+"CRSum",'h_CRSum_','',0.,10.,1,1,0,'cutflow')
+    if makeMuCRplots: makeplot(dirname+"CRSumMu",'h_CRSumMu_','',0.,6.,1,1,0,'cutflow')
+    if makeEleCRplots: makeplot(dirname+"CRSumEle",'h_CRSumEle_','',0.,4.,1,1,0,'cutflow')
 
-        for dt in PUreg:
-            makeplot(dirname+dt+"PuReweightPV",'h_'+dt+'PuReweightPV_','nPV after PU reweighting',0.,50.,1,0,0,'PUreweight')
-            makeplot(dirname+dt+"noPuReweightPV",'h_'+dt+'noPuReweightPV_','nPV before PU reweighting',0.,50.,1,0,0,'PUreweight')
-    #        makeplot([dirname+dt+"PuReweightnPVert",'h_'+dt+'PuReweightnPVert_','nPV after PU reweighting (nPVert): '+dt,'0.','100.','100','0'])
-    #        makeplot([dirname+dt+"noPuReweightnPVert",'h_'+dt+'noPuReweightnPVert_','nPV before PU reweighting (nPVert): '+dt,'0.','100.','100','0'])
+    for dt in PUreg:
+        makeplot(dirname+dt+"PuReweightPV",'h_'+dt+'PuReweightPV_','nPV after PU reweighting',0.,50.,1,0,0,'PUreweight')
+        makeplot(dirname+dt+"noPuReweightPV",'h_'+dt+'noPuReweightPV_','nPV before PU reweighting',0.,50.,1,0,0,'PUreweight')
+#        makeplot([dirname+dt+"PuReweightnPVert",'h_'+dt+'PuReweightnPVert_','nPV after PU reweighting (nPVert): '+dt,'0.','100.','100','0'])
+#        makeplot([dirname+dt+"noPuReweightnPVert",'h_'+dt+'noPuReweightnPVert_','nPV before PU reweighting (nPVert): '+dt,'0.','100.','100','0'])
 
-    # Cutflow plots:
-        # if makeSRplots:
-        #     makeplot([dirname+"cutflow",'h_cutflow_','Cutflow','0.','10','1','1','1',srblindfactor,srnodata])
-        #     makeplot([dirname+"cutflow_SR1",'h_cutflow_SR1_','SR1 Cutflow','0.','10','1','1','1',srblindfactor,srnodata])
-        #     makeplot([dirname+"cutflow_SR2",'h_cutflow_SR2_','SR2 Cutflow','0.','10','1','1','1',srblindfactor,srnodata])
+# Cutflow plots:
+    # if makeSRplots:
+    #     makeplot([dirname+"cutflow",'h_cutflow_','Cutflow','0.','10','1','1','1',srblindfactor,srnodata])
+    #     makeplot([dirname+"cutflow_SR1",'h_cutflow_SR1_','SR1 Cutflow','0.','10','1','1','1',srblindfactor,srnodata])
+    #     makeplot([dirname+"cutflow_SR2",'h_cutflow_SR2_','SR2 Cutflow','0.','10','1','1','1',srblindfactor,srnodata])
 
-        for reg in regions:
-            makeplot(dirname+"cutflow_"+reg,'h_cutflow_'+reg+'_',reg+' Cutflow',0.,13,1,1,1,0,reg)
+    for reg in regions:
+        makeplot(dirname+"cutflow_"+reg,'h_cutflow_'+reg+'_',reg+' Cutflow',0.,13,1,1,0,reg)
 
 
     for reg in regions:
