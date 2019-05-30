@@ -1,4 +1,12 @@
 import os
+import sys, optparse
+
+usage = "usage: %prog [options] arg1 arg2"
+parser = optparse.OptionParser(usage)
+parser.add_option("-i", "--plot_dir",  dest="plot_dir")
+(options, args) = parser.parse_args()
+
+os.system('cp -r '+options.plot_dir+'/bbDMP* .')
 
 f=open("index.html",'w')
 f.write("<html>\n")
