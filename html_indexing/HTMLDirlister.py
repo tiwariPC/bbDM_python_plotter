@@ -1,21 +1,23 @@
-import os
+import os, commands
 import sys, optparse
 
 usage = "usage: %prog [options] arg1 arg2"
 parser = optparse.OptionParser(usage)
 parser.add_option("-i", "--plot_dir",  dest="plot_dir")
 (options, args) = parser.parse_args()
-
 os.system('cp -r '+options.plot_dir+'/bbDMP* .')
+
+dirpath= commands.getoutput('pwd')
+dirname = str(os.path.basename(dirpath)).replace('_',' ')
 
 f=open("index.html",'w')
 f.write("<html>\n")
 f.write('<head>\n')
-f.write('<title>2016 bbDM updated plots | Praveen Chandra Tiwari</title>\n')
+f.write('<title>'+dirname+'| Praveen Chandra Tiwari</title>\n')
 f.write('<style>img {display: inline;}</style>\n')
 f.write('</head>\n')
 f.write('<body>\n')
-f.write('<center><h1><u><b>2016 bbDM updated plots 29092019</b></u></h1></center>\n')
+f.write('<center><h1><u><b>'+dirname+'</b></u></h1></center>\n')
 f.write('<div class="row">\n')
 #f.write('<center>\n')
 for dr in sorted(os.listdir("./bbDMPng")):
