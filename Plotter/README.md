@@ -1,5 +1,5 @@
 # bbMETplotter
--Update the sample_xsec.py file accordingly with the cross-sections for you samples
+-Update the sample_xsec.py file accordingly with the cross-sections for your samples
 
 
 And then follow the instructions
