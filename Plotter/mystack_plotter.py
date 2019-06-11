@@ -151,10 +151,13 @@ def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg):
         elif ('ST_t' in file_name) or ('ST_s' in file_name):
             STop_files.append(f)
 
-    plot_recoil = 'hadrecoil' in str(plot)
+    plot_hadrecoil = 'hadrecoil' in str(plot)
+    plot_varBin=False
 
-    #print (plot_recoil)
-    bins=[200,250,350,500,1000]
+    if plot_hadrecoil:
+        plot_varBin = True
+        bins=[200,250,350,500,1000]
+
     for inum in range(len(DYJets_files)):
         xsec = sample_xsec.getXsec(str(DYJets_files[inum]))
         hist_integral = DYJets_files[inum].Get('h_total').Integral()
@@ -162,7 +165,7 @@ def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg):
         if inum==0:
             DYJets = (DYJets_files[inum].Get(str(plot)))
             DYJets.Scale(norm)
-            if plot_recoil:
+            if plot_varBin:
                 DYJets=DYJets.Rebin(len(bins)-1,"DYJets",array.array('d',bins))
                 DYJets.SetBinContent(len(bins)-1,DYJets.GetBinContent(len(bins)-1)+DYJets.GetBinContent(len(bins)))
                 DYJets.SetBinContent(len(bins),0.)
@@ -171,13 +174,14 @@ def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg):
         else:
             temp_hist = DYJets_files[inum].Get(str(plot))
             temp_hist.Scale(norm)
-            if plot_recoil:
+            if plot_varBin:
                 temp_hist=temp_hist.Rebin(len(bins)-1,"temp_hist",array.array('d',bins))
                 temp_hist.SetBinContent(len(bins)-1,temp_hist.GetBinContent(len(bins)-1)+temp_hist.GetBinContent(len(bins)))
                 temp_hist.SetBinContent(len(bins),0.)
             else:
                 temp_hist=temp_hist.Rebin(Rebin)
             DYJets.Add(temp_hist)
+    DYJets.Sumw2()
 
     for inum in range(len(GJets_files)):
         xsec = sample_xsec.getXsec(str(GJets_files[inum]))
@@ -187,7 +191,7 @@ def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg):
         if inum==0:
             GJets = (GJets_files[inum].Get(str(plot)))
             GJets.Scale(norm)
-            if plot_recoil:
+            if plot_varBin:
                 GJets=GJets.Rebin(len(bins)-1,"GJets",array.array('d',bins))
                 GJets.SetBinContent(len(bins)-1,GJets.GetBinContent(len(bins)-1)+GJets.GetBinContent(len(bins)))
                 GJets.SetBinContent(len(bins),0.)
@@ -196,13 +200,14 @@ def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg):
         else:
             temp_hist = GJets_files[inum].Get(str(plot))
             temp_hist.Scale(norm)
-            if plot_recoil:
+            if plot_varBin:
                 temp_hist=temp_hist.Rebin(len(bins)-1,"temp_hist",array.array('d',bins))
                 temp_hist.SetBinContent(len(bins)-1,temp_hist.GetBinContent(len(bins)-1)+temp_hist.GetBinContent(len(bins)))
                 temp_hist.SetBinContent(len(bins),0.)
             else:
                 temp_hist=temp_hist.Rebin(Rebin)
             GJets.Add(temp_hist)
+    GJets.Sumw2()
 
     for inum in range(len(ZJets_files)):
         xsec = sample_xsec.getXsec(str(ZJets_files[inum]))
@@ -212,7 +217,7 @@ def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg):
         if inum==0:
             ZJets = (ZJets_files[inum].Get(str(plot)))
             ZJets.Scale(norm)
-            if plot_recoil:
+            if plot_varBin:
                 ZJets=ZJets.Rebin(len(bins)-1,"ZJets",array.array('d',bins))
                 ZJets.SetBinContent(len(bins)-1,ZJets.GetBinContent(len(bins)-1)+ZJets.GetBinContent(len(bins)))
                 ZJets.SetBinContent(len(bins),0.)
@@ -221,14 +226,14 @@ def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg):
         else:
             temp_hist = ZJets_files[inum].Get(str(plot))
             temp_hist.Scale(norm)
-            if plot_recoil:
+            if plot_varBin:
                 temp_hist=temp_hist.Rebin(len(bins)-1,"temp_hist",array.array('d',bins))
                 temp_hist.SetBinContent(len(bins)-1,temp_hist.GetBinContent(len(bins)-1)+temp_hist.GetBinContent(len(bins)))
                 temp_hist.SetBinContent(len(bins),0.)
             else:
                 temp_hist=temp_hist.Rebin(Rebin)
             ZJets.Add(temp_hist)
-
+    ZJets.Sumw2()
     for inum in range(len(WJets_files)):
         xsec = sample_xsec.getXsec(str(WJets_files[inum]))
         #print('Wjet xsec: ', xsec)
@@ -237,7 +242,7 @@ def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg):
         if inum==0:
             WJets = (WJets_files[inum].Get(str(plot)))
             WJets.Scale(norm)
-            if plot_recoil:
+            if plot_varBin:
                 WJets=WJets.Rebin(len(bins)-1,"WJets",array.array('d',bins))
                 WJets.SetBinContent(len(bins)-1,WJets.GetBinContent(len(bins)-1)+WJets.GetBinContent(len(bins)))
                 WJets.SetBinContent(len(bins),0.)
@@ -246,13 +251,14 @@ def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg):
         else:
             temp_hist = WJets_files[inum].Get(str(plot))
             temp_hist.Scale(norm)
-            if plot_recoil:
+            if plot_varBin:
                 temp_hist=temp_hist.Rebin(len(bins)-1,"temp_hist",array.array('d',bins))
                 temp_hist.SetBinContent(len(bins)-1,temp_hist.GetBinContent(len(bins)-1)+temp_hist.GetBinContent(len(bins)))
                 temp_hist.SetBinContent(len(bins),0.)
             else:
                 temp_hist=temp_hist.Rebin(Rebin)
             WJets.Add(temp_hist)
+    WJets.Sumw2()
 
     for inum in range(len(DIBOSON_files)):
         xsec = sample_xsec.getXsec(str(DIBOSON_files[inum]))
@@ -261,7 +267,7 @@ def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg):
         if inum==0:
             DIBOSON = (DIBOSON_files[inum].Get(str(plot)))
             DIBOSON.Scale(norm)
-            if plot_recoil:
+            if plot_varBin:
                 DIBOSON=DIBOSON.Rebin(len(bins)-1,"DIBOSON",array.array('d',bins))
                 DIBOSON.SetBinContent(len(bins)-1,DIBOSON.GetBinContent(len(bins)-1)+DIBOSON.GetBinContent(len(bins)))
                 DIBOSON.SetBinContent(len(bins),0.)
@@ -270,7 +276,7 @@ def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg):
         else:
             temp_hist = DIBOSON_files[inum].Get(str(plot))
             temp_hist.Scale(norm)
-            if plot_recoil:
+            if plot_varBin:
                 temp_hist=temp_hist.Rebin(len(bins)-1,"temp_hist",array.array('d',bins))
                 temp_hist.SetBinContent(len(bins)-1,temp_hist.GetBinContent(len(bins)-1)+temp_hist.GetBinContent(len(bins)))
                 temp_hist.SetBinContent(len(bins),0.)
@@ -278,6 +284,7 @@ def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg):
                 temp_hist=temp_hist.Rebin(Rebin)
 
             DIBOSON.Add(temp_hist)
+    DIBOSON.Sumw2()
 
     for inum in range(len(Top_files)):
         xsec = sample_xsec.getXsec(str(Top_files[inum]))
@@ -286,7 +293,7 @@ def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg):
         if inum==0:
             Top = (Top_files[inum].Get(str(plot)))
             Top.Scale(norm)
-            if plot_recoil:
+            if plot_varBin:
                 Top=Top.Rebin(len(bins)-1,"Top",array.array('d',bins))
                 Top.SetBinContent(len(bins)-1,Top.GetBinContent(len(bins)-1)+Top.GetBinContent(len(bins)))
                 Top.SetBinContent(len(bins),0.)
@@ -295,13 +302,14 @@ def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg):
         else:
             temp_hist = Top_files[inum].Get(str(plot))
             temp_hist.Scale(norm)
-            if plot_recoil:
+            if plot_varBin:
                 temp_hist=temp_hist.Rebin(len(bins)-1,"temp_hist",array.array('d',bins))
                 temp_hist.SetBinContent(len(bins)-1,temp_hist.GetBinContent(len(bins)-1)+temp_hist.GetBinContent(len(bins)))
                 temp_hist.SetBinContent(len(bins),0.)
             else:
                 temp_hist=temp_hist.Rebin(Rebin)
             Top.Add(temp_hist)
+    Top.Sumw2()
 
     for inum in range(len(STop_files)):
         xsec = sample_xsec.getXsec(str(STop_files[inum]))
@@ -311,7 +319,7 @@ def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg):
         if inum==0:
             STop = (STop_files[inum].Get(str(plot)))
             STop.Scale(norm)
-            if plot_recoil:
+            if plot_varBin:
                 STop=STop.Rebin(len(bins)-1,"STop",array.array('d',bins))
                 STop.SetBinContent(len(bins)-1,STop.GetBinContent(len(bins)-1)+STop.GetBinContent(len(bins)))
                 STop.SetBinContent(len(bins),0.)
@@ -320,13 +328,14 @@ def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg):
         else:
             temp_hist = STop_files[inum].Get(str(plot))
             temp_hist.Scale(norm)
-            if plot_recoil:
+            if plot_varBin:
                 temp_hist=temp_hist.Rebin(len(bins)-1,"temp_hist",array.array('d',bins))
                 temp_hist.SetBinContent(len(bins)-1,temp_hist.GetBinContent(len(bins)-1)+temp_hist.GetBinContent(len(bins)))
                 temp_hist.SetBinContent(len(bins),0.)
             else:
                 temp_hist=temp_hist.Rebin(Rebin)
             STop.Add(temp_hist)
+    STop.Sumw2()
 
     for inum in range(len(QCD_files)):
         xsec = sample_xsec.getXsec(str(QCD_files[inum]))
@@ -352,6 +361,7 @@ def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg):
             else:
                 temp_hist=temp_hist.Rebin(Rebin)
             QCD.Add(temp_hist)
+    QCD.Sumw2()
 
     ZJetsCount = ZJets.Integral()
     DYJetsCount = DYJets.Integral()
@@ -392,20 +402,20 @@ def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg):
     QCD.SetLineWidth(0)
 
     #add the histos to THStack
-    hs.Add(GJets, "hist")
-    hs.Add(DIBOSON, "hist")
     hs.Add(QCD, "hist")
-    hs.Add(STop, "hist")
-    hs.Add(Top, "hist")
-    hs.Add(WJets, "hist")
-    hs.Add(ZJets, "hist")
+    hs.Add(GJets, "hist")
     hs.Add(DYJets, "hist")
+    hs.Add(DIBOSON, "hist")
+    hs.Add(STop, "hist")
+    hs.Add(WJets, "hist")
+    hs.Add(Top, "hist")
+    hs.Add(ZJets, "hist")
 
     if makeMuCRplots or makeSRplots:
         data_obs = data_file_MET[0].Get(str(plot))
     elif makeEleCRplots:
         data_obs = data_file_SE[0].Get(str(plot))
-    if plot_recoil:
+    if plot_varBin:
         data_obs=data_obs.Rebin(len(bins)-1,"data_obs",array.array('d',bins))
         data_obs.SetBinContent(len(bins)-1,data_obs.GetBinContent(len(bins)-1)+data_obs.GetBinContent(len(bins)))
         data_obs.SetBinContent(len(bins),0.)
@@ -429,12 +439,14 @@ def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg):
     canvas1_1.Draw()
     canvas1_1.cd()
     hs.Draw()
-    hs.GetXaxis().SetRangeUser(XMIN, XMAX)
+    if not plot_varBin:hs.GetXaxis().SetRangeUser(XMIN, XMAX)
     hs.GetXaxis().SetTitle('Events')
-    if (not NORATIOPLOT):
+    if (ISLOG):
         hs.SetMaximum(maxi * 50)
+        hs.SetMinimum(1)
     else:
-        hs.SetMaximum(maxi * 1.5)
+        hs.SetMaximum(maxi * 1.35)
+        hs.SetMinimum(0)
 
     hs.GetXaxis().SetTickLength(0.04);
     #hs.GetXaxis().SetNdivisions(508);
@@ -454,10 +466,6 @@ def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg):
         hs.GetYaxis().SetLabelSize(.03)
         #hs.GetYaxis().SetMoreLogLabels();
 
-    if (ISLOG):
-        hs.SetMinimum(1)
-    else:
-        hs.SetMinimum(0)
 
     data_obs.SetLineColor(rt.kBlack)
     data_obs.SetFillColor(rt.kBlack)
@@ -485,25 +493,41 @@ def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg):
     legend.SetBorderSize(0)
     #legend =  rt.("legend_0","legend_0",x0_l,y0_l,x1_l, y1_l )
     legend.AddEntry(data_obs, "Data", "PEL")
-    legend.AddEntry(DYJets, "Z(ll) + jets", "f")
     legend.AddEntry(ZJets, "Z(#nu#nu) + jets", "f")
-    legend.AddEntry(WJets, "W(l#nu) + jets", "f")
     legend.AddEntry(Top, "Top", "f")
+    legend.AddEntry(WJets, "W(l#nu) + jets", "f")
     legend.AddEntry(STop, "Single t", "f")
-    legend.AddEntry(GJets, "G jets", "f")
     legend.AddEntry(DIBOSON, "VV, VH", "f")
+    legend.AddEntry(DYJets, "Z(ll) + jets", "f")
+    legend.AddEntry(GJets, "G jets", "f")
     legend.AddEntry(QCD, "Multijet", "f")
     legend.Draw('same')
 
     #error
     h_err = rt.TH1F()
-    h_err = (total_MC[0].Get(str(plot))).Clone("h_err")
+    h_temp_ = total_MC[0].Get(str(plot))
+    if plot_varBin:
+	h_temp_=h_temp_.Rebin(len(bins)-1,"h_temp1_",array.array('d',bins))
+        h_temp_.SetBinContent(len(bins)-1,h_temp_.GetBinContent(len(bins)-1)+h_temp_.GetBinContent(len(bins)))
+        h_temp_.SetBinContent(len(bins),0.)
+    h_err = h_temp_.Clone("h_err")
     h_err.Sumw2()
     h_err.Reset()
     for i in range(len(total_MC)):
         if i==0: continue
-        h_err.Add(total_MC[i].Get(plot))
-    #h_err.Draw("E2 SAME")
+        h_temp1_ = total_MC[i].Get(str(plot))
+        if plot_varBin:
+	    h_temp1_=h_temp1_.Rebin(len(bins)-1,"h_temp1_",array.array('d',bins))
+            h_temp1_.SetBinContent(len(bins)-1,h_temp1_.GetBinContent(len(bins)-1)+h_temp1_.GetBinContent(len(bins)))
+            h_temp1_.SetBinContent(len(bins),0.)
+        h_err.Add(h_temp1_)
+    h_err.Sumw2()
+    h_err.SetFillColor(rt.kGray+3)
+    h_err.SetLineColor(rt.kGray+3)
+    h_err.SetMarkerSize(0)
+    h_err.SetFillStyle(3013)
+    h_err.Draw("E2 SAME")
+
     ratiostaterr = h_err.Clone("ratiostaterr")
     ratiostaterr.Sumw2()
     ratiostaterr.SetStats(0)
@@ -555,10 +579,12 @@ def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg):
         canvas.cd()
         #DataMC = rt.TH1F()
         DataMC = data_obs.Clone("DataMC")
+        #DataMC.Add(Stackhist,-1) ##for (data-MC)/MC
         DataMCPre = data_obs.Clone("DataMCPre")
         DataMC.Divide(Stackhist)
         #DataMCPre->Divide(h_prefit)
         DataMC.GetYaxis().SetTitle("Data/Pred.")
+        #DataMC.GetYaxis().SetTitle("#frac{Data-Pred}{Pred.}")
         DataMC.GetYaxis().SetTitleSize(0.1)
         DataMC.GetYaxis().SetTitleOffset(0.42)
         DataMC.GetYaxis().SetTitleFont(42)
@@ -590,7 +616,7 @@ def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg):
     canvas1_2.SetLogy(0)
 
     if not NORATIOPLOT:
-        DataMC.GetXaxis().SetRangeUser(XMIN, XMAX)
+        if not plot_varBin:DataMC.GetXaxis().SetRangeUser(XMIN, XMAX)
         DataMC.SetMarkerSize(2)
         DataMC.SetMarkerStyle(20)
         DataMC.SetMarkerColor(1)
