@@ -345,7 +345,7 @@ def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg):
         if inum==0:
             QCD = (QCD_files[inum].Get(str(plot)))
             QCD.Scale(norm)
-            if plot_recoil:
+            if plot_varBin:
                 QCD=QCD.Rebin(len(bins)-1,"QCD",array.array('d',bins))
                 QCD.SetBinContent(len(bins)-1,QCD.GetBinContent(len(bins)-1)+QCD.GetBinContent(len(bins)))
                 QCD.SetBinContent(len(bins),0.)
@@ -354,7 +354,7 @@ def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg):
         else:
             temp_hist = QCD_files[inum].Get(str(plot))
             temp_hist.Scale(norm)
-            if plot_recoil:
+            if plot_varBin:
                 temp_hist=temp_hist.Rebin(len(bins)-1,"temp_hist",array.array('d',bins))
                 temp_hist.SetBinContent(len(bins)-1,temp_hist.GetBinContent(len(bins)-1)+temp_hist.GetBinContent(len(bins)))
                 temp_hist.SetBinContent(len(bins),0.)
