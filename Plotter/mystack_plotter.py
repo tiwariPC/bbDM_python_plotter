@@ -424,7 +424,7 @@ def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg):
 
     Stackhist = hs.GetStack().Last()
     maxi = Stackhist.GetMaximum()
-    Stackhist.SetLineWidth(1)
+    Stackhist.SetLineWidth(0)
 
     if (NORATIOPLOT):
         canvas1_1 = rt.TPad("canvas1_1", "newpad", 0, 0.05, 1, 1); canvas1_1.Draw()
