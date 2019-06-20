@@ -160,7 +160,7 @@ def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg):
 
     for inum in range(len(DYJets_files)):
         xsec = sample_xsec.getXsec(str(DYJets_files[inum]))
-        hist_integral = DYJets_files[inum].Get('h_total').Integral()
+        hist_integral = DYJets_files[inum].Get('h_total_weight').Integral()
         norm = (lumi2016*xsec)/(hist_integral)
         if inum==0:
             DYJets = (DYJets_files[inum].Get(str(plot)))
@@ -186,7 +186,7 @@ def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg):
     for inum in range(len(GJets_files)):
         xsec = sample_xsec.getXsec(str(GJets_files[inum]))
         #print('Gjet xsec: ', xsec)
-        hist_integral = GJets_files[inum].Get('h_total').Integral()
+        hist_integral = GJets_files[inum].Get('h_total_weight').Integral()
         norm = (lumi2016*xsec)/(hist_integral)
         if inum==0:
             GJets = (GJets_files[inum].Get(str(plot)))
@@ -212,7 +212,7 @@ def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg):
     for inum in range(len(ZJets_files)):
         xsec = sample_xsec.getXsec(str(ZJets_files[inum]))
         #print('Zjet xsec: ', xsec)
-        hist_integral = ZJets_files[inum].Get('h_total').Integral()
+        hist_integral = ZJets_files[inum].Get('h_total_weight').Integral()
         norm = (lumi2016*xsec)/(hist_integral)
         if inum==0:
             ZJets = (ZJets_files[inum].Get(str(plot)))
@@ -237,7 +237,7 @@ def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg):
     for inum in range(len(WJets_files)):
         xsec = sample_xsec.getXsec(str(WJets_files[inum]))
         #print('Wjet xsec: ', xsec)
-        hist_integral = WJets_files[inum].Get('h_total').Integral()
+        hist_integral = WJets_files[inum].Get('h_total_weight').Integral()
         norm = (lumi2016*xsec)/(hist_integral)
         if inum==0:
             WJets = (WJets_files[inum].Get(str(plot)))
@@ -262,7 +262,7 @@ def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg):
 
     for inum in range(len(DIBOSON_files)):
         xsec = sample_xsec.getXsec(str(DIBOSON_files[inum]))
-        hist_integral = DIBOSON_files[inum].Get('h_total').Integral()
+        hist_integral = DIBOSON_files[inum].Get('h_total_weight').Integral()
         norm = (lumi2016*xsec)/(hist_integral)
         if inum==0:
             DIBOSON = (DIBOSON_files[inum].Get(str(plot)))
@@ -288,7 +288,7 @@ def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg):
 
     for inum in range(len(Top_files)):
         xsec = sample_xsec.getXsec(str(Top_files[inum]))
-        hist_integral = Top_files[inum].Get('h_total').Integral()
+        hist_integral = Top_files[inum].Get('h_total_weight').Integral()
         norm = (lumi2016*xsec)/(hist_integral)
         if inum==0:
             Top = (Top_files[inum].Get(str(plot)))
@@ -314,7 +314,7 @@ def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg):
     for inum in range(len(STop_files)):
         xsec = sample_xsec.getXsec(str(STop_files[inum]))
         #print('STop xsec: ', xsec)
-        hist_integral = STop_files[inum].Get('h_total').Integral()
+        hist_integral = STop_files[inum].Get('h_total_weight').Integral()
         norm = (lumi2016*xsec)/(hist_integral)
         if inum==0:
             STop = (STop_files[inum].Get(str(plot)))
@@ -340,7 +340,7 @@ def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg):
     for inum in range(len(QCD_files)):
         xsec = sample_xsec.getXsec(str(QCD_files[inum]))
         #print('QCD xsec: ', xsec)
-        hist_integral = QCD_files[inum].Get('h_total').Integral()
+        hist_integral = QCD_files[inum].Get('h_total_weight').Integral()
         norm = (lumi2016*xsec)/(hist_integral)
         if inum==0:
             QCD = (QCD_files[inum].Get(str(plot)))
