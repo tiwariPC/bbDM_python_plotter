@@ -107,7 +107,7 @@ lumi2016 = 35.9 * 1000
 
 os.system("ls "+options.inputfiles+" | cat > samplelist.txt")
 
-def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg):
+def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg,blindfactor=1.):
     file=open("samplelist.txt","r")
     xsec=1.0
     norm = 1.0
@@ -740,6 +740,9 @@ for dirname in dirnames:
     #     makeplot([dirname+"cutflow",'h_cutflow_','Cutflow','0.','10','1','1','1',srblindfactor,srnodata])
     #     makeplot([dirname+"cutflow_SR1",'h_cutflow_SR1_','SR1 Cutflow','0.','10','1','1','1',srblindfactor,srnodata])
     #     makeplot([dirname+"cutflow_SR2",'h_cutflow_SR2_','SR2 Cutflow','0.','10','1','1','1',srblindfactor,srnodata])
+    if makeSRplots:
+        makeplot(dirname+"reg_sr1_hadrecoil",'h_met_sr1_','Missing Transverse Energy',200.,1000.,1,1,0,'SR1',20)
+        makeplot(dirname+"reg_sr2_hadrecoil",'h_met_sr2_','Missing Transverse Energy',200.,1000.,1,1,0,'SR2',20)
 
     for reg in regions:
         makeplot(dirname+"cutflow_"+reg,'h_cutflow_'+reg+'_',reg+' Cutflow',0.,13,1,1,0,reg)
