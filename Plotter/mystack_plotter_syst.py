@@ -658,17 +658,17 @@ def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg,bli
 
     if not os.path.exists('plots_syst/'+datestr+'/bbDMPng/'+reg):
         os.makedirs('plots_syst/'+datestr+'/bbDMPng/'+reg)
-    if not os.path.exists('plots_syst/'+datestr+'syst/bbDMPdf/'+reg):
-        os.makedirs('plots_syst/'+datestr+'syst/bbDMPdf/'+reg)
-    if not os.path.exists('plots_syst/'+datestr+'syst/bbDMRoot/'+reg):
-        os.makedirs('plots_syst/'+datestr+'syst/bbDMRoot/'+reg)
+    if not os.path.exists('plots_syst/'+datestr+'/bbDMPdf/'+reg):
+        os.makedirs('plots_syst/'+datestr+'/bbDMPdf/'+reg)
+    if not os.path.exists('plots_syst/'+datestr+'/bbDMRoot/'+reg):
+        os.makedirs('plots_syst/'+datestr+'/bbDMRoot/'+reg)
     if (ISLOG == 0):
         canvas.SaveAs('plots_syst/'+datestr+'/bbDMPdf/'+reg+'/'+plot+'.pdf')
         canvas.SaveAs('plots_syst/'+datestr+'/bbDMPng/'+reg+'/'+plot+'.png')
         print("Saved. \n")
     if (ISLOG == 1):
-        canvas.SaveAs('plots_syst/'+datestr+'/bbDMPdf/'+reg+'/'+plot+'_log.pdf')
-        canvas.SaveAs('plots_syst/'+datestr+'/bbDMPng/'+reg+'/'+plot+'_log.png')
+        canvas.SaveAs('plots_syst/'+datestr+'/bbDMPdf/'+reg+'/'+plot+'log.pdf')
+        canvas.SaveAs('plots_syst/'+datestr+'/bbDMPng/'+reg+'/'+plot+'log.png')
         print("Saved. \n")
 
     fshape = rt.TFile('plots_syst/'+datestr+'/bbDMRoot/'+reg+'/'+plot+'.root', "RECREATE");
