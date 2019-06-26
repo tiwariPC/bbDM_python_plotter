@@ -656,22 +656,22 @@ def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg,bli
     canvas.Update()
     canvas.Draw()
 
-    if not os.path.exists('plots/'+datestr+'/bbDMPng/'+reg):
-        os.makedirs('plots/'+datestr+'/bbDMPng/'+reg)
-    if not os.path.exists('plots/'+datestr+'/bbDMPdf/'+reg):
-        os.makedirs('plots/'+datestr+'/bbDMPdf/'+reg)
-    if not os.path.exists('plots/'+datestr+'/bbDMRoot/'+reg):
-        os.makedirs('plots/'+datestr+'/bbDMRoot/'+reg)
+    if not os.path.exists('plots/'+datestr+'syst/bbDMPng/'+reg):
+        os.makedirs('plots/'+datestr+'syst/bbDMPng/'+reg)
+    if not os.path.exists('plots/'+datestr+'syst/bbDMPdf/'+reg):
+        os.makedirs('plots/'+datestr+'syst/bbDMPdf/'+reg)
+    if not os.path.exists('plots/'+datestr+'syst/bbDMRoot/'+reg):
+        os.makedirs('plots/'+datestr+'syst/bbDMRoot/'+reg)
     if (ISLOG == 0):
-        canvas.SaveAs('plots/'+datestr+'/bbDMPdf/'+reg+'/'+plot+'.pdf')
-        canvas.SaveAs('plots/'+datestr+'/bbDMPng/'+reg+'/'+plot+'.png')
+        canvas.SaveAs('plots/'+datestr+'syst/bbDMPdf/'+reg+'/'+plot+'.pdf')
+        canvas.SaveAs('plots/'+datestr+'syst/bbDMPng/'+reg+'/'+plot+'.png')
         print("Saved. \n")
     if (ISLOG == 1):
-        canvas.SaveAs('plots/'+datestr+'/bbDMPdf/'+reg+'/'+plot+'_log.pdf')
-        canvas.SaveAs('plots/'+datestr+'/bbDMPng/'+reg+'/'+plot+'_log.png')
+        canvas.SaveAs('plots/'+datestr+'syst/bbDMPdf/'+reg+'/'+plot+'_log.pdf')
+        canvas.SaveAs('plots/'+datestr+'syst/bbDMPng/'+reg+'/'+plot+'_log.png')
         print("Saved. \n")
 
-    fshape = rt.TFile('plots/'+datestr+'/bbDMRoot/'+reg+'/'+plot+'.root', "RECREATE");
+    fshape = rt.TFile('plots/'+datestr+'syst/bbDMRoot/'+reg+'/'+plot+'.root', "RECREATE");
     fshape.cd();
     #Save root files for datacards
     Stackhist.SetNameTitle("bkgSum", "bkgSum");
