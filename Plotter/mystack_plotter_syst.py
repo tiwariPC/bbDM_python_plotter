@@ -671,7 +671,7 @@ def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg,bli
         canvas.SaveAs('plots/'+datestr+'/bbDMPng/'+reg+'/'+plot+'_log.png')
         print("Saved. \n")
 
-    fshape = rt.TFile('plots/'+datestr+'/bbDMRoot/'+reg+'/'+plot+'.root'+', "RECREATE"');
+    fshape = rt.TFile('plots/'+datestr+'/bbDMRoot/'+reg+'/'+plot+'.root', "RECREATE");
     fshape.cd();
     #Save root files for datacards
     Stackhist.SetNameTitle("bkgSum", "bkgSum");
