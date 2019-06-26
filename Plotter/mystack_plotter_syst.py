@@ -726,48 +726,49 @@ for dirname in dirnames:
         PUreg
 
     if makeSRplots:
-        makeplot(dirname+"reg_sr1_hadrecoil",'h_met_sr1_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
+        for reg in ['SR1','SR2']:
+            makeplot(dirname+"reg_sr1_hadrecoil",'h_met_sr1_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
 
-        makeplot(dirname+"reg_sr1_btag_syst_up",'h_btag_syst_sr1_up_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
-        makeplot(dirname+"reg_sr1_btag_syst_down",'h_btag_syst_sr1_down_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
-        makeplot(dirname+"reg_sr1_lep_syst_up",'h_lep_syst_sr1_up_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
-        makeplot(dirname+"reg_sr1_lep_syst_down",'h_lep_syst_sr1_down_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
+            makeplot(dirname+"reg_sr1_btag_syst_up",'h_btag_syst_sr1_up_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
+            makeplot(dirname+"reg_sr1_btag_syst_down",'h_btag_syst_sr1_down_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
+            makeplot(dirname+"reg_sr1_lep_syst_up",'h_lep_syst_sr1_up_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
+            makeplot(dirname+"reg_sr1_lep_syst_down",'h_lep_syst_sr1_down_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
 
-        makeplot(dirname+"reg_sr1_met_syst_up",'h_metTrig_syst_sr1_up_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
-        makeplot(dirname+"reg_sr1_met_syst_down",'h_metTrig_syst_sr1_down_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
+            makeplot(dirname+"reg_sr1_met_syst_up",'h_metTrig_syst_sr1_up_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
+            makeplot(dirname+"reg_sr1_met_syst_down",'h_metTrig_syst_sr1_down_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
 
-        makeplot(dirname+"reg_sr1_jec_syst_up",'h_jec_syst_sr1_up_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
-        makeplot(dirname+"reg_sr1_jec_syst_down",'h_jec_syst_sr1_down_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
+            makeplot(dirname+"reg_sr1_jec_syst_up",'h_jec_syst_sr1_up_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
+            makeplot(dirname+"reg_sr1_jec_syst_down",'h_jec_syst_sr1_down_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
 
-        makeplot(dirname+"reg_sr1_jer_syst_up",'h_jer_syst_sr1_up_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
-        makeplot(dirname+"reg_sr1_jer_syst_down",'h_jer_syst_sr1_down_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
+            makeplot(dirname+"reg_sr1_jer_syst_up",'h_jer_syst_sr1_up_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
+            makeplot(dirname+"reg_sr1_jer_syst_down",'h_jer_syst_sr1_down_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
 
-        makeplot(dirname+"reg_sr1_pho_syst_up",'h_pho_syst_sr1_up_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
-        makeplot(dirname+"reg_sr1_pho_syst_down",'h_pho_syst_sr1_down_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
+            makeplot(dirname+"reg_sr1_pho_syst_up",'h_pho_syst_sr1_up_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
+            makeplot(dirname+"reg_sr1_pho_syst_down",'h_pho_syst_sr1_down_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
 
-        makeplot(dirname+"reg_sr1_ewkZ_syst_up",'h_ewkZ_syst_sr1_up_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
-        makeplot(dirname+"reg_sr1_ewkZ_syst_down",'h_ewkZ_syst_sr1_down_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
-        makeplot(dirname+"reg_sr1_ewkW_syst_up",'h_ewkW_syst_sr1_up_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
-        makeplot(dirname+"reg_sr1_ewkW_syst_down",'h_ewkW_syst_sr1_down_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
-        makeplot(dirname+"reg_sr1_ewkTop_syst_up",'h_ewkTop_syst_sr1_up_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
-        makeplot(dirname+"reg_sr1_ewkTop_syst_down",'h_ewkTop_syst_sr1_down_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
+            makeplot(dirname+"reg_sr1_ewkZ_syst_up",'h_ewkZ_syst_sr1_up_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
+            makeplot(dirname+"reg_sr1_ewkZ_syst_down",'h_ewkZ_syst_sr1_down_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
+            makeplot(dirname+"reg_sr1_ewkW_syst_up",'h_ewkW_syst_sr1_up_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
+            makeplot(dirname+"reg_sr1_ewkW_syst_down",'h_ewkW_syst_sr1_down_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
+            makeplot(dirname+"reg_sr1_ewkTop_syst_up",'h_ewkTop_syst_sr1_up_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
+            makeplot(dirname+"reg_sr1_ewkTop_syst_down",'h_ewkTop_syst_sr1_down_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
 
-        makeplot(dirname+"reg_sr2_hadrecoil",'h_met_sr2_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
+            makeplot(dirname+"reg_sr2_hadrecoil",'h_met_sr2_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
 
-        makeplot(dirname+"reg_sr2_btag_syst_up",'h_btag_syst_sr2_up_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
-        makeplot(dirname+"reg_sr2_btag_syst_down",'h_btag_syst_sr2_down_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
+            makeplot(dirname+"reg_sr2_btag_syst_up",'h_btag_syst_sr2_up_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
+            makeplot(dirname+"reg_sr2_btag_syst_down",'h_btag_syst_sr2_down_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
 
-        makeplot(dirname+"reg_sr2_lep_syst_up",'h_lep_syst_sr2_up_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
-        makeplot(dirname+"reg_sr2_lep_syst_down",'h_lep_syst_sr2_down_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
+            makeplot(dirname+"reg_sr2_lep_syst_up",'h_lep_syst_sr2_up_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
+            makeplot(dirname+"reg_sr2_lep_syst_down",'h_lep_syst_sr2_down_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
 
-        makeplot(dirname+"reg_sr2_met_syst_up",'h_metTrig_syst_sr2_up_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
-        makeplot(dirname+"reg_sr2_met_syst_down",'h_metTrig_syst_sr2_down_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
+            makeplot(dirname+"reg_sr2_met_syst_up",'h_metTrig_syst_sr2_up_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
+            makeplot(dirname+"reg_sr2_met_syst_down",'h_metTrig_syst_sr2_down_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
 
-        makeplot(dirname+"reg_sr2_jec_syst_up",'h_jec_syst_sr2_up_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
-        makeplot(dirname+"reg_sr2_jec_syst_down",'h_jec_syst_sr2_down_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
+            makeplot(dirname+"reg_sr2_jec_syst_up",'h_jec_syst_sr2_up_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
+            makeplot(dirname+"reg_sr2_jec_syst_down",'h_jec_syst_sr2_down_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
 
-        makeplot(dirname+"reg_sr2_jer_syst_up",'h_jer_syst_sr2_up_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
-        makeplot(dirname+"reg_sr2_jer_syst_down",'h_jer_syst_sr2_down_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
+            makeplot(dirname+"reg_sr2_jer_syst_up",'h_jer_syst_sr2_up_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
+            makeplot(dirname+"reg_sr2_jer_syst_down",'h_jer_syst_sr2_down_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
 
         makeplot(dirname+"reg_sr2_pho_syst_up",'h_pho_syst_sr2_up_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
         makeplot(dirname+"reg_sr2_pho_syst_down",'h_pho_syst_sr2_down_','Missing Transverse Energy',200.,1000.,1,1,0,reg,20)
