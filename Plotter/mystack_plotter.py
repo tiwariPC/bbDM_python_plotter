@@ -107,12 +107,27 @@ lumi2016 = 35.9 * 1000
 
 os.system("ls "+options.inputfiles+" | cat > samplelist.txt")
 
+def setHistStyle(h_temp2, hists, varbin):
+    h_temp_ = h_temp2
+    if 'Recoil' in hist or 'MET' in hist
+        bins=[200,250,350,500,1000]
+    if varbin:
+        h_temp_=h_temp2.Rebin(len(bins)-1,"h_temp",array.array('d',bins))
+        h_temp_.SetBinContent(len(bins)-1,h_temp_.GetBinContent(len(bins)-1)+h_temp_.GetBinContent(len(bins))) #Add overflow bin content to last bin
+        h_temp_.SetBinContent(len(bins),0.)
+    else:
+        h_temp_=h_temp2
+    return h_temp_
+
 def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg,blindfactor=1.):
-    file=open("samplelist.txt","r")
-    xsec=1.0
-    norm = 1.0
+    files=open("samplelist.txt","r")
+    xsec=1.0;  norm = 1.0
     BLINDFACTOR = 1.0
     r_fold = 'rootFiles/'
+    if Rebin==1:
+        isrebin = True
+    else:
+        isrebin = False
     DIBOSON = rt.TH1F()
     Top = rt.TH1F()
     WJets = rt.TH1F()
@@ -126,242 +141,132 @@ def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg,bli
     DIBOSON_files = []; STop_files  = []
     Top_files     = []; QCD_files   = []
     data_file_MET = []; data_file_SE = []
-    for i in file.readlines()[:]:
-        f = rt.TFile(options.inputfiles+'/'+str(i.rstrip()),'READ')
-        file_name = str(f)
-        if 'data_combined_MET' in file_name:
-            data_file_MET.append(f)
-        elif 'data_combined_SE' in file_name:
-            data_file_SE.append(f)
-        elif 'DYJetsToLL_M-50' in file_name:
-            DYJets_files.append(f)
-        elif 'ZJetsToNuNu' in file_name:
-            ZJets_files.append(f)
-        elif 'WJetsToLNu_HT' in file_name:
-            WJets_files.append(f)
-        elif 'GJets_HT' in file_name:
-            GJets_files.append(f)
-        elif 'QCD' in file_name:
-            QCD_files.append(f)
-        #elif 'TT_T' or 'TTT' in file_name:
-        elif 'TT_T' in file_name:
-            Top_files.append(f)
-        elif ('WWTo' in file_name) or ('WZTo' in file_name) or ('ZZTo' in file_name):
-            DIBOSON_files.append(f)
-        elif ('ST_t' in file_name) or ('ST_s' in file_name):
-            STop_files.append(f)
+    for file in files.readlines()[:]:
+        myFile=path+'/'+file.rstrip()
+        print ('running for file',myFile)
+        print ('histName',hist)
+        Str=str(count)
+        exec("f"+Str+"=ROOT.TFile(myFile,'READ')",locals(), globals())
+        exec("h_temp=f"+Str+".Get("+"\'"+str(hist)+"\'"+")",locals(), globals())
+        exec("h_total_weight=f"+Str+".Get('h_total_mcweight')",locals(), globals())
+        total_events = h_total_weight.Integral()
+        print ('selected events',h_temp.Integral())
 
-    plot_hadrecoil = 'hadrecoil' in str(plot)
-    plot_varBin=False
+        if 'data_combined_MET' in file:
+            h_temp=setHistStyle(h_temp, hist,isrebin)
+            data_file_MET.append(h_temp)
+        elif 'data_combined_SE' in file:
+            h_temp=setHistStyle(h_temp, hist,isrebin)
+            data_file_SE.append(h_temp)
 
-    if plot_hadrecoil:
-        plot_varBin = True
-        bins=[200,250,350,500,1000]
+        elif 'DYJetsToLL_M-50' in file:
+            xsec = sample_xsec.getXsec(file)
+            if (total_events > 0): normlisation=(xsec*lumi2016)/(total_events)
+            else: normlisation=0
+            h_temp.Scale(normlisation)
+            h_temp=setHistStyle(h_temp, hist,isrebin)
+            DYJets_files.append(h_temp)
 
-    for inum in range(len(DYJets_files)):
-        xsec = sample_xsec.getXsec(str(DYJets_files[inum]))
-        hist_integral = DYJets_files[inum].Get('h_total_weight').Integral()
-        norm = (lumi2016*xsec)/(hist_integral)
-        if inum==0:
-            DYJets = (DYJets_files[inum].Get(str(plot)))
-            DYJets.Scale(norm)
-            if plot_varBin:
-                DYJets=DYJets.Rebin(len(bins)-1,"DYJets",array.array('d',bins))
-                DYJets.SetBinContent(len(bins)-1,DYJets.GetBinContent(len(bins)-1)+DYJets.GetBinContent(len(bins)))
-                DYJets.SetBinContent(len(bins),0.)
-            else:
-                DYJets=DYJets.Rebin(Rebin)
-        else:
-            temp_hist = DYJets_files[inum].Get(str(plot))
-            temp_hist.Scale(norm)
-            if plot_varBin:
-                temp_hist=temp_hist.Rebin(len(bins)-1,"temp_hist",array.array('d',bins))
-                temp_hist.SetBinContent(len(bins)-1,temp_hist.GetBinContent(len(bins)-1)+temp_hist.GetBinContent(len(bins)))
-                temp_hist.SetBinContent(len(bins),0.)
-            else:
-                temp_hist=temp_hist.Rebin(Rebin)
-            DYJets.Add(temp_hist)
-    DYJets.Sumw2()
-
-    for inum in range(len(GJets_files)):
-        xsec = sample_xsec.getXsec(str(GJets_files[inum]))
-        #print('Gjet xsec: ', xsec)
-        hist_integral = GJets_files[inum].Get('h_total_weight').Integral()
-        norm = (lumi2016*xsec)/(hist_integral)
-        if inum==0:
-            GJets = (GJets_files[inum].Get(str(plot)))
-            GJets.Scale(norm)
-            if plot_varBin:
-                GJets=GJets.Rebin(len(bins)-1,"GJets",array.array('d',bins))
-                GJets.SetBinContent(len(bins)-1,GJets.GetBinContent(len(bins)-1)+GJets.GetBinContent(len(bins)))
-                GJets.SetBinContent(len(bins),0.)
-            else:
-                GJets=GJets.Rebin(Rebin)
-        else:
-            temp_hist = GJets_files[inum].Get(str(plot))
-            temp_hist.Scale(norm)
-            if plot_varBin:
-                temp_hist=temp_hist.Rebin(len(bins)-1,"temp_hist",array.array('d',bins))
-                temp_hist.SetBinContent(len(bins)-1,temp_hist.GetBinContent(len(bins)-1)+temp_hist.GetBinContent(len(bins)))
-                temp_hist.SetBinContent(len(bins),0.)
-            else:
-                temp_hist=temp_hist.Rebin(Rebin)
-            GJets.Add(temp_hist)
-    GJets.Sumw2()
-
-    for inum in range(len(ZJets_files)):
-        xsec = sample_xsec.getXsec(str(ZJets_files[inum]))
-        #print('Zjet xsec: ', xsec)
-        hist_integral = ZJets_files[inum].Get('h_total_weight').Integral()
-        norm = (lumi2016*xsec)/(hist_integral)
-        if inum==0:
-            ZJets = (ZJets_files[inum].Get(str(plot)))
-            ZJets.Scale(norm)
-            if plot_varBin:
-                ZJets=ZJets.Rebin(len(bins)-1,"ZJets",array.array('d',bins))
-                ZJets.SetBinContent(len(bins)-1,ZJets.GetBinContent(len(bins)-1)+ZJets.GetBinContent(len(bins)))
-                ZJets.SetBinContent(len(bins),0.)
-            else:
-                ZJets=ZJets.Rebin(Rebin)
-        else:
-            temp_hist = ZJets_files[inum].Get(str(plot))
-            temp_hist.Scale(norm)
-            if plot_varBin:
-                temp_hist=temp_hist.Rebin(len(bins)-1,"temp_hist",array.array('d',bins))
-                temp_hist.SetBinContent(len(bins)-1,temp_hist.GetBinContent(len(bins)-1)+temp_hist.GetBinContent(len(bins)))
-                temp_hist.SetBinContent(len(bins),0.)
-            else:
-                temp_hist=temp_hist.Rebin(Rebin)
-            ZJets.Add(temp_hist)
-    ZJets.Sumw2()
-    for inum in range(len(WJets_files)):
-        xsec = sample_xsec.getXsec(str(WJets_files[inum]))
-        #print('Wjet xsec: ', xsec)
-        hist_integral = WJets_files[inum].Get('h_total_weight').Integral()
-        norm = (lumi2016*xsec)/(hist_integral)
-        if inum==0:
-            WJets = (WJets_files[inum].Get(str(plot)))
-            WJets.Scale(norm)
-            if plot_varBin:
-                WJets=WJets.Rebin(len(bins)-1,"WJets",array.array('d',bins))
-                WJets.SetBinContent(len(bins)-1,WJets.GetBinContent(len(bins)-1)+WJets.GetBinContent(len(bins)))
-                WJets.SetBinContent(len(bins),0.)
-            else:
-                WJets=WJets.Rebin(Rebin)
-        else:
-            temp_hist = WJets_files[inum].Get(str(plot))
-            temp_hist.Scale(norm)
-            if plot_varBin:
-                temp_hist=temp_hist.Rebin(len(bins)-1,"temp_hist",array.array('d',bins))
-                temp_hist.SetBinContent(len(bins)-1,temp_hist.GetBinContent(len(bins)-1)+temp_hist.GetBinContent(len(bins)))
-                temp_hist.SetBinContent(len(bins),0.)
-            else:
-                temp_hist=temp_hist.Rebin(Rebin)
-            WJets.Add(temp_hist)
+        elif 'ZJetsToNuNu' in file:
+            xsec = sample_xsec.getXsec(file)
+            if (total_events > 0): normlisation=(xsec*lumi2016)/(total_events)
+            else: normlisation=0
+            h_temp.Scale(normlisation)
+            h_temp=setHistStyle(h_temp, hist,isrebin)
+            ZJets_files.append(h_temp)
+        elif 'WJetsToLNu_HT' in file:
+            xsec = sample_xsec.getXsec(file)
+            if (total_events > 0): normlisation=(xsec*lumi2016)/(total_events)
+            else: normlisation=0
+            h_temp.Scale(normlisation)
+            h_temp=setHistStyle(h_temp, hist,isrebin)
+            WJets_files.append(h_temp)
+        elif 'GJets_HT' in file:
+            xsec = sample_xsec.getXsec(file)
+            if (total_events > 0): normlisation=(xsec*lumi2016)/(total_events)
+            else: normlisation=0
+            h_temp.Scale(normlisation)
+            h_temp=setHistStyle(h_temp, hist,isrebin)
+            GJets_files.append(h_temp)
+        elif 'QCD' in file:
+            xsec = sample_xsec.getXsec(file)
+            if (total_events > 0): normlisation=(xsec*lumi2016)/(total_events)
+            else: normlisation=0
+            h_temp.Scale(normlisation)
+            h_temp=setHistStyle(h_temp, hist,isrebin)
+            QCD_files.append(h_temp)
+        #elif 'TT_T' or 'TTT' in file:
+        elif 'TTT' in file:
+            xsec = sample_xsec.getXsec(file)
+            if (total_events > 0): normlisation=(xsec*lumi2016)/(total_events)
+            else: normlisation=0
+            h_temp.Scale(normlisation)
+            h_temp=setHistStyle(h_temp, hist,isrebin)
+            Top_files.append(h_temp)
+        elif ('WWTo' in file) or ('WZTo' in file) or ('ZZTo' in file):
+            xsec = sample_xsec.getXsec(file)
+            if (total_events > 0): normlisation=(xsec*lumi2016)/(total_events)
+            else: normlisation=0
+            h_temp.Scale(normlisation)
+            h_temp=setHistStyle(h_temp, hist,isrebin)
+            DIBOSON_files.append(h_temp)
+        elif ('ST_t' in file) or ('ST_s' in file):
+            xsec = sample_xsec.getXsec(file)
+            if (total_events > 0): normlisation=(xsec*lumi2016)/(total_events)
+            else: normlisation=0
+            h_temp.Scale(normlisation)
+            h_temp=setHistStyle(h_temp, hist,isrebin)
+            STop_files.append(h_temp)
+    ###==========================================================add all the histograms regional based ======================================
+    for i in range(len(WJets_files)):
+        if i==0:
+            WJets=WJets_files[i]
+        else:WJets.Add(WJets_files[i])
     WJets.Sumw2()
 
-    for inum in range(len(DIBOSON_files)):
-        xsec = sample_xsec.getXsec(str(DIBOSON_files[inum]))
-        hist_integral = DIBOSON_files[inum].Get('h_total_weight').Integral()
-        norm = (lumi2016*xsec)/(hist_integral)
-        if inum==0:
-            DIBOSON = (DIBOSON_files[inum].Get(str(plot)))
-            DIBOSON.Scale(norm)
-            if plot_varBin:
-                DIBOSON=DIBOSON.Rebin(len(bins)-1,"DIBOSON",array.array('d',bins))
-                DIBOSON.SetBinContent(len(bins)-1,DIBOSON.GetBinContent(len(bins)-1)+DIBOSON.GetBinContent(len(bins)))
-                DIBOSON.SetBinContent(len(bins),0.)
-            else:
-                DIBOSON=DIBOSON.Rebin(Rebin)
-        else:
-            temp_hist = DIBOSON_files[inum].Get(str(plot))
-            temp_hist.Scale(norm)
-            if plot_varBin:
-                temp_hist=temp_hist.Rebin(len(bins)-1,"temp_hist",array.array('d',bins))
-                temp_hist.SetBinContent(len(bins)-1,temp_hist.GetBinContent(len(bins)-1)+temp_hist.GetBinContent(len(bins)))
-                temp_hist.SetBinContent(len(bins),0.)
-            else:
-                temp_hist=temp_hist.Rebin(Rebin)
+    for i in range(len(DYJets_files)):
+        if i==0:
+            DYJets=DYJets_files[i]
+        else:DYJets.Add(DYJets_files[i])
+    DYJets.Sumw2()
 
-            DIBOSON.Add(temp_hist)
+    for i in range(len(ZJets_files)):
+        if i==0:
+            ZJets=ZJets_files[i]
+        else:ZJets.Add(ZJets_files[i])
+    ZJets.Sumw2()
+
+    for i in range(len(GJets_files)):
+        if i==0:
+            GJets=GJets_files[i]
+        else:GJets.Add(GJets_files[i])
+    GJets.Sumw2()
+
+    for i in range(len(DIBOSON_files)):
+        if i==0:
+            DIBOSON=DIBOSON_files[i]
+        else:DIBOSON.Add(DIBOSON_files[i])
     DIBOSON.Sumw2()
 
-    for inum in range(len(Top_files)):
-        xsec = sample_xsec.getXsec(str(Top_files[inum]))
-        hist_integral = Top_files[inum].Get('h_total_weight').Integral()
-        norm = (lumi2016*xsec)/(hist_integral)
-        if inum==0:
-            Top = (Top_files[inum].Get(str(plot)))
-            Top.Scale(norm)
-            if plot_varBin:
-                Top=Top.Rebin(len(bins)-1,"Top",array.array('d',bins))
-                Top.SetBinContent(len(bins)-1,Top.GetBinContent(len(bins)-1)+Top.GetBinContent(len(bins)))
-                Top.SetBinContent(len(bins),0.)
-            else:
-                Top=Top.Rebin(Rebin)
-        else:
-            temp_hist = Top_files[inum].Get(str(plot))
-            temp_hist.Scale(norm)
-            if plot_varBin:
-                temp_hist=temp_hist.Rebin(len(bins)-1,"temp_hist",array.array('d',bins))
-                temp_hist.SetBinContent(len(bins)-1,temp_hist.GetBinContent(len(bins)-1)+temp_hist.GetBinContent(len(bins)))
-                temp_hist.SetBinContent(len(bins),0.)
-            else:
-                temp_hist=temp_hist.Rebin(Rebin)
-            Top.Add(temp_hist)
-    Top.Sumw2()
-
-    for inum in range(len(STop_files)):
-        xsec = sample_xsec.getXsec(str(STop_files[inum]))
-        #print('STop xsec: ', xsec)
-        hist_integral = STop_files[inum].Get('h_total_weight').Integral()
-        norm = (lumi2016*xsec)/(hist_integral)
-        if inum==0:
-            STop = (STop_files[inum].Get(str(plot)))
-            STop.Scale(norm)
-            if plot_varBin:
-                STop=STop.Rebin(len(bins)-1,"STop",array.array('d',bins))
-                STop.SetBinContent(len(bins)-1,STop.GetBinContent(len(bins)-1)+STop.GetBinContent(len(bins)))
-                STop.SetBinContent(len(bins),0.)
-            else:
-                STop=STop.Rebin(Rebin)
-        else:
-            temp_hist = STop_files[inum].Get(str(plot))
-            temp_hist.Scale(norm)
-            if plot_varBin:
-                temp_hist=temp_hist.Rebin(len(bins)-1,"temp_hist",array.array('d',bins))
-                temp_hist.SetBinContent(len(bins)-1,temp_hist.GetBinContent(len(bins)-1)+temp_hist.GetBinContent(len(bins)))
-                temp_hist.SetBinContent(len(bins),0.)
-            else:
-                temp_hist=temp_hist.Rebin(Rebin)
-            STop.Add(temp_hist)
+    for i in range(len(STop_files)):
+        if i==0:
+            STop=STop_files[i]
+        else:STop.Add(STop_files[i])
     STop.Sumw2()
 
-    for inum in range(len(QCD_files)):
-        xsec = sample_xsec.getXsec(str(QCD_files[inum]))
-        #print('QCD xsec: ', xsec)
-        hist_integral = QCD_files[inum].Get('h_total_weight').Integral()
-        norm = (lumi2016*xsec)/(hist_integral)
-        if inum==0:
-            QCD = (QCD_files[inum].Get(str(plot)))
-            QCD.Scale(norm)
-            if plot_varBin:
-                QCD=QCD.Rebin(len(bins)-1,"QCD",array.array('d',bins))
-                QCD.SetBinContent(len(bins)-1,QCD.GetBinContent(len(bins)-1)+QCD.GetBinContent(len(bins)))
-                QCD.SetBinContent(len(bins),0.)
-            else:
-                QCD=QCD.Rebin(Rebin)
-        else:
-            temp_hist = QCD_files[inum].Get(str(plot))
-            temp_hist.Scale(norm)
-            if plot_varBin:
-                temp_hist=temp_hist.Rebin(len(bins)-1,"temp_hist",array.array('d',bins))
-                temp_hist.SetBinContent(len(bins)-1,temp_hist.GetBinContent(len(bins)-1)+temp_hist.GetBinContent(len(bins)))
-                temp_hist.SetBinContent(len(bins),0.)
-            else:
-                temp_hist=temp_hist.Rebin(Rebin)
-            QCD.Add(temp_hist)
+    for i in range(len(Top_files)):
+        if i==0:
+            Top=Top_files[i]
+        else:Top.Add(Top_files[i])
+    Top.Sumw2()
+
+    for i in range(len(QCD_files)):
+        if i==0:
+            QCD=QCD_files[i]
+        else:QCD.Add(QCD_files[i])
     QCD.Sumw2()
+
+    ##=================================================================
 
     ZJetsCount = ZJets.Integral()
     DYJetsCount = DYJets.Integral()
@@ -415,10 +320,7 @@ def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg,bli
         data_obs = data_file_MET[0].Get(str(plot))
     elif makeEleCRplots:
         data_obs = data_file_SE[0].Get(str(plot))
-    if plot_varBin:
-        data_obs=data_obs.Rebin(len(bins)-1,"data_obs",array.array('d',bins))
-        data_obs.SetBinContent(len(bins)-1,data_obs.GetBinContent(len(bins)-1)+data_obs.GetBinContent(len(bins)))
-        data_obs.SetBinContent(len(bins),0.)
+
     data_obs.SetMarkerColor(rt.kBlack)
     data_obs.SetMarkerStyle(20)
 
