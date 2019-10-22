@@ -142,21 +142,21 @@ def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg,bli
     Top_files     = []; QCD_files   = []
     data_file_MET = []; data_file_SE = []
     for file in files.readlines()[:]:
-        myFile=path+'/'+file.rstrip()
+        myFile=options.inputfiles+'/'+file.rstrip()
         print ('running for file',myFile)
-        print ('histName',hist)
+        print ('histName',plot)
         Str=str(count)
         exec("f"+Str+"=ROOT.TFile(myFile,'READ')",locals(), globals())
-        exec("h_temp=f"+Str+".Get("+"\'"+str(hist)+"\'"+")",locals(), globals())
+        exec("h_temp=f"+Str+".Get("+"\'"+str(plot)+"\'"+")",locals(), globals())
         exec("h_total_weight=f"+Str+".Get('h_total_mcweight')",locals(), globals())
         total_events = h_total_weight.Integral()
         print ('selected events',h_temp.Integral())
 
         if 'data_combined_MET' in file:
-            h_temp=setHistStyle(h_temp, hist,isrebin)
+            h_temp=setHistStyle(h_temp, plot,isrebin)
             data_file_MET.append(h_temp)
         elif 'data_combined_SE' in file:
-            h_temp=setHistStyle(h_temp, hist,isrebin)
+            h_temp=setHistStyle(h_temp, plot,isrebin)
             data_file_SE.append(h_temp)
 
         elif 'DYJetsToLL_M-50' in file:
@@ -164,7 +164,7 @@ def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg,bli
             if (total_events > 0): normlisation=(xsec*lumi2016)/(total_events)
             else: normlisation=0
             h_temp.Scale(normlisation)
-            h_temp=setHistStyle(h_temp, hist,isrebin)
+            h_temp=setHistStyle(h_temp, plot,isrebin)
             DYJets_files.append(h_temp)
 
         elif 'ZJetsToNuNu' in file:
@@ -172,28 +172,28 @@ def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg,bli
             if (total_events > 0): normlisation=(xsec*lumi2016)/(total_events)
             else: normlisation=0
             h_temp.Scale(normlisation)
-            h_temp=setHistStyle(h_temp, hist,isrebin)
+            h_temp=setHistStyle(h_temp, plot,isrebin)
             ZJets_files.append(h_temp)
         elif 'WJetsToLNu_HT' in file:
             xsec = sample_xsec.getXsec(file)
             if (total_events > 0): normlisation=(xsec*lumi2016)/(total_events)
             else: normlisation=0
             h_temp.Scale(normlisation)
-            h_temp=setHistStyle(h_temp, hist,isrebin)
+            h_temp=setHistStyle(h_temp, plot,isrebin)
             WJets_files.append(h_temp)
         elif 'GJets_HT' in file:
             xsec = sample_xsec.getXsec(file)
             if (total_events > 0): normlisation=(xsec*lumi2016)/(total_events)
             else: normlisation=0
             h_temp.Scale(normlisation)
-            h_temp=setHistStyle(h_temp, hist,isrebin)
+            h_temp=setHistStyle(h_temp, plot,isrebin)
             GJets_files.append(h_temp)
         elif 'QCD' in file:
             xsec = sample_xsec.getXsec(file)
             if (total_events > 0): normlisation=(xsec*lumi2016)/(total_events)
             else: normlisation=0
             h_temp.Scale(normlisation)
-            h_temp=setHistStyle(h_temp, hist,isrebin)
+            h_temp=setHistStyle(h_temp, plot,isrebin)
             QCD_files.append(h_temp)
         #elif 'TT_T' or 'TTT' in file:
         elif 'TTT' in file:
@@ -201,21 +201,21 @@ def makeplot(plot_location,plot,titleX,XMIN,XMAX,Rebin,ISLOG,NORATIOPLOT,reg,bli
             if (total_events > 0): normlisation=(xsec*lumi2016)/(total_events)
             else: normlisation=0
             h_temp.Scale(normlisation)
-            h_temp=setHistStyle(h_temp, hist,isrebin)
+            h_temp=setHistStyle(h_temp, plot,isrebin)
             Top_files.append(h_temp)
         elif ('WWTo' in file) or ('WZTo' in file) or ('ZZTo' in file):
             xsec = sample_xsec.getXsec(file)
             if (total_events > 0): normlisation=(xsec*lumi2016)/(total_events)
             else: normlisation=0
             h_temp.Scale(normlisation)
-            h_temp=setHistStyle(h_temp, hist,isrebin)
+            h_temp=setHistStyle(h_temp, plot,isrebin)
             DIBOSON_files.append(h_temp)
         elif ('ST_t' in file) or ('ST_s' in file):
             xsec = sample_xsec.getXsec(file)
             if (total_events > 0): normlisation=(xsec*lumi2016)/(total_events)
             else: normlisation=0
             h_temp.Scale(normlisation)
-            h_temp=setHistStyle(h_temp, hist,isrebin)
+            h_temp=setHistStyle(h_temp, plot,isrebin)
             STop_files.append(h_temp)
     ###==========================================================add all the histograms regional based ======================================
     for i in range(len(WJets_files)):
