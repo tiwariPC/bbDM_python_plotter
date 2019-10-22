@@ -615,10 +615,10 @@ for dirname in dirnames:
     PUreg=[]
 
     if makeMuCRplots:
-        regions+=['1mutop1b','1mutop2b','2mu1b','2mu2b','1mu1b','1mu2b']
+        regions+=['ZmumuCR_1b','ZmumuCR_2b','Wmunu_1b','Wmunu_2b','Topmunu_1b','Topmunu_2b']
         PUreg+=['mu_']
     if makeEleCRplots:
-        regions+=['1etop1b','1etop2b','2e1b','2e2b','1e1b','1e2b']
+        regions+=['ZeeCR_1b','ZeeCR_2b','Wenu_1b','Wenu_2b','Topenu_1b','Topenu_2b']
         PUreg+=['ele_']
     if makePhoCRplots:
         regions+=['1gamma1b','1gamma2b']
@@ -654,7 +654,7 @@ for dirname in dirnames:
         try:
             if reg[0]=='2': makeplot(dirname+"reg_"+reg+"_ZpT",'h_reg_'+reg+'_ZpT_','Z candidate p_{T} (GeV)',0.,800.,reg[-2],1,0,reg)
             if reg[0]=='1': makeplot(dirname+"reg_"+reg+"_WpT",'h_reg_'+reg+'_WpT_','W candidate p_{T} (GeV)',200.,800.,1,1,0,reg)
-            makeplot(dirname+"reg_"+reg+"_hadrecoil",'h_reg_'+reg+'_hadrecoil_','Hadronic Recoil (GeV)',200.,1000.,1,1,0,reg)
+            makeplot(dirname+"reg_"+reg+"_hadrecoil",'h_reg_'+reg+'_Recoil','Hadronic Recoil (GeV)',200.,1000.,1,1,0,reg)
             # makeplot(dirname+"reg_"+reg+"_jet1_NHadEF",'h_reg_'+reg+'_jet1_NHadEF_','Lead jet neutral hadronic fraction',0.,1.,1,1,0,reg)
             # makeplot(dirname+"reg_"+reg+"_jet1_CHadEF",'h_reg_'+reg+'_jet1_CHadEF_','Lead jet charged hadronic fraction',0.,1.,1,1,0,reg)
             # makeplot(dirname+"reg_"+reg+"_jet1_CEmEF",'h_reg_'+reg+'_jet1_CEmEF_','Lead jet charged EM fraction',0.,1.,1,1,0,reg)
@@ -663,10 +663,10 @@ for dirname in dirnames:
             # makeplot(dirname+"reg_"+reg+"_jet1_MuoEF",'h_reg_'+reg+'_jet1_MuoEF_','Lead jet Muon fraction',0.,1.,1,1,0,reg)
 
             if not 'QCD' in reg:
-                makeplot(dirname+"reg_"+reg+"_MET",'h_reg_'+reg+'_MET_','Real MET (GeV)',160.,500.,2,0,0,reg)
+                makeplot(dirname+"reg_"+reg+"_MET",'h_reg_'+reg+'_MET','Real MET (GeV)',160.,500.,2,0,0,reg)
             else:
-                makeplot(dirname+"reg_"+reg+"_MET",'h_reg_'+reg+'_MET_','Real MET (GeV)',200.,800.,1,0,0,reg)
-            makeplot(dirname+"reg_"+reg+"_njet",'h_reg_'+reg+'_njet_','Number of Jets',-1,5,1,1,0,reg)
+                makeplot(dirname+"reg_"+reg+"_MET",'h_reg_'+reg+'_MET','Real MET (GeV)',200.,800.,1,0,0,reg)
+            makeplot(dirname+"reg_"+reg+"_njet",'h_reg_'+reg+'_nJet','Number of Jets',-1,5,1,1,0,reg)
 
             if reg[:2]=='1e':
                 makeplot(dirname+"reg_"+reg+"_njet_n_minus_1",'h_reg_'+reg+'_njet_n_minus_1_','Number of Jets (n-1 cuts plot)',-1,12,1,1,0,reg)
@@ -674,30 +674,30 @@ for dirname in dirnames:
                 makeplot(dirname+"reg_"+reg+"_min_dR_jet_ele_preclean",'h_reg_'+reg+'_min_dR_jet_ele_preclean_','min dR between jets and electron before jet cleaning',0.,6.,1,1,0,reg)
                 makeplot(dirname+"reg_"+reg+"_min_dR_jet_ele_postclean",'h_reg_'+reg+'_min_dR_jet_ele_postclean_','min dR between jets and electron after jet cleaning',0.,6.,1,1)
             makeplot(dirname+"reg_"+reg+"_min_dPhi_jet_Recoil",'h_reg_'+reg+'_min_dPhi_jet_Recoil_','min d #phi between jets and recoil',0.,6.,1,1,0,reg)
-            makeplot(dirname+"reg_"+reg+"_min_dPhi_jet_MET",'h_reg_'+reg+'_min_dPhi_jet_MET_','min d #phi between jets and real MET',0.,6.,1,1,0,reg)
+            makeplot(dirname+"reg_"+reg+"_min_dPhi_jet_MET",'h_reg_'+reg+'_min_dPhi_jet_MET','min d #phi between jets and real MET',0.,6.,1,1,0,reg)
 
             makeplot(dirname+"reg_"+reg+"_min_dPhi_jet_Recoil_n_minus_1",'h_reg_'+reg+'_min_dPhi_jet_Recoil_n_minus_1_','min d #phi between jets and recoil before d#phi cut',0.,6.,1,1,0,reg)
-            makeplot(dirname+"reg_"+reg+"_ntau",'h_reg_'+reg+'_ntau_','Number of Taus',-1,4,1,1,0,reg)
-            makeplot(dirname+"reg_"+reg+"_nUncleanTau",'h_reg_'+reg+'_nUncleanTau_','Number of Taus (before cleaning)',-1,6,1,1,0,reg)
-            makeplot(dirname+"reg_"+reg+"_ntaucleaned",'h_reg_'+reg+'_ntaucleaned_','Number of Taus (after Tau cleaning)',-1,4,5,1,0,reg)
-            makeplot(dirname+"reg_"+reg+"_nele",'h_reg_'+reg+'_nele_','Number of Electrons',-1,5,1,1,0,reg)
-            if reg[0]=='2': makeplot(dirname+"reg_"+reg+"_npho",'h_reg_'+reg+'_npho_','Number of Photons',-1,5,1,1,0,reg)
+            #makeplot(dirname+"reg_"+reg+"_ntau",'h_reg_'+reg+'_ntau_','Number of Taus',-1,4,1,1,0,reg)
+            #makeplot(dirname+"reg_"+reg+"_nUncleanTau",'h_reg_'+reg+'_nUncleanTau_','Number of Taus (before cleaning)',-1,6,1,1,0,reg)
+            #makeplot(dirname+"reg_"+reg+"_ntaucleaned",'h_reg_'+reg+'_ntaucleaned_','Number of Taus (after Tau cleaning)',-1,4,5,1,0,reg)
+            #makeplot(dirname+"reg_"+reg+"_nele",'h_reg_'+reg+'_nele_','Number of Electrons',-1,5,1,1,0,reg)
+            #if reg[0]=='2': makeplot(dirname+"reg_"+reg+"_npho",'h_reg_'+reg+'_npho_','Number of Photons',-1,5,1,1,0,reg)
                 #            makeplot([dirname+"reg_"+reg+"_nUncleanEle",'h_reg_'+reg+'_nUncleanEle_','Number of Eles (before cleaning)','-1','6','7','1'])
-            makeplot(dirname+"reg_"+reg+"_nmu",'h_reg_'+reg+'_nmu_','Number of Muons',-1,5,1,1,0,reg)
+            #makeplot(dirname+"reg_"+reg+"_nmu",'h_reg_'+reg+'_nmu_','Number of Muons',-1,5,1,1,0,reg)
                 #            makeplot([dirname+"reg_"+reg+"_nUncleanMu",'h_reg_'+reg+'_nUncleanMu_','Number of Muons (before cleaning)','-1','6','7','1'])
             makeplot(dirname+"reg_"+reg+"_lep1_pT",'h_reg_'+reg+'_lep1_pT_','Lead Lepton p_{T} (GeV)',0.,500.,1,1,0,reg)
             makeplot(dirname+"reg_"+reg+"_lep2_pT",'h_reg_'+reg+'_lep2_pT_','Second Lepton p_{T} (GeV)',0.,250.,1,1,0,reg)
-            if reg.startswith('1etop'): makeplot(dirname+"reg_"+reg+"_e_pT",'h_reg_'+reg+'_e_pT_','Electron p_{T} (GeV)',0.,500.,1,1,0,reg)         #Top
-            if reg.startswith('1mutop'): makeplot(dirname+"reg_"+reg+"_mu_pT",'h_reg_'+reg+'_mu_pT_','Muon p_{T} (GeV)',0.,500.,1,1,0,reg)           #Top
+            #if reg.startswith('1etop'): makeplot(dirname+"reg_"+reg+"_e_pT",'h_reg_'+reg+'_e_pT_','Electron p_{T} (GeV)',0.,500.,1,1,0,reg)         #Top
+            #if reg.startswith('1mutop'): makeplot(dirname+"reg_"+reg+"_mu_pT",'h_reg_'+reg+'_mu_pT_','Muon p_{T} (GeV)',0.,500.,1,1,0,reg)           #Top
             makeplot(dirname+"reg_"+reg+"_pho_pT",'h_reg_'+reg+'_pho_pT_','Photon p_{T} (GeV)',0.,500.,1,1,0,reg)
-            if reg[1]=='m': makeplot(dirname+"reg_"+reg+"_lep1_iso",'h_reg_'+reg+'_lep1_iso_','Lead Lepton isolation',0.,800.,1,1,0,reg)
-            if reg[1]=='m': makeplot(dirname+"reg_"+reg+"_lep2_iso",'h_reg_'+reg+'_lep2_iso_','Second Lepton isolation',0.,800.,1,1,0,reg)
-            if reg.startswith('1mutop'): makeplot(dirname+"reg_"+reg+"_mu_iso",'h_reg_'+reg+'_mu_iso_','Muon isolation',0.,800.,1,1,0,reg)            #Top
-            makeplot(dirname+"reg_"+reg+"_jet1_pT",'h_reg_'+reg+'_jet1_pT_','Lead Jet p_{T} (GeV)',0.,800.,1,1,0,reg)
-            makeplot(dirname+"reg_"+reg+"_jet2_pT",'h_reg_'+reg+'_jet2_pT_','Second Jet p_{T} (GeV)',0.,400.,1,1,0,reg)
-            makeplot(dirname+"reg_"+reg+"_lep1_dR_tau",'h_reg_'+reg+'_lep1_dR_tau_','dR b/w tau and lead lepton',0.,6.,120,1,0,reg)
-            makeplot(dirname+"reg_"+reg+"_lep2_dR_tau",'h_reg_'+reg+'_lep2_dR_tau_','dR b/w tau and second lepton',0.,6.,120,1,0,reg)
-            makeplot(dirname+"reg_"+reg+"_min_lep_dR_tau",'h_reg_'+reg+'_min_lep_dR_tau_','minimum dR b/w tau and leptons',0.,6.,120,1,0,reg)
+            #if reg[1]=='m': makeplot(dirname+"reg_"+reg+"_lep1_iso",'h_reg_'+reg+'_lep1_iso_','Lead Lepton isolation',0.,800.,1,1,0,reg)
+            #if reg[1]=='m': makeplot(dirname+"reg_"+reg+"_lep2_iso",'h_reg_'+reg+'_lep2_iso_','Second Lepton isolation',0.,800.,1,1,0,reg)
+            #if reg.startswith('1mutop'): makeplot(dirname+"reg_"+reg+"_mu_iso",'h_reg_'+reg+'_mu_iso_','Muon isolation',0.,800.,1,1,0,reg)            #Top
+            makeplot(dirname+"reg_"+reg+"_jet1_pT",'h_reg_'+reg+'_Jet1Pt','Lead Jet p_{T} (GeV)',0.,800.,1,1,0,reg)
+            makeplot(dirname+"reg_"+reg+"_jet2_pT",'h_reg_'+reg+'_Jet2Pt','Second Jet p_{T} (GeV)',0.,400.,1,1,0,reg)
+            #makeplot(dirname+"reg_"+reg+"_lep1_dR_tau",'h_reg_'+reg+'_lep1_dR_tau_','dR b/w tau and lead lepton',0.,6.,120,1,0,reg)
+            #makeplot(dirname+"reg_"+reg+"_lep2_dR_tau",'h_reg_'+reg+'_lep2_dR_tau_','dR b/w tau and second lepton',0.,6.,120,1,0,reg)
+            #makeplot(dirname+"reg_"+reg+"_min_lep_dR_tau",'h_reg_'+reg+'_min_lep_dR_tau_','minimum dR b/w tau and leptons',0.,6.,120,1,0,reg)
         except Exception as e:
             print (e)
             print ("Cannot Plot")
