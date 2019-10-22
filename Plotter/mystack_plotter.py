@@ -109,7 +109,7 @@ os.system("ls "+options.inputfiles+" | cat > samplelist.txt")
 
 def setHistStyle(h_temp2, hists, varbin):
     h_temp_ = h_temp2
-    if 'Recoil' in hist or 'MET' in hist
+    if 'Recoil' in hist or 'MET' in hist:
         bins=[200,250,350,500,1000]
     if varbin:
         h_temp_=h_temp2.Rebin(len(bins)-1,"h_temp",array.array('d',bins))
